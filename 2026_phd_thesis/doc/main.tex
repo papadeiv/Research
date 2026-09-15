@@ -1,0 +1,133 @@
+\documentclass[openacc]{rsproca_new}
+
+% Type of article
+\jname{rspa} 
+\Journal{Proc R Soc A\ }
+\titlehead{Research}
+
+% Packages
+\usepackage{lipsum}
+\usepackage{float}
+
+% Custom RSPA environments
+\newtheorem{theorem}{\bf Theorem}[section]
+\newtheorem{condition}{\bf Condition}[section]
+\newtheorem{corollary}{\bf Corollary}[section]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%               Main text               % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{Robust numerical inference and early warnings of tipping points from timeseries}
+
+\author{Davide Papapicco$^{1}$, Lauren Smith$^{1}$ and Graham Donovan$^{1}$}
+\address{$^{1}$Department of Mathematics, University of Auckland, New Zealand}
+\corres{Graham Donovan\\ \email{g.donovan@auckland.ac.nz}}
+
+\subject{applied mathematics, differential equations, statistical physics}
+\keywords{early warning signals, tipping points, numerical methods}
+
+\begin{abstract}
+        A numerical method to extract the likelihood of a tipping event of a system from its observed timeseries is derived.
+        This likelihood is based on the large deviation principle associated to the $1-$dimensional solution of a stochastic differential equation with additive noise.
+        The computation of this signal is based on the local reconstruction of the basin of attraction of the observed steady-state from the timeseries by means of nonlinear least-squares regression.
+        Comparison with other maximum likelihood estimatiors shows improved robustness in fitting the model's parameters from the timeseries and thus we argue it could serve as a alternative inference method for the detection of tipping points through early-warning signals.
+        Extensions of the method to univariate observables of higher-dimensional systems, as well as applications to more complex, close to real-world data is also discussed.
+        \absbreak 
+\end{abstract}
+
+%\rsbreak
+
+\begin{fmtext}
+        \section{Introduction}
+        A large and diverse set of complex, interacting systems are found, in nature and society, to undergo sudden, abrupt and sometimes unforeseen catastrophic changes in their state.
+        These critical transitions (often referred to as tipping points) have long been studied in various disciplines due to the, potentially disruptive and irreversible consequences that follow them.
+        Prototypical examples of catastrophic transitions have been observed in ecosystems (\textbf{insert citations}), human biology \cite{Kuehn2012, Donovan2015, Donovan2017}, global financial markets (\textbf{insert citations}) and the Earth's climate (\textbf{insert citations}).
+        The analysis of such events is often framed in the language of dynamical systems theory where the
+\end{fmtext}
+
+\maketitle
+
+%\section{Introduction}
+\noindent
+state of a complex system evolves over time according to a systematic trend and often subject to some sort of random fluctuations.
+Underlying forcing of these systems, in the forms of parameters' shifts, can bring their observed stable states past some critical tresholds after which the tipping to an alternative (undesirable) stable state occurs.
+The mathematical characterisation of the tipping behaviour in autonomous and nonautonomous deterministic dynamical systems and the derivation and performance analysis of early indicators of critical transition from solutions of stochastic differential equations has been an active area of research of the past two decades.
+This paper wishes to contribute to the literature by proposing a statistically robust detection of incoming critical transitions for simplified models of saddle-node bifurcations in the presence of slowly-ramped forcing and low, additive noise.
+These models take the general form of an It\^{o} process
+
+\begin{equation}\label{eq:initial_sde}
+     dX_{t} = f(X_t;\,\mu)dt + \sigma dW_{t}
+\end{equation}
+
+where $X_{t}\in \mathbb{R}^{d}$ is a time-indexed random variable representing the state of the system, $\mu\in \mathbb{R}^{p}$ is a parameter vector modelling the underlying forcing of the system towards a critical transition, $f:\mathbb{R}^{d}\times \mathbb{R}^{p}\to \mathbb{R}^{d}$ is the (deterministic) vector field decscribing the dynamics of the state variable (often referred to as the \textit{drift}), $\sigma>0$ is some noise level and $W_{t}$ is a Wiener process modelling the stochastic fluctuations of the state (often called \textit{diffusion}).
+By introducing a scalar potential $V(x;\mu)$ such that $f(x;\mu) = -V'(x;\mu)$ we leverage results from large deviation theory to propose an early-warning signal of the form $\exp(-\Delta V)$, where $\Delta V$ is the difference in potential between a stable and an unstable equilibrium of $f$ (corresponding to the local minimum and local maximum of $V$).
+This potential barrier $\Delta V$ separates the basin of attraction of the observed stable state from that of an alternative, undesirable one. 
+When far from a saddle-node bifurcation such barrier is high and thus the proposed indicator is close to zero; conversely, as the system is driven close to the critical treshold, the potential well confining the stable states gets shallower and flatter, effectively bringing the potential barrier close to zero and the early-warning signal close to one. 
+This property allows for a distinctive interpretation of the proposed quantity as opposed to more traditional early-warning signals (such as increase in variance and autocorrelation) for which no clear numerical tresholds are known.
+Importantly, given the boundedness of the proposed indicator in $[0,1]$, we can translate its values as the likelihood of a critical transition to occur, providing us with a clear tool to predict an incoming tipping point.
+The main contribution of this work is in the form of a numerical algorithm that computes the proposed early-warning signal from a solution of \ref{eq:initial_sde} by approximating the (local) shape of the potential $V$ in polynomial form. 
+The paper is organised as follows: 
+in section \ref{sec:setup} we present the new indicator and its derivation from statistical physics while we set up a parameter estimation problem for its computation; 
+we follow that in section \ref{sec:likelihood_estimation} by solving the problem using a customised maximum likelihood estimation of the local approximation of the potential from the timeseries; 
+in section \ref{sec:applications} we test the robustness of the proposed method on different datasets of low and high-dimensional systems; 
+we conclude with considerations and proposed future directions in the final section \ref{sec:conclusions}.
+
+\section{Formulation of the problem}\label{sec:setup}
+\textbf{FROM THE PREVIOUS PAPER (SECTION 2.2)}
+
+At this point, there are two persistent challenges in the derivation and application of EWS.
+The first one regards what defines the optimality of an EWS.
+Suppose we have two distinct EWS that both show robustness in their trend when applied to a large enough ensemble of timeseries of the same system: how can we compare them in a systematic fashion in order to choose the better one in terms of their predictive power?
+The second question concerns the interpretability of EWS.
+In order for a given quantity to have value as an EWS one has to be able to assign some sort of meaning to the computed quantity.
+
+\section{Numerical likelihood estimation}\label{sec:likelihood_estimation}
+
+\section{Applications}\label{sec:applications}
+\subsection{One-dimensional, bistable saddle-node tipping}
+\subsubsection{Comparison of different estimators}
+\subsubsection{A model from ecosystems dynamics}
+\subsection{Observables of higher-dimensional conservative systems}
+\textit{``If one measures the system state along a direction that is orthogonal to the bifurcation manifold the signs of an incoming tipping point can be completely obscured (silent catastrophe)''} \cite[p. 3]{Dylewsky2024}.
+\subsubsection{Simplified two-box model of the AMOC}
+\subsubsection{Large-scale circulation model of the AMOC}
+
+\section{Conclusions}\label{sec:conclusions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%               Declarations               % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vskip6pt
+\enlargethispage{20pt}
+
+\dataccess{The code used to generate the figures is available at the repository \url{https://github.com/papadeiv/papers/tree/master/2026_proc_r_soc_a}.}
+\aucontribute{D.P.: did okay; L.S.: did fantastic; G.D.: did amazing.\\ All authors gave final approval for publication and agreed to be held accountable for the work performed
+therein.}
+\conflict{We declare we have no competing interests.}
+\funding{D.P. has received support from the Royal Society of New Zealand, Te Ap\={a}rangi by the Marsden fund n.XXX-XXX.}
+\ack{We thank (hopefully!) the reviewers.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%               Appendix               % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Appendix A}
+\subsection{Something important}
+\lipsum[8]
+\subsection{Something even more important}
+\lipsum[9]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%               Bibliography               % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vskip2pc
+
+\bibliographystyle{RS}
+\bibliography{references}
+
+\end{document}
