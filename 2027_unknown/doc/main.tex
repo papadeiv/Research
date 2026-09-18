@@ -104,7 +104,7 @@ In the nonautonomous regime however, the classic notion of $x_+(t)$ is replaced 
         \lim_{t\to-\infty}|\xpb(t)-x_+(\mu(t))|=0 .
 \end{equation}
 %
-For a slow passage through the saddle-node bifurcation, i.e. $0<\varepsilon\ll1$, provided that $\mu_0=\lim_{t\to-\infty}\mu(t)\ll0$, the pullback attractor converges to a slow manifold \cite[Thm.~$2.1.7$]{Berglund2006}, which tracks the stable equilibrium branch $x_+(\mu(t))$ at a distance of order at most $\varepsilon^{1/3}$ \cite[Thm.~$2.2.2$]{Berglund2006} at the saddle-node bifurcation.
+For a slow passage through the saddle-node bifurcation, i.e. $0<\varepsilon\ll1$, provided that $\mu_0=\lim_{t\to-\infty}\mu(t)\ll0$, the pullback attractor converges to a slow manifold \cite[Thm.~$2.1.7$]{Berglund2006}, which tracks the stable equilibrium branch $x_+(\mu(t))$.
 Specifically, the $\xpb(t)$ solution of \eqref{eq:model} lags behind the drift of the \emph{quasi-stationary equilibrium} $x_+(t)$ and persists past the breaking time $\tau$ for some time before blowing-up to $-\infty$.
 The trajectory of a slow passage through a saddle-node will thus undergo a bifurcation-induced critical transition at a delayed time $\taupb>\tau$ (henceforth \emph{tipping time}), creating a window of opportunity $\Delta\tau\coloneqq\tau_{\mathrm{pb}}-\tau>0$ to reverse the forcing $\varepsilon$ and avoid the catastrophic dynamical saddle-node.
 To quantify the tipping time, and thus identify the window of opportunity, we follow the procedure outlined in \cite{Li2019}.
@@ -363,6 +363,68 @@ As noted at the beginning of \S~\ref{sec:formulation} however, these estimates a
 In this section we address this problem in two parts. 
 First, we discuss the uncertainties in the return rate estimators $\hat\alpha$ derived above induced by finite samples: in particular we introduce the rolling window technique and derive a data-driven protocol for the optimal collection of observations that minimize the bias and uncertainty in the estimation of the return rate.
 Second, we formulate the extrapolation problem of $\hat\tau$ given a sequence $\hat\alpha=\{\hat\alpha_j\}_{j=1,\dots,n}$ of optimal estimators of the return rate and provide a data-driven pipeline for the accurate forecasting problem.
+
+\subsection{Accuracy and precision of the estimators}\label{subsec:estimators}
+
+\subsubsection{Admissible time horizon}\label{subsubsec:horizon}
+The analytical return rate \eqref{eq:return_rate}, and thus the sample estimators \eqref{eq:OUP}, \eqref{eq:AC1} and \eqref{eq:LLS}, is obtained from the time-dependent eigenvalue \eqref{eq:eigenvalue_time}, which is itself evaluated along the drifting quasi-steady equilibrium $x_+(\mu(t))$.
+However, a sample $\mathcal{X}$ that is a solution of \eqref{eq:model} follows the pullback attractor \eqref{eq:pb_attractor}, which lags behind $x_+(\mu(t))$ at any $t<\tau$.
+After a fast relaxation of the initial condition, in the slow regime the distance at which $x_{\mathrm{pb}}(t)$ tracks $x_+(\mu(t))$ increases with time and it reaches its maximum at the saddle-node bifurcation $|x_{\mathrm{pb}}(t)-x_+(\mu(t))|=O(\varepsilon^{1/3})$, $t\uparrow\tau$ \cite[Thm.~$2.2.2$]{Berglund2006}.
+We are thus interested to quantify a time horizon $T_c\ll\tau$ for which the return rate $\alpha(t)$ of the quasi-steady equilibrium is accurate, at least to first-order, to that of the pullback attractor $\alpha_{\mathrm{pb}}(t)=\lambda_{\mathrm{pb}}^2(t)=4x_{\mathrm{pb}}^{\,2}(t)$.
+Sufficiently far from the saddle-node bifurcation we can exploit the asymptotic expansion of Airy's function \cite[\S~$10.4$]{Abramowitz1965} to approximate \eqref{eq:pullback_attractor} to first-order
+%
+\begin{equation}\label{eq:asymptotic_pullback_attractor}
+  x_{\mathrm{pb}}(s)\approx \varepsilon^{1/3}\biggl(\sqrt{s} + \frac{1}{4s}\biggr) , \quad s=\varepsilon^{1/3}(\tau-t)\to\infty.
+\end{equation}
+%
+In this regime, the return rate for the pullback attractor is thus
+%
+\begin{equation}\label{eq:pb_return_rate}
+  \alpha_{\mathrm{pb}}(t) = \alpha(t) + \frac{1}{4(\tau-t)^2} + 2\sqrt{\frac{\varepsilon}{\tau-t}},
+\end{equation}
+%
+and dividing each term in \eqref{eq:pb_return_rate} by $\alpha(t)$ gives
+%
+\begin{equation}\label{eq:lag_correction}
+  \frac{\alpha_{\mathrm{pb}(t)}}{\alpha(t)} = 1 + \frac{1}{16 \varepsilon(\tau - t)^3} + \frac{1}{2\sqrt{\varepsilon}(\tau - t)^{3/2}} = 1 + 2\eta(t) + \eta^2(t) = \bigl(1+\eta(t)\bigr)^2 ,
+\end{equation}
+%
+where $\eta(t)=1/4\sqrt{\varepsilon}(\tau-t)^{3/2}$.
+The admissible time horizon $T_c$ easily follows
+%
+\begin{equation}\label{eq:admissible_time_horizon}
+  T_c = 
+\end{equation}
+
+Equation \eqref{eq:pullback_attractor} also settles what the extrapolation targets, without recourse to \eqref{eq:relerr}.
+The squared return rate $\alpha_{\mathrm{pb}}=4\xpb^{2}$ vanishes precisely where $\dd\Ai/\dd s$ does, which on the interval between the first zero of $\dd\Ai/\dd s$ and $s\to+\infty$ occurs at the single point $s\approx-1.019$ \cite[\S~$10.4$]{Abramowitz1965}, that is at $t\approx\tau+1.019\,\varepsilon^{-1/3}$.
+The squared return rate along the pullback attractor thus reaches zero after the breaking time and before the blow-up at $\taupb$, the two separated by one inner width, where \eqref{eq:relerr} has in any case expired.
+The zero-crossing of the fitted line therefore estimates the breaking time $\tau$ of the leading-order law \eqref{eq:return_rate}, and the tipping time must be recovered from it by the delay of \S\ref{subsec:delay},
+%
+\begin{equation}\label{eq:taupb_hat}
+        \hat\tau_{\mathrm{pb}}=\hat\tau+2.338\,\hat\varepsilon^{\,-1/3} .
+\end{equation}
+%
+The ramp speed needed in \eqref{eq:taupb_hat} is supplied by the same fit that produces $\hat\tau$: comparing $\hat\alpha(t)=\hat mt+\hat q$ with \eqref{eq:return_rate} identifies
+%
+\begin{equation}\label{eq:epshat}
+        \hat\varepsilon=-\frac{\hat m}{4} ,
+\end{equation}
+%
+so that no independent knowledge of the forcing is required, and the consistency of the pair $(\hat q,\hat m)$ with $\hat q=-\hat m\hat\tau$ is automatic.
+
+\subsubsection{Finite-sample effects}\label{subsubsec:effects}
+% 4.1.2
+% 4.1.3
+% 4.1.8
+
+\subsubsection{Windowed observation}\label{subsubsec:window}
+% 4.1.4
+% 4.1.5
+% 4.1.6
+% 4.1.7
+
+\subsection{Extrapolating the tipping time}\label{subsec:extrapolators}
 
 \section{Practical applications}\label{sec:application}
 
