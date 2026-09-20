@@ -29,7 +29,7 @@ If accepted, they are promoted" to _Published_ repositories; if rejected, that's
 _In progress_ are projects whose manuscript is currently being typed and close to submission.
 
 - [Dynamics, bifurcations and extensions of models of unified growth](https://github.com/samuelbolduc44/UGT---codes) (est. 2026, external repository).
-- [Optimal and skilfull prediction of high-dimensional tipping events](./2026_proc_r_soc_a/) (est. 2026).
+- [Forecasting tipping times from data](./2027_proc_r_soc_a/) (est. 2026).
 
 ### Preliminary investigation
 
