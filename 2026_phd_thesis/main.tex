@@ -1,26 +1,7 @@
-\documentclass[11pt,a4paper]{article}
-
-\usepackage[top=2.4cm,bottom=2.4cm,left=2.6cm,right=2.6cm]{geometry}
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{mathtools}
-\usepackage{booktabs}
-\usepackage[expansion=false]{microtype}
-\usepackage{enumitem}
-\usepackage[font=small]{caption}
-\usepackage{xcolor}
-\usepackage[colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue]{hyperref}
-\usepackage[giveninits=true,maxbibnames=10,url=false,isbn=false]{biblatex}
+\documentclass[a4paper,12pt,print]{style}
 \addbibresource{references.bib}
 
-\theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[section]
-\newtheorem{lemma}[proposition]{Lemma}
-\newtheorem{corollary}[proposition]{Corollary}
-\theoremstyle{definition}
-\newtheorem{definition}[proposition]{Definition}
-\theoremstyle{remark}
-\newtheorem{remark}[proposition]{Remark}
-
+% Custom commands
 \newcommand{\dd}{\mathrm{d}}
 \newcommand{\Exp}{\operatorname{Exp}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -32,69 +13,95 @@
 \DeclareMathOperator*{\argmax}{\arg\,max}
 \DeclareMathOperator*{\argmin}{\arg\,min}
 
+% Title page
 \title{On the prediction of critical transitions}
-\author{}
-\date{}
+\author{Davide Papapicco}
+\subjectarea{Mathematics}
+\dept{Department of Mathematics, Faculty of Science}
+\supervisor{Graham Donovan, Lauren Smith}
+\crest{\includegraphics[width=0.2\textwidth]{University_of_Auckland_Coat_of_Arms.png}}
+\degreetitle{Doctor of Philosophy}
+\degreedate{2026}
+\university{Waipapa Taumata Rau, The University of Auckland}
 
 \begin{document}
-\maketitle
-\vspace{-1.1cm}
 
-\begin{abstract}\noindent
-  To be decided.
+\maketitle
+
+\frontmatter
+
+\begin{abstract}
+\noindent
+To be decided.
 \end{abstract}
 
-\section{Introduction}\label{sec:intro}
+\begin{acknowledgements}
+To be decided.
+
+\begin{flushright}
+  Davide Papapicco
+
+  December, 2026
+\end{flushright}
+\end{acknowledgements}
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\mainmatter
+
+\chapter{Introduction}\label{sec:intro}
 Give an overview of what the thesis addresses and its structure.
 
-\subsection{Motivation}\label{subsec:motivation}
-What are tipping points and what are EWS? 
+\section{Motivation}\label{subsec:motivation}
+What are tipping points and what are EWS?
 Examples and applications in natural and human sciences in which these are present.
 
-\subsection{Context}\label{subsec:context}
+\section{Context}\label{subsec:context}
 Start with the early works in catastrophe theory (60s, 70s).
 Then jump to the early 2000s with the ecological and climate science (emphasize the renaissance moment of critical transitions as a renaissance of the theory).
 Then talk about the interest of the mathematical community in the 2010s.
 
-\subsection{The gap}\label{subsec:gap}
+\section{The gap}\label{subsec:gap}
 Discuss the current state of the literature and how the thesis fits (interpretability and augmented usage for real world applications).
 Stress the disconnect between the mathematical and scientific community when it comes to early-warning signals.
 
-\section{Background}\label{sec:background} 
+\chapter{Background}\label{sec:background}
 Emphasize that not all critical transitions are predictable under the currently developed framework and cite criticism within the community.
 Stress how the current theory is largely developed for stochastically forced systems that experience a slow passage through a saddle-node bifurcation.
 The goal of this section is to select a candidate timeseries from the real world (given in Motivation) and fit a saddle-node model with stochastic fluctuations.
 To do so we need two main ingredients: geometric singular perturbation theory (or Fenichel theory) and large deviation theory (or Freidlin and Wentzell theory).
 
-\subsection{Nonautonomous dynamics}\label{subsec:nonautonomous}
+\section{Nonautonomous dynamics}\label{subsec:nonautonomous}
 Introduce the autonomous saddle-node normal form and an example of coordinate transformations for the saddle-node bifurcation theorem.
 Extend it to the dynamic case with the notion of pullback attractors.
 
-\subsection{Stochastic calculus}\label{subsec:stochastic}
+\section{Stochastic calculus}\label{subsec:stochastic}
 Introduce the fundamentals of stochastic calculus including the OUP and the FPE.
 
-\subsection{Large deviations in slow-fast systems}\label{subsec:slowfast}
+\section{Large deviations in slow-fast systems}\label{subsec:slowfast}
 State that the correct mathematical interpretation of critical transitions is that of rare events in small perturbations of dynamic saddle-node systems.
 Introduce the two ingredients separately.
 
-\subsubsection{Geometric singular perturbation theory}\label{subsubsec:gspt}
+\subsection{Geometric singular perturbation theory}\label{subsubsec:gspt}
 Main results of Fenichel theory.
 
-\subsubsection{Geometric singular perturbation theory}\label{subsubsec:ldt}
-Main results of Freidlin-Wentzell thery,
+\subsection{Large deviation theory}\label{subsubsec:ldt}
+Main results of Freidlin-Wentzell theory.
 
-\section{Forecasting tipping times from data}\label{sec:forecasting}
+\chapter{Forecasting tipping times from data}\label{sec:forecasting}
 Paper n.2 but without the applications.
 
-\section{Likelihood estimation of an interpretable early-warning}\label{sec:interpretable}
+\chapter{Likelihood estimation of an interpretable early-warning}\label{sec:interpretable}
 Paper n.1 but without the applications.
 
-\section{Applications}\label{sec:applications}
+\chapter{Applications}\label{sec:applications}
 Discuss and present applications of paper 1 and paper 2.
 Apply both methodologies to the chosen timeseries from Motivation and Background.
 
-\section{Conclusions}\label{sec:conclusions}
+\chapter{Conclusions}\label{sec:conclusions}
 
-\printbibliography
+\backmatter
+\printbibliography[heading=bibintoc]
 
 \end{document}
