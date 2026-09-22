@@ -488,7 +488,7 @@
 \hbox to \the\myrunhwidth{\dotfill}}}\end{turn}}}\hspace*{-3.5pc}}
 
  \def\ps@plain{\vskip-3pc\let\@mkboth\@gobbletwo
-         \def\@oddfoot{\noindent\raisebox{-7.5pt}{\hskip-12.8pt\includegraphics[scale=0.15]{RS_Pubs_Logo_Line_CMYK}}
+         \def\@oddfoot{\noindent\raisebox{-7.5pt}{\hskip-12.8pt\includegraphics[scale=0.15]{./logos/RS_Pubs_Logo_Line_CMYK}}
          \ifopenacc
             \hskip28.8pt\colorbox{abstractcolor}{\hbox to 75mm{\fontfamily{\sfdefault}\fontseries{m}\fontshape{n}\fontsize{7.5}{10}\selectfont 
             \vbox{\hsize75mm \textcolor{black}{$\copyright$ \@Year\ The Authors. Published by the Royal Society under the terms of the Creative Commons Attribution
@@ -1193,8 +1193,8 @@
 \def\titlehead#1{\gdef\@jtitlehead{#1}}
 
 \def\researchname{{\fontfamily{\sfdefault}\fontseries{m}\fontshape{n}\fontsize{18}{31}\selectfont\raggedright%
-\raisebox{9pt}{\@jtitlehead}\ifopenacc\hfill\includegraphics{RSTA_OpenAccesslogo_RGB}\hfill%
-\else\hfill\fi\href{http://crossmark.crossref.org/dialog/?doi=\@doi&domain=pdf&date_stamp=\@onlinepub}{\includegraphics{RS_crossmark_logo}}\par}}
+\raisebox{9pt}{\@jtitlehead}\ifopenacc\hfill\includegraphics{./logos/RSTA_OpenAccesslogo_RGB}\hfill%
+\else\hfill\fi\href{http://crossmark.crossref.org/dialog/?doi=\@doi&domain=pdf&date_stamp=\@onlinepub}{\includegraphics{./logos/RS_crossmark_logo}}\par}}
 
 \def\@citearticle{}
 \newcommand\citearticle[3]{%
@@ -1306,7 +1306,7 @@ at http://dx.doi.org/\@doi\ or via http://royalsocietypublishing.org/journal/\@j
 \vspace*{-5.5pc}
 \noindent\begin{minipage}[!t]{50mm}
 \hskip-1pc
-\vbox to 242mm{{\vskip68pt\includegraphics[scale=0.58]{PROCEEDINGS_A_RGB}\vskip21pt
+\vbox to 242mm{{\vskip68pt\includegraphics[scale=0.58]{./logos/PROCEEDINGS_A_RGB}\vskip21pt
 {\fontfamily{\sfdefault}\fontseries{m}\fontshape{n}\fontsize{13.5}{15}\selectfont\raggedright 
 \textcolor{jobcolor}{\fontsize{11}{14}\selectfont royalsocietypublishing.org/journal/\@jname}}\vskip10pt
 \if@citearticle@provided

@@ -1,0 +1,48 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[top=2.4cm,bottom=2.4cm,left=2.6cm,right=2.6cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage[expansion=false]{microtype}
+\usepackage{enumitem}
+\usepackage[font=small]{caption}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue]{hyperref}
+\usepackage[giveninits=true,maxbibnames=10,url=false,isbn=false]{biblatex}
+\addbibresource{references.bib}
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}
+\newcommand{\Ai}{\operatorname{Ai}}
+\newcommand{\Bi}{\operatorname{Bi}}
+\newcommand{\E}{\mathbb{E}}
+\DeclareMathOperator*{\argmax}{\arg\,max}
+\DeclareMathOperator*{\argmin}{\arg\,min}
+
+\title{Forecasting tipping times from data}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.1cm}
+
+\begin{abstract}\noindent
+        Combining recent results in nonautonomous dynamics and statistical estimation for stochastic differential equations we derive a fully data-driven pipeline for the accurate forecast of tipping times in complex systems.
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+We are concerned with the problem of forecasting the time at which complex systems will undergo critical transitions given past and present data.
+The forecast is a (linear) extrapolation of the estimated return rate of nonlinear systems slowly ramped towards a saddle-node bifurcation.
+In \S\ref{sec:tipping} we introduce the mathematical formalism of tipping times in slow-fast stochastic processes.
+In \S\ref{sec:formulation} we formulate the extrapolation problem and present three techniques to estimate the return rate of a given sample, two of which have already been proposed in the literature and a new one which we introduce.
+In \S\ref{sec:observation} we derive a series of conditions that allow for the accurate forecast of the tipping times to be considered when applying this methodology to collected measurements or experiments data.
+In \S\ref{sec:application} we apply the forecasting methodology and the observation protocols of \S\ref{sec:formulation} and \S\ref{sec:observation} to simulated and real-world timeseries data.
+In \S\ref{sec:conclusion} we conclude.
+
+\printbibliography
+
+\end{document}
