@@ -323,22 +323,23 @@ In particular, estimators of the form \eqref{eq:AC1} have been used in \cite{Dit
 A solution of the nonlinear system \eqref{eq:model} in a time window $T_w>0$ as per above, can be approximated by the process \cite[\S~$8.4$]{Lord2014}
 %
 \begin{equation}\label{eq:EM}
-        X_{t+1} = X_t + f(X_t,\mu)\Delta + \sigma\sqrt{\Delta}\,\eta_t , \quad \eta_t\sim\mathcal{N}(0,1) .
+        X_{t+1} = X_t + f(X_t,\mu)\Delta + \sigma\sqrt{\Delta}\,\xi_t , \quad \xi_t\sim\mathcal{N}(0,1) .
 \end{equation}
 %
 The sequence above is the Euler-Maruyama approximation of \eqref{eq:model} and it corresponds to the stochastic generalization of the Euler time-stepping method for ordinary differential equations.
 We can rearrange the terms in \eqref{eq:EM} to define the first-order time increments of the Euler-Maruyama approximation
 %
 \begin{equation}\label{eq:increments}
-        Y_t\coloneqq\frac{X_{t+1} - X_t}{\Delta} = f(X_t,\mu) + \tilde{\eta}_t , \quad \tilde{\eta}_t\sim\mathcal{N}\biggl(0,\frac{\sigma^2}{\Delta}\,\biggr) .
+        Y_t\coloneqq\frac{X_{t+1} - X_t}{\Delta} = f(X_t,\mu) + \tilde{\xi}_t , \quad \tilde{\xi}_t\sim\mathcal{N}\biggl(0,\frac{\sigma^2}{\Delta}\,\biggr) .
 \end{equation}
 %
-Provided a sample $\mathcal{X} = \{X_j\}_{j=1,\dots,n}$ in a time window $T_w=n\Delta$, and a choice of the model function $f$, Eq.~\eqref{eq:increments} can be interpreted as a ordinary least square regression problem, with the residuals $r_j\coloneqq Y_{j+1} - f(X_j)=\tilde{\eta}_t$ being normally distributed.
-Away from the saddle-node bifurcation, the sample is approximately an Ornstein-Uhlenbeck process of the form \eqref{eq:oup} and thus we can reasonably fit a linear model of the form $f(x,\theta) = \theta_0 + \theta_1 x$ to the time increments $Y_j$.
+Provided a sample $\mathcal{X} = \{X_j\}_{j=1,\dots,n}$ in a time window $T_w=n\Delta$, and a choice of the model function $f$, Eq.~\eqref{eq:increments} can be interpreted as a ordinary least square regression problem, with the residuals $r_j\coloneqq Y_{j+1} - f(X_j)=\tilde{\xi}_t$ being normally distributed.
+This technique is part of a broader class of drift inference methods called \emph{quasi-maximum likelihood estimators} \cite{Jimenez2020}.
+Away from the saddle-node bifurcation, the sample is approximately an Ornstein-Uhlenbeck process of the form \eqref{eq:oup} and thus we can reasonably fit a linear model of the form $f(x,\theta) = \theta x$ to the time increments $Y_j$.
 Substituting this ansatz into \eqref{eq:increments}, and minimizing the square root of the sum of the squared residuals across the sample, yields the ordinary least square problem
 %
 \begin{equation}\label{eq:ordinary_least_squares}
-        \hat\theta = \argmin_{\theta\in\mathbb{R}^2}\Biggl(\sqrt{\sum_{j=1}^{n-1}\bigl(Y_j-f(X_j,\theta)\bigr)^2}\Biggr) , \quad \hat{\theta} = \Bigl(\hat{\theta}_0, \hat{\theta}_1\Bigr)^T.
+        \hat\theta = \argmin_{\theta\in\mathbb{R}}\Biggl(\sqrt{\sum_{j=1}^{n-1}\bigl(Y_j-f(X_j,\theta)\bigr)^2}\Biggr) .
 \end{equation}
 %
 Notice that $f\in\mathbb{P}_1[x]$, meaning that the problem \eqref{eq:ordinary_least_squares} is linear in $\theta$; the solution of the ordinary (linear) least squares problem is thus found by the normal equation
@@ -347,14 +348,15 @@ Notice that $f\in\mathbb{P}_1[x]$, meaning that the problem \eqref{eq:ordinary_l
         \hat\theta = (A^TA)^{-1}A^TY,
 \end{equation}
 %
-where $Y=(Y_j)_{j=1,\dots,n-1}$ is the vector of observed time increments of the sample $\mathcal{X}$ and $A=(1, X_j)_{j=1,\dots,n-1}$ is the model matrix of the linear fit $f$ to the sample $\mathcal{X}$.
-Notice that, by definition, $\hat{\theta}_1$ is an estimate of the leading eigenvalue $\lambda$ of the underlying nonlinear evolution and thus
+where $Y=(Y_j)_{j=1,\dots,n-1}$ is the vector of observed time increments of the sample $\mathcal{X}$ and $A=(X_j)_{j=1,\dots,n-1}$ is the model vector of the linear fit $f$ to the sample $\mathcal{X}$.
+Notice that, by definition, $\hat{\theta}$ is an estimate of the leading eigenvalue $\lambda$ of the underlying nonlinear evolution and thus
 %
 \begin{equation}\label{eq:LLS}
-        \hat\alpha = \hat{\theta}_1^{\,2},
+        \hat\alpha = \hat{\theta}^{\,2},
 \end{equation}
 %
 is a sample estimate of the return rate using an ordinary linear least square approximation. 
+The application of quasi-maximum likelihood estimations for the construction of early-warning signals is much more recent than the more established autoregressive and Ornstein-Uhlenbeck approximation, with early adoptions found in \cite{Papapicco2026}.
 
 \section{Observation protocol}\label{sec:observation}
 The return rate estimators using the Ornstein-Uhlenbeck \eqref{eq:OUP}, autoregressive \eqref{eq:AC1} and linear least squares \eqref{eq:LLS} approximations all provide a data-drive pipeline to extract $\hat\alpha$ from a given sample $\mathcal{X}$ collected over a time window $T_w=n\Delta$, with $n>0$ number of observations sampled at (regular) frequency $\Delta$.
@@ -407,9 +409,57 @@ From \eqref{eq:lag_correction} it follows that $\alpha(t)\approx \alpha_{\mathrm
 The critical treshold \eqref{eq:admissible_time_horizon} gives us a criterion for which the estimation of the frozen return rate yields admissible results for the extrapolation of the tipping time, as the lag correction $\eta(t)$ of the pullback attractor with respect to the quasi-steady equilibrium $x_+(\mu(t))$ is negligible. 
 
 \subsubsection{Finite-sample effects}\label{subsubsec:effects}
-% 4.1.2
-% 4.1.3
-% 4.1.8
+In our data-driven pipeline, the estimation of the return rate is performed out of a sample $\mathcal{X}$ that is assumed to be a solution of \eqref{eq:model}. 
+Provided that the sample is in the admissible time horizon $t<T_c$ quantified above, a local estimation of $\alpha(t)$ requires that the sample $\mathcal{X}$ is recorded over a window of time in which the leading eigenvalue $\lambda(t)$ at the quasi-steady equilibrium remains relatively unchanged. 
+This in turn requires the sample to be limited in a finite observation window $T_w=n\Delta$ that induces biases and uncertainties in the estimation of the return rate.
+We shall henceforth adopt an ensemble approach in which $\Omega = \{\mathcal{X}_{j}\}_{j=1,\dots,N}$ denotes a collection of $N>1$ independent and identically distributed finite samples that correspond to different noise realizations of \eqref{eq:model}.
+Then let $\hat \beta$ be a generic random variable estimating some ground truth $\beta$ from a single sample in the ensemble.
+Denote $\E[\hat \beta]$ to be the ensemble mean of $\hat\beta$ over $\Omega$ and $\Var[\hat\beta]$ to be the variance of $\hat\beta$ over the ensemble $\Omega$.
+We can thus identify the bias $b_{\hat\beta}$ and uncertainty $u_{\hat\beta}$ of the estimator $\hat\beta$ to be 
+%
+\begin{equation}\label{eq:bias_and_uncertainty}
+  b_{\hat\beta}\coloneqq\E[\hat\beta - \beta] \quad \text{and}\quad u_{\hat\beta}\coloneqq\sqrt{\Var[\hat\beta]} .
+\end{equation}
+%
+Depending on the context, the bias and uncertanity of statistical estimators are also referred to as accuracy and precision respectively; here these two terminologies will be used interchangeably.
+First notice that the return rate estimator using the Ornstein-Uhlenbeck approximation \eqref{eq:OUP} requires the knowledge of the noise intensity $\sigma$ other than the sample variance $\hat\gamma$.
+Since $\sigma$ is usually unknown, one popular work around this limitation is to estimate $\lambda$ via maximum likelihood estimation \cite{Sahalia2002}.
+Away from the bifurcation $|\lambda|\gg0$, the bias of this estimator was derived in \cite[Eq.~$(12)$]{Yu2012} and it reads
+%
+\begin{equation}\label{eq:yu_bias}
+  b_{\hat\lambda} = - \frac{3 + \rho^{-2}}{2\Delta(n-1)} ,
+\end{equation}
+%
+where $\rho$ is the autocorrelation at lag-$1$ given in \eqref{eq:ac1}.
+Its estimation from a finite sample \eqref{eq:ac1_sample} is also biased as quantified in \cite[Eq.~$(21)$]{Kendall1954}
+%
+\begin{equation}\label{eq:kendall_bias}
+  b_{\hat\rho} = - \frac{1 + 3\rho}{n-1} .
+\end{equation}
+%
+On the other hand, the ordinary least squares solution of the Euler-Maruyama approximation \eqref{eq:normal_equation} is positively biased as derived in \cite[Eq.~$(4.5)$]{Florens1989}
+%
+\begin{equation}\label{eq:florens_bias}
+  b_{\hat\theta} = \frac{\Delta\lambda^2}{2} . 
+\end{equation}
+%
+Notice that while \eqref{eq:yu_bias} and \eqref{eq:kendall_bias} vanish in the large sample limit $n\to\infty$ the accuracy of the ensemble mean estimator of the quasi-maximum likelihood \eqref{eq:florens_bias} only depends on the sampling frequency $\Delta$.
+This property is particularly important as, depending on applications, modellers might want to prefer one estimator over the other.
+We remark that the ordinary least square estimator becomes particularly valuable for applications in which data is scarce (albeit regularly and finely sampled) and thus the typical size of the available sample $\mathcal{X}$ is small.
+To convert \eqref{eq:yu_bias}-\eqref{eq:florens_bias} into measures of accuracy for the estimators of the return rate $\alpha$, notice that
+%
+\begin{equation}
+  \E[\hat\alpha] = \E[\hat\lambda^2] = \E[\hat\lambda]^2 + \Var[\hat\lambda] = (b_{\hat\lambda} + \lambda)^2 + u^2_{\hat\lambda} ,
+\end{equation}
+%
+where in the last equality we used the definitions \eqref{eq:bias_and_uncertainty} and the fact that $\E[\hat\beta-\beta] = \E[\hat\beta] - \beta$.
+Expanding the quadratic term and using the definition of the (analytical) return rate $\alpha$ we obtain
+%
+\begin{equation}\label{eq:return_rate_bias}
+  b_{\hat\alpha} = b^2_{\hat\lambda} + 2\lambda b_{\hat\lambda} + u^2_{\hat\lambda},
+\end{equation}
+%
+from which we conclude that the accuracy of the estimators depend on both the accuracy $b_{\hat\lambda}$  and the precision $u_{\hat\lambda}$ of the leading eigenvalue $\lambda$.
 
 \subsubsection{Windowed observation}\label{subsubsec:window}
 % 4.1.4
@@ -434,8 +484,8 @@ The critical treshold \eqref{eq:admissible_time_horizon} gives us a criterion fo
 \aucontribute{D.P.: Conceptualization, Methodology, Formal analysis, Investigation, Writing - Original draft preparation; L.S.: Supervision, Conceptualization, Validation, Writing - Review \& editing; G.D.: Project administration, Supervision, Funding acquisition, Conceptualization, Validation, Writing - Review \& editing.\\ All authors gave final approval for publication and agreed to be held accountable for the work performed
 therein.}
 \conflict{We declare we have no competing interests.}
-\funding{D.P. and G.D. have received support from the Royal Society of New Zealand, Te Ap\={a}rangi by the Marsden fund n.UOA2223; L.S. have received support from the Royal Society of New Zealand, Te Ap\={a}rangi by the Marsden fund n.23-UOA-152}
-%\ack{We thank (hopefully!) the reviewers.}
+\funding{D.P. and G.D. have received support from the Royal Society of New Zealand, Te Ap\={a}rangi by the Marsden fund n.UOA2223; L.S. has received support from the Royal Society of New Zealand, Te Ap\={a}rangi by the Marsden fund n.23-UOA-152}
+%\ack{We thank the reviewers.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %               Appendix               % 
