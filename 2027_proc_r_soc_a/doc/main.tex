@@ -365,7 +365,7 @@ In this section we address this problem in two parts.
 First, we discuss the uncertainties in the return rate estimators $\hat\alpha$ derived above induced by finite samples: in particular we introduce the rolling window technique and derive a data-driven protocol for the optimal collection of observations that minimize the bias and uncertainty in the estimation of the return rate.
 Second, we formulate the extrapolation problem of $\hat\tau$ given a sequence $\hat\alpha=\{\hat\alpha_j\}_{j=1,\dots,n}$ of optimal estimators of the return rate and provide a data-driven pipeline for the accurate forecasting problem.
 
-\subsection{Accuracy and precision of the estimators}\label{subsec:estimators}
+\subsection{Estimating the return rate}\label{subsec:estimators}
 
 \subsubsection{Admissible time horizon}\label{subsubsec:horizon}
 The analytical return rate \eqref{eq:return_rate}, and thus the sample estimators \eqref{eq:OUP}, \eqref{eq:AC1} and \eqref{eq:LLS}, is obtained from the time-dependent eigenvalue \eqref{eq:eigenvalue_time}, which is itself evaluated along the drifting quasi-steady equilibrium $x_+(\mu(t))$.
@@ -422,38 +422,67 @@ We can thus identify the bias $b_{\hat\beta}$ and uncertainty $u_{\hat\beta}$ of
 \end{equation}
 %
 Depending on the context, the bias and uncertanity of statistical estimators are also referred to as accuracy and precision respectively; here these two terminologies will be used interchangeably.
-First notice that the return rate estimator using the Ornstein-Uhlenbeck approximation \eqref{eq:OUP} requires the knowledge of the noise intensity $\sigma$ other than the sample variance $\hat\gamma$.
-Since $\sigma$ is usually unknown, one popular work around this limitation is to estimate $\lambda$ via maximum likelihood estimation \cite{Sahalia2002}.
-Away from the bifurcation $|\lambda|\gg0$, the bias of this estimator was derived in \cite[Eq.~$(12)$]{Yu2012} and it reads
+In the following we shall assume each sample $\mathcal{X}_j$ in the ensemble $\Omega$ to be a sequence ofstationary residuals obtained by detrending a finite windowed solution of \eqref{eq:model} that is collected sufficiently away from the saddle-node bifurcation.
+The resulting Ornstein-Uhlenbeck process \eqref{eq:oup} can be approximated by an autoregressive model of order one \eqref{eq:autoregressive}.
+
+\paragraph{Bias in the sample variance}
+The return rate estimator \eqref{eq:OUP} uses the sample variance in the Ornstein-Uhlenbeck approximation.
+It is a standard result that the sample variance $\hat\gamma=\Var[\mathcal{X}]$ is a biased estimator for autocorrelated data.
+Specifically, its accuracy and precision at lag-$1$ are given by \cite[Eq.~$(4.6)$]{Law1991}
 %
-\begin{equation}\label{eq:yu_bias}
-  b_{\hat\lambda} = - \frac{3 + \rho^{-2}}{2\Delta(n-1)} ,
+\begin{equation}\label{eq:bias_law}
+  b_{\hat\gamma} = -\frac{2\gamma\rho}{(n-1)(1-\rho)}\quad \text{and} \quad u_{\hat\gamma} = \sqrt{\frac{2\gamma^2(1+\rho^2)}{(n-1)(1-\rho^2)}},
 \end{equation}
 %
-where $\rho$ is the autocorrelation at lag-$1$ given in \eqref{eq:ac1}.
-Its estimation from a finite sample \eqref{eq:ac1_sample} is also biased as quantified in \cite[Eq.~$(21)$]{Kendall1954}
+where $\rho$ is the autocorrelation coefficient given in \eqref{eq:ac1}.
+Following \cite{Yu2012}, and using \eqref{eq:oup_variance}, a second-order Taylor expansion yields
 %
-\begin{equation}\label{eq:kendall_bias}
+\begin{equation}\label{eq:taylor_expansion}
+  b_{\hat\lambda}^{\text{\tiny OUP}} = \frac{|\lambda|}{\gamma}b_{\hat\gamma} - \frac{|\lambda|}{\gamma^2}u^2_{\hat\gamma}.
+\end{equation}
+%
+Plugging \eqref{eq:bias_law} into \eqref{eq:taylor_expansion} yields a closed form expression for the bias in the estimation of the leading eigenvalue of the sample $\mathcal{X}$ using the variance of its residuals and within the Ornstein-Uhlenbeck assumption
+%
+\begin{equation}\label{eq:OUP_bias}
+  b_{\hat\lambda}^{\text{\tiny OUP}} = -\frac{2|\lambda|(1+\rho+2\rho^2)}{(n-1)(1-\rho^2)}.
+\end{equation}
+%
+
+\paragraph{Bias in the sample autocorrelation}
+The return rate estimator \eqref{eq:AC1} uses the squared logarithm of the sample autocorrelation \eqref{eq:ac1_sample}, which is quantified in \cite[Eq.~$(21)$]{Kendall1954} to be
+%
+\begin{equation*}
   b_{\hat\rho} = - \frac{1 + 3\rho}{n-1} .
+\end{equation*}
+%
+Using the above, and following the same derivation for the sample variance, a second-order Taylor expansion yields \cite[Eq.~$(12)$]{Yu2012}
+%
+\begin{equation}\label{eq:AC1_bias}
+  b_{\hat\lambda}^{\text{\tiny AC1}} = - \frac{3 + \rho^{-2}}{2\Delta(n-1)} .
 \end{equation}
 %
-On the other hand, the ordinary least squares solution of the Euler-Maruyama approximation \eqref{eq:normal_equation} is positively biased as derived in \cite[Eq.~$(4.5)$]{Florens1989}
+
+\paragraph{Bias in the ordinary least squares solution}
+The return rate estimator \eqref{eq:LLS} is the square the ordinary least squares solution of the Euler-Maruyama approximation \eqref{eq:normal_equation}, which coincides with the estimated leading eigenvalue of the sample $\mathcal{X}$ by definition.
+Its bias is thus more straightfoward to compute \cite[Eq.~$(4.5)$]{Florens1989} and it reads
 %
-\begin{equation}\label{eq:florens_bias}
-  b_{\hat\theta} = \frac{\Delta\lambda^2}{2} . 
+\begin{equation}\label{eq:LLS_bias}
+  b_{\hat\lambda}^{\text{\tiny OLS}} = \frac{\Delta\lambda^2}{2} . 
 \end{equation}
 %
-Notice that while \eqref{eq:yu_bias} and \eqref{eq:kendall_bias} vanish in the large sample limit $n\to\infty$ the accuracy of the ensemble mean estimator of the quasi-maximum likelihood \eqref{eq:florens_bias} only depends on the sampling frequency $\Delta$.
+Notice that, while \eqref{eq:OUP_bias} and \eqref{eq:AC1_bias} are negative and size dependent (i.e. they both vanish in the large sample limit $n\to\infty$), the bias in the least squares estimator \eqref{eq:LLS_bias} is positive and size independent.
 This property is particularly important as, depending on applications, modellers might want to prefer one estimator over the other.
 We remark that the ordinary least square estimator becomes particularly valuable for applications in which data is scarce (albeit regularly and finely sampled) and thus the typical size of the available sample $\mathcal{X}$ is small.
-To convert \eqref{eq:yu_bias}-\eqref{eq:florens_bias} into measures of accuracy for the estimators of the return rate $\alpha$, notice that
+
+\paragraph{Accuracy and precision of the estimators}
+Eqs.~\eqref{eq:OUP_bias}-\eqref{eq:LLS_bias} measure the accuracy for the estimation of the leading egeinvalue $\lambda$ of a sample. To convert those into biases of the return rate $\alpha$, notice that
 %
 \begin{equation}
   \E[\hat\alpha] = \E[\hat\lambda^2] = \E[\hat\lambda]^2 + \Var[\hat\lambda] = (b_{\hat\lambda} + \lambda)^2 + u^2_{\hat\lambda} ,
 \end{equation}
 %
-where in the last equality we used the definitions \eqref{eq:bias_and_uncertainty} and the fact that $\E[\hat\beta-\beta] = \E[\hat\beta] - \beta$.
-Expanding the quadratic term and using the definition of the (analytical) return rate $\alpha$ we obtain
+where in the last equality we used the definitions \eqref{eq:bias_and_uncertainty}.
+Expanding the quadratic term and using the definition of the return rate $\alpha$ we obtain
 %
 \begin{equation}\label{eq:return_rate_bias}
   b_{\hat\alpha} = b^2_{\hat\lambda} + 2\lambda b_{\hat\lambda} + u^2_{\hat\lambda},
