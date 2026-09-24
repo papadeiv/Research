@@ -239,16 +239,16 @@ Notice that, while $\alpha(t)\downarrow0$ as $t\uparrow\tau$ just like $-\lambda
 This property benefits the forecasting of $\tau$ using timeseries data that preceede the critical transition.
 To understand this suppose that $\mathcal{X}\coloneqq\{X_j\coloneqq X_{t_j}\}_{j=1,\dots,n}$ is a solution of \eqref{eq:model} with $t_j<t_{j+1}$, that is in a regime of safe distance from the bifurcation, i.e. $t_n\ll\tau$.
 Assuming we are able of doing so, we can estimate the true return rate \eqref{eq:return_rate} from the sample $\mathcal{X}$, thus yielding a sequence $\hat{\alpha}\coloneqq\{\hat\alpha_j\coloneqq\hat\alpha(t_j)\}_{j=1,\dots,n}$.
-Given the estimate sequence $\hat\alpha$, we can fit a linear model of the form $\hat\alpha(t) = \hat m t + \hat q$, with slope $\hat m$ and offest $\hat q$. 
+Given the estimate sequence $\hat\alpha$, we can fit a linear model of the form $\hat\alpha(t) = \hat m t + \hat q$, with slope $\hat m$ and offset $\hat q$. 
 Then, the forecasted breaking time $\hat\tau$ corresponds to the zero-crossing of the linear fit, which, by extrapolation, reads $\hat\tau = -\hat q/\hat m$.
-Consequally, we translated the problem of forecasting the breaking time $\tau$ from timeseries data $\mathcal{X}$ into a trivial, linear extrapolation $\hat\tau$ from estimates $\hat\alpha$.
+Conseqentially, we translated the problem of forecasting the breaking time $\tau$ from timeseries data $\mathcal{X}$ into a trivial, linear extrapolation $\hat\tau$ from estimates $\hat\alpha$.
 Clearly, this problem features two bottlenecks for the accuracy of the forecasted $\hat\tau$: first, we need the estimates $\hat\alpha$  to be as close as possible to the ground truth $\alpha$ and; second, given those estimates $\hat\alpha$, we need the linear extrapolation $\hat\tau=-\hat q/\hat m$ to be as close as possible to the ground truth $\tau$.
-In particular, depending on applications, we would prefer to slightly underestimate the breaking time $\hat\tau\lesssim\tau$, rather than slightly overestimating it $\hat\tau\gtrsim\tau$, thereby biasing our forecast to minimize missed allarms (i.e. false negatives) in favour of spurious warnings (i.e. false positives).
+In particular, depending on applications, we would prefer to slightly underestimate the breaking time $\hat\tau\lesssim\tau$, rather than slightly overestimating it $\hat\tau\gtrsim\tau$, thereby biasing our forecast to minimize missed alarms (i.e. false negatives) in favour of spurious warnings (i.e. false positives).
 In the remaining of this section we present three data-driven techniques to accurately extract the estimates $\hat\alpha$ from a sample $\mathcal{X}$ while we address the problem of precise extrapolation in \S\ref{sec:observation}.
 
 \subsection{Ornstein-Uhlenbeck approximation}\label{subsec:OUP}
-Let us start by characterising the statistical properties of the noisy fluctuations of a solution $\mathcal{X}$ of \eqref{eq:model} around the pullback attractor $x_{\mathrm{pb}}(t)$ given in Eq.~\eqref{eq:pullback_attractor}.
-We write the solution variable as a superposition $X_t\coloneqq x_{\mathrm{pb}}(t)+Z_t$ of a determistic $x_{\mathrm{pb}}(t)$ and a stochastic component $Z_t$.
+Let us start by characterizing the statistical properties of the noisy fluctuations of a solution $\mathcal{X}$ of \eqref{eq:model} around the pullback attractor $x_{\mathrm{pb}}(t)$ given in Eq.~\eqref{eq:pullback_attractor}.
+We write the solution variable as a superposition $X_t\coloneqq x_{\mathrm{pb}}(t)+Z_t$ of a deterministic $x_{\mathrm{pb}}(t)$ and a stochastic component $Z_t$.
 Substituting this into \eqref{eq:model}, recalling that by definition $\dd x_{\mathrm{pb}}=f(x_{\mathrm{pb}},\mu)\dd t$, we get
 %
 \begin{equation}\label{eq:fluctuations}
@@ -256,7 +256,7 @@ Substituting this into \eqref{eq:model}, recalling that by definition $\dd x_{\m
 \end{equation}
 %
 Let us consider time instances $t\ll\tau$ away from the saddle-node bifurcation; in this case $f(x_{\mathrm{pb}},\mu)\approx f\bigl(x_+(\mu),\mu\bigr)$ which implies $\partial_x f(x_{\mathrm{pb}},\mu)\approx\lambda(t)$.
-Subsituting this into \eqref{eq:fluctuations} gives
+Substituting this into \eqref{eq:fluctuations} gives
 %
 \begin{equation}\label{eq:fluctuations_scaled}
         \dd Z_t=\bigl(\lambda(t)\,Z_t-Z_t^2\bigr)\dd t+\sigma\,\dd W_t .
@@ -400,13 +400,13 @@ From \eqref{eq:lag_correction} it follows that $\alpha(t)\approx \alpha_{\mathrm
 \begin{figure}[t]
     \centering 
     \includegraphics[keepaspectratio, width=\textwidth]{./figures/admissible_time_horizon.pdf}
-    \caption{Accuracy of the return rate of quasi-steady equilibrium $\alpha(t)$ (solid pink curve in the bottom plot) with respect to that of the pullback attractor $\alpha_{\mathrm{pb}}(t)$ (dashed pink curve in the bottom plot) for the saddle-node normal form \eqref{eq:model} .
+    \caption{Accuracy of the return rate of quasi-steady equilibrium $\alpha(t)$ (solid pink curve in the bottom plot) with respect to that of the pullback attractor $\alpha_{\mathrm{pb}}(t)$ (dashed pink curve in the bottom plot) for the saddle-node normal form \eqref{eq:model}.
     The solution $\mathcal{X}$ (pink curve in the top plot) follows the pullback attractor $x_{\mathrm{pb}}$ (orange curve) which track the quasi-steady equilibrium $x_+(t)$ (blue curve) with speed $\varepsilon=10^{-2}$ and noisy fluctuations $\sigma=0.6\sqrt{\varepsilon}$.
     The time window in which $\alpha(t)\approx\alpha_{\mathrm{pb}}(t)$ to first order (dashed black lines) is given by the extintion of the transient of the pullback attractor on the lower bound (which here is taken as ten times the relaxation time from the initial condition $x_{\mathrm{pb}}(0)=2$) and by the admissible time horizon \eqref{eq:admissible_time_horizon}.}
     \label{fig:admissible_time_horizon}
 \end{figure}
 %
-The critical treshold \eqref{eq:admissible_time_horizon} gives us a criterion for which the estimation of the frozen return rate yields admissible results for the extrapolation of the tipping time, as the lag correction $\eta(t)$ of the pullback attractor with respect to the quasi-steady equilibrium $x_+(\mu(t))$ is negligible. 
+The critical threshold \eqref{eq:admissible_time_horizon} gives us a criterion for which the estimation of the frozen return rate yields admissible results for the extrapolation of the tipping time, as the lag correction $\eta(t)$ of the pullback attractor with respect to the quasi-steady equilibrium $x_+(\mu(t))$ is negligible. 
 
 \subsubsection{Finite-sample effects}\label{subsubsec:effects}
 In our data-driven pipeline, the estimation of the return rate is performed out of a sample $\mathcal{X}$ that is assumed to be a solution of \eqref{eq:model}. 
@@ -421,8 +421,8 @@ We can thus identify the bias $b_{\hat\beta}$ and uncertainty $u_{\hat\beta}$ of
   b_{\hat\beta}\coloneqq\E[\hat\beta - \beta] \quad \text{and}\quad u_{\hat\beta}\coloneqq\sqrt{\Var[\hat\beta]} .
 \end{equation}
 %
-Depending on the context, the bias and uncertanity of statistical estimators are also referred to as accuracy and precision respectively; here these two terminologies will be used interchangeably.
-In the following we shall assume each sample $\mathcal{X}_j$ in the ensemble $\Omega$ to be a sequence ofstationary residuals obtained by detrending a finite windowed solution of \eqref{eq:model} that is collected sufficiently away from the saddle-node bifurcation.
+Depending on the context, the bias and uncertainty of statistical estimators are also referred to as accuracy and precision respectively; here these two terminologies will be used interchangeably.
+In the following we shall assume each sample $\mathcal{X}_j$ in the ensemble $\Omega$ to be a sequence of stationary residuals obtained by detrending a finite windowed solution of \eqref{eq:model} that is collected sufficiently away from the saddle-node bifurcation.
 The resulting Ornstein-Uhlenbeck process \eqref{eq:oup} can be approximated by an autoregressive model of order one \eqref{eq:autoregressive}.
 
 \paragraph{Bias in the sample variance}
@@ -464,7 +464,7 @@ Using the above, and following the same derivation for the sample variance, a se
 
 \paragraph{Bias in the ordinary least squares solution}
 The return rate estimator \eqref{eq:LLS} is the square the ordinary least squares solution of the Euler-Maruyama approximation \eqref{eq:normal_equation}, which coincides with the estimated leading eigenvalue of the sample $\mathcal{X}$ by definition.
-Its bias is thus more straightfoward to compute \cite[Eq.~$(4.5)$]{Florens1989} and it reads
+Its bias is thus more straightforward to compute \cite[Eq.~$(4.5)$]{Florens1989} and it reads
 %
 \begin{equation}\label{eq:LLS_bias}
   b_{\hat\lambda}^{\text{\tiny OLS}} = \frac{\Delta\lambda^2}{2} . 
@@ -475,7 +475,7 @@ This property is particularly important as, depending on applications, modellers
 We remark that the ordinary least square estimator becomes particularly valuable for applications in which data is scarce (albeit regularly and finely sampled) and thus the typical size of the available sample $\mathcal{X}$ is small.
 
 \paragraph{Accuracy and precision of the estimators}
-Eqs.~\eqref{eq:OUP_bias}-\eqref{eq:LLS_bias} measure the accuracy for the estimation of the leading egeinvalue $\lambda$ of a sample. To convert those into biases of the return rate $\alpha$, notice that
+Eqs.~\eqref{eq:OUP_bias}-\eqref{eq:LLS_bias} measure the accuracy for the estimation of the leading eigeinvalue $\lambda$ of a sample. To convert those into biases of the return rate $\alpha$, notice that
 %
 \begin{equation}
   \E[\hat\alpha] = \E[\hat\lambda^2] = \E[\hat\lambda]^2 + \Var[\hat\lambda] = (b_{\hat\lambda} + \lambda)^2 + u^2_{\hat\lambda} ,
