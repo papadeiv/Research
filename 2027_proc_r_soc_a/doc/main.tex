@@ -35,7 +35,7 @@
 \corres{Graham Donovan\\ \email{g.donovan@auckland.ac.nz}}
 
 \subject{applied mathematics, differential equations, statistical physics}
-\keywords{early warning signals, tipping points, numerical methods}
+\keywords{early warning signals, tipping points, numerical methods, statistical inference, multiscale dynamics}
 
 \begin{abstract}
         Combining recent results in nonautonomous dynamics and statistical estimation for stochastic differential equations we derive a fully data-driven pipeline for the accurate forecast of tipping times in complex systems. \absbreak 
@@ -47,11 +47,11 @@
         \section{Introduction}
         We are concerned with the problem of forecasting the time at which complex systems will undergo critical transitions given past and present data.
         The forecast is a (linear) extrapolation of the estimated return rate of nonlinear systems slowly ramped towards a saddle-node bifurcation.
-        In \S\ref{sec:tipping} we introduce the mathematical formalism of tipping times in slow-fast stochastic processes.
-        In \S\ref{sec:formulation} we formulate the extrapolation problem and present three techniques to estimate the return rate of a given sample, two of which have already been proposed in the literature and a new one which we introduce.
-        In \S\ref{sec:observation} we derive a series of conditions that allow for the accurate forecast of the tipping times to be considered when applying this methodology to collected measurements or experiments data.
-        In \S\ref{sec:application} we apply the forecasting methodology and the observation protocols of \S\ref{sec:formulation} and \S\ref{sec:observation} to simulated and real-world timeseries data.
-        In \S\ref{sec:conclusion} we conclude.
+        In \S~\ref{sec:tipping} we introduce the mathematical formalism of tipping times in slow-fast stochastic processes.
+        In \S~\ref{sec:formulation} we formulate the extrapolation problem and present three techniques to estimate the return rate of a given sample, two of which have already been proposed in the literature and a new one which we introduce.
+        In \S~\ref{sec:observation} we derive a series of conditions that allow for the accurate forecast of the tipping times to be considered when applying this methodology to collected measurements or experiments data.
+        In \S~\ref{sec:application} we apply the forecasting methodology and the observation protocols of \S\ref{sec:formulation} and \S\ref{sec:observation} to simulated and real-world timeseries data.
+        In \S~\ref{sec:conclusion} we conclude.
 \end{fmtext}
 
 \maketitle
@@ -220,7 +220,7 @@ where $k(\mu(t))$ is the Kramers escape rate given in \eqref{eq:rate} and $\Delt
 \end{figure}
 
 \section{Forecasting problem}\label{sec:formulation}
-From \S\ref{sec:tipping}, we summarize three important results that motivate the forecasting of tipping times:
+From \S~\ref{sec:tipping}, we summarize three important results that motivate the forecasting of tipping times:
 %
 \begin{enumerate}
         \item for a slow passage through a saddle-node bifurcation the leading eigenvalue $\lambda(t)$ explicitly depends on the breaking time $\tau$ via Eq.~\eqref{eq:eigenvalue_time};
@@ -284,10 +284,12 @@ Written in terms of the return rate $\alpha=\lambda^2$, the last identity reads
 \end{equation}
 %
 Let $\hat\gamma$ be the sample variance of $\mathcal{X}$, then \eqref{eq:oup_variance} gives a sample estimate of the return rate
- 
+%
 \begin{equation}\label{eq:OUP}
         \hat\alpha = \frac{\sigma^4}{4\hat\gamma^2} .
 \end{equation}
+%
+The use of the sample variance as an early-warning signal dates back to the very first works in the topic and it has since been established as a benchmark precursor of critical slowing down for the detection of bifurcation-induced critical transitions (see e.g. \cite{Kuehn2011} and references therein).
 
 \subsection{Autoregressive approximation}\label{subsec:AC1}
 In the same time window $T_w>0$ above, the homogeneous Ornstein-Uhlenbeck process has correlation function $\Corr(Y_t,Y_{t+Tw})=\gamma\exp\bigl(-\sqrt{\alpha}T_w\bigr)$ \cite[\S~$3.8$]{Gardiner2009}, with $\gamma$ given in \eqref{eq:oup_variance}.
@@ -317,7 +319,7 @@ Using \eqref{eq:ac1_sample} one can estimate the return rate of the sample $\mat
 \end{equation}
 %
 Autoregressive based early-warning signals have found widespread applications in ecology \cite{Dakos2012} and climate science \cite{Boers2021}.
-In particular, estimators of the form \eqref{eq:AC1} have been used in \cite{Ditlevsen2023} for estimating the tipping time of the subpolar gyre of the Atlantic Meridional Overturning Circulation system and in \cite{Ashwin2025} for establishing a framework that quantifies the predicting skill of early-warning signals.
+In particular, estimators of the form \eqref{eq:AC1} have been used in \cite{Ditlevsen2023}, via maximum likelihood estimation \cite{Sahalia2002}, for estimating the tipping time of the subpolar gyre of the Atlantic Meridional Overturning Circulation system, and in \cite{Ashwin2025} for establishing a framework that quantifies the predicting skill of early-warning signals.
 
 \subsection{Euler-Maruyama approximation}\label{subsec:LLS}
 A solution of the nonlinear system \eqref{eq:model} in a time window $T_w>0$ as per above, can be approximated by the process \cite[\S~$8.4$]{Lord2014}
@@ -435,13 +437,13 @@ Specifically, its accuracy and precision at lag-$1$ are given by \cite[Eq.~$(4.6
 \end{equation}
 %
 where $\rho$ is the autocorrelation coefficient given in \eqref{eq:ac1}.
-Following \cite{Yu2012}, and using \eqref{eq:oup_variance}, a second-order Taylor expansion yields
+Following a standard delta method \cite[\S~$5.5.4$]{Casella2024}, and using \eqref{eq:oup_variance}, we obtain a second-order approximation of the bias in the estimated leading eigenvalue within the Ornstein-Uhlenbeck assumption, which reads
 %
 \begin{equation}\label{eq:taylor_expansion}
   b_{\hat\lambda}^{\text{\tiny OUP}} = \frac{|\lambda|}{\gamma}b_{\hat\gamma} - \frac{|\lambda|}{\gamma^2}u^2_{\hat\gamma}.
 \end{equation}
 %
-Plugging \eqref{eq:bias_law} into \eqref{eq:taylor_expansion} yields a closed form expression for the bias in the estimation of the leading eigenvalue of the sample $\mathcal{X}$ using the variance of its residuals and within the Ornstein-Uhlenbeck assumption
+Plugging \eqref{eq:bias_law} into \eqref{eq:taylor_expansion} yields a closed form expression for the bias in the estimation of the leading eigenvalue of the sample $\mathcal{X}$ using the variance of its residuals
 %
 \begin{equation}\label{eq:OUP_bias}
   b_{\hat\lambda}^{\text{\tiny OUP}} = -\frac{2|\lambda|(1+\rho+2\rho^2)}{(n-1)(1-\rho^2)}.
@@ -455,7 +457,7 @@ The return rate estimator \eqref{eq:AC1} uses the squared logarithm of the sampl
   b_{\hat\rho} = - \frac{1 + 3\rho}{n-1} .
 \end{equation*}
 %
-Using the above, and following the same derivation for the sample variance, a second-order Taylor expansion yields \cite[Eq.~$(12)$]{Yu2012}
+Applying again the delta method, the above yields the bias in the leading eigenvalue \cite[Eq.~$(12)$]{Yu2012}
 %
 \begin{equation}\label{eq:AC1_bias}
   b_{\hat\lambda}^{\text{\tiny AC1}} = - \frac{3 + \rho^{-2}}{2\Delta(n-1)} .
@@ -467,12 +469,16 @@ The return rate estimator \eqref{eq:LLS} is the square the ordinary least square
 Its bias is thus more straightforward to compute \cite[Eq.~$(4.5)$]{Florens1989} and it reads
 %
 \begin{equation}\label{eq:LLS_bias}
-  b_{\hat\lambda}^{\text{\tiny OLS}} = \frac{\Delta\lambda^2}{2} . 
+  b_{\hat\lambda}^{\text{\tiny OLS}} = \frac{\Delta\lambda^2}{2} - \frac{1+3\rho}{\Delta(n-1)}. 
 \end{equation}
 %
-Notice that, while \eqref{eq:OUP_bias} and \eqref{eq:AC1_bias} are negative and size dependent (i.e. they both vanish in the large sample limit $n\to\infty$), the bias in the least squares estimator \eqref{eq:LLS_bias} is positive and size independent.
-This property is particularly important as, depending on applications, modellers might want to prefer one estimator over the other.
-We remark that the ordinary least square estimator becomes particularly valuable for applications in which data is scarce (albeit regularly and finely sampled) and thus the typical size of the available sample $\mathcal{X}$ is small.
+Notice that, while \eqref{eq:OUP_bias} and \eqref{eq:AC1_bias} are negative for all samples up to the saddle-node bifurcation $\lambda=-2\sqrt{-\mu}<0$, the bias in the least squares estimator \eqref{eq:LLS_bias} changes sign at 
+%
+\begin{equation}\label{eq:unbiased_LLS}
+  \mu = - \frac{1+3\rho}{2\Delta^2(n-1)} ,
+\end{equation}
+%
+for which \eqref{eq:LLS} is thus an unbiased estimator of the leading eigenvalue.
 
 \paragraph{Accuracy and precision of the estimators}
 Eqs.~\eqref{eq:OUP_bias}-\eqref{eq:LLS_bias} measure the accuracy for the estimation of the leading eigeinvalue $\lambda$ of a sample. To convert those into biases of the return rate $\alpha$, notice that
@@ -489,6 +495,21 @@ Expanding the quadratic term and using the definition of the return rate $\alpha
 \end{equation}
 %
 from which we conclude that the accuracy of the estimators depend on both the accuracy $b_{\hat\lambda}$  and the precision $u_{\hat\lambda}$ of the leading eigenvalue $\lambda$.
+In the high sampling frequency limit the uncertainty is approximated by the Cramer--Rao inequality \cite[Thm.~$7.3.9$]{Casella2024} 
+%
+\begin{equation}\label{eq:cramer_rao_bound}
+  u_{\hat\lambda}^2 \to \frac{2|\lambda|}{\Delta(n-1)},\quad\Delta\to 0. 
+\end{equation}
+%
+\begin{figure}[t]
+    \centering 
+    \includegraphics[keepaspectratio, width=\textwidth]{./figures/bias_estimators.pdf}
+    \caption{Comparison of the bias of the return rate estimators \eqref{eq:return_rate_bias} (top row) obtained from the sample variance \eqref{eq:OUP} (left), sample autocorrelation \eqref{eq:AC1} (middle) and linear least squares solution \eqref{eq:LLS} (right). Notice how the estimator from the sample variance and autocorrelation are positively biased up to the saddle-node bifurcation, compared to the estimator for the least squares regression which crosses zero (gray horizontal line in the top right) at the parameter value prescribed by \eqref{eq:unbiased_LLS}.
+    These results are validated by Monte Carlo simulations (bottom row) in which an ensemble $\Omega$ of $N=200$ particles' trajectories of \eqref{eq:model} are solved at fixed values parameter of $\mu$ in a discretized sweep of $200$ points in $[-1,0)$.
+    Each trajectory forms a sample $\mathcal{X}\in\Omega$ of $n=400$ observations of noise intensity $\sigma=0.02$. 
+    The estimators $\hat\alpha$ in \eqref{eq:OUP}, \eqref{eq:AC1} and \eqref{eq:LLS} are then computed from the sample $\mathcal{X}$ using the prescribed methodology and the ensemble statistics, such as mean (red curve), interquartile range (green shaded region bounded by dark green curves) and $5^{\text{th}}$-$95^{\text{th}}$ interval (blue shaded region bounded by dark blue curves), are compared with the ground truth $\alpha$.}
+    \label{fig:bias_estimators}
+\end{figure}
 
 \subsubsection{Windowed observation}\label{subsubsec:window}
 % 4.1.4
