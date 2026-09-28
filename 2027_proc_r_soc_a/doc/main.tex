@@ -511,11 +511,65 @@ In the high sampling frequency limit the uncertainty is approximated by the Cram
     \label{fig:bias_estimators}
 \end{figure}
 
-\subsubsection{Windowed observation}\label{subsubsec:window}
-% 4.1.4
-% 4.1.5
-% 4.1.6
-% 4.1.7
+\subsubsection{Optimal observation length}\label{subsubsec:window}
+The topic of selecting an optimal window length to forecast critical transitions was addressed in \cite{Chen2022}.
+In particular, the authors used showed that windowed observations with less than $10\%$ the data of a given sample yield spurious early-warning signals.
+Such study however only considers fixed window lengths across a solution approaching a critical transition, which neglects the changing characteristic of the solution in the slow passage through the saddle-node.
+Here we derive the optimal, time-dependent window length of a sample for the accurate forecasting of the tipping time. 
+In particular, given a sample $\mathcal{X}=\{X_{t_1},\dots,X_{t_n}\}$ recorded across a window $T_{\mathrm{w}}=t_n-t_1$, we look for bounds of the form
+%
+\begin{equation}\label{eq:bounds}
+  L(t)\ll T_\mathrm{w} \ll U(t) ,
+\end{equation}
+% 
+that allow us to extract quality estimators of the return rate \eqref{eq:return_rate}.
+The lower bound $L(t)$ is derived by imposing that the sample $\mathcal{X}$ is observed on a window that is much longer than the relaxation time $1/|\lambda|$ which, from \eqref{eq:eigenvalue_time}, reads
+%
+\begin{equation}\label{eq:lower_bound}
+  L(t) = \frac{1}{2\sqrt{\varepsilon(\tau-t)}}\ll T_{\mathrm{w}}.
+\end{equation}
+%
+This requirement ensures that the realizations $X_j$ in the sample are independent fluctuations around the stable equilibrium $x_+(\mu(t))$.
+On the other hand, the upper bound $U(t)$ is derived by imposing that the sample $\mathcal{X}$ is quasi-stationary.
+To derive $U(t)$ observe that, from \eqref{eq:eigenvalue_time}, the instantaneous rate of change of the eigenvalue is
+%
+\begin{equation*}
+  \frac{\dd \lambda}{\dd t} \eqqcolon\dot\lambda(t) = \frac{2\varepsilon}{|\lambda(t)|} ,
+\end{equation*}
+%
+which is positive and monotonically increasing for any $t<\tau$, which implies that $\dot\lambda(t_n)=\sup_{t_1<t<t_n}\dot\lambda(t)$ over any finite time window $(t_1,t_n)$.
+By setting $T_{\mathrm{w}}=t_n-t_1$ it follows
+%
+\begin{equation*}
+  0<\Delta\lambda = \lambda(t_n) - \lambda(t_1) = \int_{t_1}^{t_n}\dot\lambda(t)dt < \dot\lambda(t_n)T_{\mathrm{w}}  = \frac{2 \varepsilon}{|\lambda(t_n)|}T_{\mathrm{w}},
+\end{equation*}
+%
+and dividing each term by $|\lambda(t_n)|$ yields
+%
+\begin{equation*}
+  \frac{\Delta\lambda}{|\lambda(t_n)|} < \frac{2 \varepsilon}{\lambda^2(t_n)}T_{\mathrm{w}} .
+\end{equation*}
+%
+Our requirement for the sample $\mathcal{X}$ to be quasi-stationarity across $T_{\mathrm{w}}$ corresponds to small changes of the leading eigenvalue compared to its endpoint value, i.e. $\Delta\lambda/|\lambda(t_n)|\ll 1$, which is guaranteed by imposing
+%
+\begin{equation*}
+  \frac{2 \varepsilon}{\lambda^2(t_n)}T_{\mathrm{w}} \ll 1 ,
+\end{equation*}
+%
+yielding a sufficient condition for the upper bound for the window length
+%
+\begin{equation}\label{eq:upper_bound}
+  T_\mathrm{w}\ll U(t) = \frac{\lambda^2(t)}{2 \varepsilon} = 2(\tau - t),
+\end{equation}
+%
+where the last equality follows from \eqref{eq:return_rate}.
+Plugging \eqref{eq:lower_bound} and \eqref{eq:upper_bound} into \eqref{eq:bounds} provides us with the window length protocol
+%
+\begin{equation}\label{eq:window_length}
+  \frac{1}{2\sqrt{\varepsilon(\tau-t)}}\ll T_{\mathrm{w}} \ll 2(\tau - t),
+\end{equation}
+%
+where notice that only the lower bound depends on the rate of change $\varepsilon$ of the parameter.
 
 \subsection{Extrapolating the tipping time}\label{subsec:extrapolators}
 
