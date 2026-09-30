@@ -364,10 +364,11 @@ The application of quasi-maximum likelihood estimations for the construction of 
 The return rate estimators using the Ornstein-Uhlenbeck \eqref{eq:OUP}, autoregressive \eqref{eq:AC1} and linear least squares \eqref{eq:LLS} approximations all provide a data-drive pipeline to extract $\hat\alpha$ from a given sample $\mathcal{X}$ collected over a time window $T_w=n\Delta$, with $n>0$ number of observations sampled at (regular) frequency $\Delta$.
 As noted at the beginning of \S~\ref{sec:formulation} however, these estimates are only useful to forecast the tipping time $\hat\tau$ of the given sample $\mathcal{X}$.
 In this section we address this problem in two parts. 
-First, we discuss the uncertainties in the return rate estimators $\hat\alpha$ derived above induced by finite samples: in particular we introduce the rolling window technique and derive a data-driven protocol for the optimal collection of observations that minimize the bias and uncertainty in the estimation of the return rate.
+First, we discuss the limitations and uncertainties associated in the estimators of the return rate $\hat\alpha$ derived above.
 Second, we formulate the extrapolation problem of $\hat\tau$ given a sequence $\hat\alpha=\{\hat\alpha_j\}_{j=1,\dots,n}$ of optimal estimators of the return rate and provide a data-driven pipeline for the accurate forecasting problem.
 
 \subsection{Estimating the return rate}\label{subsec:estimators}
+In addressing the problem of estimating the return rate from a finite sample we encounter three major limitations: one is associated to the discrepancy between the return rate evaluated at the quasi-steady equilibrium and the one observed from fluctuating residuals following the pullback attractor and; two are associated with \emph{finite-sample effects} that need to be considered when designing an optimal observation protocal with the aim of forecasting tipping times.
 
 \subsubsection{Admissible time horizon}\label{subsubsec:horizon}
 The analytical return rate \eqref{eq:return_rate}, and thus the sample estimators \eqref{eq:OUP}, \eqref{eq:AC1} and \eqref{eq:LLS}, is obtained from the time-dependent eigenvalue \eqref{eq:eigenvalue_time}, which is itself evaluated along the drifting quasi-steady equilibrium $x_+(\mu(t))$.
@@ -410,7 +411,7 @@ From \eqref{eq:lag_correction} it follows that $\alpha(t)\approx \alpha_{\mathrm
 %
 The critical threshold \eqref{eq:admissible_time_horizon} gives us a criterion for which the estimation of the frozen return rate yields admissible results for the extrapolation of the tipping time, as the lag correction $\eta(t)$ of the pullback attractor with respect to the quasi-steady equilibrium $x_+(\mu(t))$ is negligible. 
 
-\subsubsection{Finite-sample effects}\label{subsubsec:effects}
+\subsubsection{Biased estimators}\label{subsubsec:effects}
 In our data-driven pipeline, the estimation of the return rate is performed out of a sample $\mathcal{X}$ that is assumed to be a solution of \eqref{eq:model}. 
 Provided that the sample is in the admissible time horizon $t<T_c$ quantified above, a local estimation of $\alpha(t)$ requires that the sample $\mathcal{X}$ is recorded over a window of time in which the leading eigenvalue $\lambda(t)$ at the quasi-steady equilibrium remains relatively unchanged. 
 This in turn requires the sample to be limited in a finite observation window $T_w=n\Delta$ that induces biases and uncertainties in the estimation of the return rate.
@@ -513,7 +514,7 @@ In the high sampling frequency limit the uncertainty is approximated by the Cram
 
 \subsubsection{Optimal observation length}\label{subsubsec:window}
 The topic of selecting an optimal window length to forecast critical transitions was addressed in \cite{Chen2022}.
-In particular, the authors used showed that windowed observations with less than $10\%$ the data of a given sample yield spurious early-warning signals.
+In particular, the authors showed that windowed observations with less than $10\%$ of the data from a given sample yield spurious early-warning signals.
 Such study however only considers fixed window lengths across a solution approaching a critical transition, which neglects the changing characteristic of the solution in the slow passage through the saddle-node.
 Here we derive the optimal, time-dependent window length of a sample for the accurate forecasting of the tipping time. 
 In particular, given a sample $\mathcal{X}=\{X_{t_1},\dots,X_{t_n}\}$ recorded across a window $T_{\mathrm{w}}=t_n-t_1$, we look for bounds of the form
@@ -522,7 +523,7 @@ In particular, given a sample $\mathcal{X}=\{X_{t_1},\dots,X_{t_n}\}$ recorded a
   L(t)\ll T_\mathrm{w} \ll U(t) ,
 \end{equation}
 % 
-that allow us to extract quality estimators of the return rate \eqref{eq:return_rate}.
+in which the residuals retain the necessary properties for the estimation of the frozen return rate \eqref{eq:return_rate}.
 The lower bound $L(t)$ is derived by imposing that the sample $\mathcal{X}$ is observed on a window that is much longer than the relaxation time $1/|\lambda|$ which, from \eqref{eq:eigenvalue_time}, reads
 %
 \begin{equation}\label{eq:lower_bound}
@@ -572,6 +573,33 @@ Plugging \eqref{eq:lower_bound} and \eqref{eq:upper_bound} into \eqref{eq:bounds
 where notice that only the lower bound depends on the rate of change $\varepsilon$ of the parameter.
 
 \subsection{Extrapolating the tipping time}\label{subsec:extrapolators}
+Having derived the design conditions for the collection of samples that yield optimal estimators $\hat\alpha$ we are now ready to specify a data-driven pipeline for the forecasting of the tipping time.
+As anticipated in \S~\ref{sec:formulation}, given a sequence of estimators $\hat\alpha=\{\hat\alpha_j\}_{j=1,\dots,N}$, the forecasting of the tipping time $\tau_{\mathrm{tip}}$ is translated into an extrapolation problem for the breaking time $\hat\tau = -\hat q/\hat m$ via the linear fit $\hat\alpha(t)=\hat m t + \hat q$.
+We are thus concerned in formulating the optimal setup for estimating the slope $\hat m$ and intercept $\hat q$ of the underlying return rate $\alpha(t)$ given a sample of its estimation $\hat\alpha(t)$.
+As for the Euler--Maruyama approximation outlined in \S~\ref{subsec:LLS}, the linear regression for the sample $\hat\alpha$ corresponds to a linear least squares problem whose solution is given by the normal equation 
+%
+\begin{equation}\label{eq:ordinary_regression}
+  \begin{pmatrix}
+       \hat q \\
+       \hat m
+     \end{pmatrix} = \Bigl(B^TB\Bigr)^{-1}B^T\hat\alpha,
+\end{equation}
+%
+where $B = (1, t_j)_{j=1,...,N}$ is the model matrix and $\hat\alpha_j=\hat\alpha(t_j)$ is the estimated return rate at time $t_j$.
+The ordinary least square regression \eqref{eq:ordinary_regression} requires that the uncertainty in the input data is homogeneous (i.e. \emph{homoskedasticity}) to be an efficient estimator of $(\hat q,\hat m)^T$.
+This however is clearly not the case for the return rate sample $\hat\alpha$ as evidenced in Figure~\ref{fig:bias_estimators}; in particular, all three estimators \eqref{eq:OUP}, \eqref{eq:AC1} and \eqref{eq:LLS} appear to have decreasing uncertainty the closer the system is to the saddle-node bifurcation.
+Therefore the heterogeneity in the uncertainty of the sample $\hat\alpha(t)$ (i.e. \emph{heteroskedasticiy}) makes the ordinary least square regression \eqref{eq:ordinary_regression} an inefficient point estimate of the linear trend $\hat m$ and intercept $\hat q$ \cite{White1980}.
+Assuming that, albeit heterogeneous, the uncertainty $u_{\hat\alpha_j}$ in the estimate $\hat\alpha_j$ is uncorrelated with that of any other estimate $\hat \alpha_k$ in the sequence $\hat\alpha$, then the weighted least square formulation
+%
+\begin{equation}\label{eq:weighted_regression}
+  \begin{pmatrix}
+       \hat q \\
+       \hat m
+     \end{pmatrix} = \Bigl(B^TWB\Bigr)^{-1}B^TW\hat\alpha,\quad W = \mathrm{diag}\Bigl(u^{-2}_{\hat\alpha_j}\Bigr)_{j=1,\dots,N},
+\end{equation}
+%
+provides the best possible (unbiased) estimator for the linear fit \cite{Aitken1936}.
+Using the squared residuals of the ordinary least squares solution \eqref{eq:ordinary_regression} as heteroskedasticiy--consistent estimators of the entries of the weight matrix $W$ \cite[Thm.~$1$]{White1980}, one can thus implement a fully data-driven (weighted) extrapolation problem \eqref{eq:weighted_regression}, from the sequence $\hat\alpha$, to forecast $\hat\tau$.
 
 \section{Practical applications}\label{sec:application}
 
