@@ -71,7 +71,7 @@ f(x,\mu):=-\mu-x^2,
 %
 where $X_t\in\mathbb R$ is the state of the system, perturbed by a Wiener process $W_t$ with noise amplitude $\sigma>0$, and $\mu(t)$ is the bifurcation parameter, ramped with constant speed $\varepsilon>0$ from an initial value $\mu_0<0$.
 The drift term $f(x,\mu)$ in \eqref{eq:model} has two equilibria $x_{\pm}(\mu)=\pm\sqrt{-\mu}$ for any $\mu<0$; at $\mu=0$ the two branches collide $x_+(0)=x_-(0)=0$ in a saddle-node bifurcation and for $\mu>0$ they annihilate each other.
-Noisy perturbations around the stable equilibrium $x_+(\mu)$ decay exponentially fast at a rate dictated by the leading eigenvalue of the linearized vector field
+Small perturbations around the stable equilibrium $x_+(\mu)$ decay exponentially fast at a rate dictated by the leading eigenvalue of the linearized vector field
 %
 \begin{equation}\label{eq:eigenvalue}
         \lambda(\mu)\coloneqq\partial_xf(x_+(\mu),\mu)=-2\sqrt{-\mu}<0 , \quad \mu<0 .
@@ -82,13 +82,13 @@ Evidently, $|\lambda|\downarrow0$ as $\mu\uparrow0$, which in turn gives asympto
 This behaviour is generic for any complex system close enough to a saddle-node bifurcation as the nonlinear dynamics is reduced to the normal form \eqref{eq:model} by a smooth change in coordinates.
 
 For a given ramp speed $\varepsilon>0$, the time at which the leading eigenvalue \eqref{eq:eigenvalue} vanishes corresponds to the time at which the forcing parameter $\mu(t)$ reaches the saddle-node bifurcation $\mu(t)=0$, which is $\tau\coloneqq-\mu_0/\varepsilon>0$.
-Notice that one can rewrite the linear ramp of the forcing parameter to be independent of the initial condition $\mu_0<0$ and parametrized by the time horizon $\tau$ at which the saddle-node bifurcation is reached, i.e.
+One can thus rewrite the linear ramp of the forcing parameter to be independent of the initial condition $\mu_0<0$ and parametrized by the time horizon $\tau$ at which the saddle-node bifurcation is reached, i.e.
 %
 \begin{equation}\label{eq:breaking_time}
         \mu(t) = \mu_0 + \varepsilon t = \varepsilon(t-\tau)<0\quad\forall t<\tau .
 \end{equation}
 %
-Substituting \eqref{eq:breaking_time} in \eqref{eq:eigenvalue} gives us an explicit time dependence of the approach to the saddle-node bifurcation
+Substituting \eqref{eq:breaking_time} in \eqref{eq:eigenvalue} gives an explicit time dependence of the approach to the bifurcation
 %
 \begin{equation}\label{eq:eigenvalue_time}
         \lambda(t) = -2\sqrt{\varepsilon(\tau-t)}\uparrow0 ,\quad t\uparrow\tau .
@@ -106,6 +106,7 @@ In the nonautonomous regime however, the classic notion of $x_+(t)$ is replaced 
 For a slow passage through the saddle-node bifurcation, i.e. $0<\varepsilon\ll1$, provided that $\mu_0=\lim_{t\to-\infty}\mu(t)\ll0$, the pullback attractor converges to a slow manifold \cite[Thm.~$2.1.7$]{Berglund2006}, which tracks the stable equilibrium branch $x_+(\mu(t))$.
 Specifically, the $x_{\mathrm{pb}}(t)$ solution of \eqref{eq:model} lags behind the drift of the \emph{quasi-stationary equilibrium} $x_+(t)$ and persists past the breaking time $\tau$ for some time before blowing-up to $-\infty$.
 The trajectory of a slow passage through a saddle-node will thus undergo a bifurcation-induced critical transition at a delayed time $\tau_\mathrm{pb}>\tau$ (henceforth \emph{tipping time}), creating a window of opportunity $\Delta\tau\coloneqq\tau_{\mathrm{pb}}-\tau>0$ to reverse the forcing $\varepsilon$ and avoid the catastrophic dynamical saddle-node.
+
 To quantify the tipping time, and thus identify the window of opportunity, we follow the procedure outlined in \cite{Li2019}.
 We start by writing the dynamic saddle-node normal form as a Riccati equation
 %
@@ -119,7 +120,7 @@ with $c_0(t)=\varepsilon(\tau - t)$, $c_1(t)=0$ and $c_2(t)=-1$, and convert it 
         \frac{\dd^2y}{\dd t^2} = c_0(t)y.
 \end{equation}
 %
-Eq.~\eqref{eq:converted} becomes Airy equation in the rescaled time $s\coloneqq \varepsilon^{1/3}(\tau -t)$
+Then we can rewrite \eqref{eq:converted} in the rescaled time $s\coloneqq \varepsilon^{1/3}(\tau -t)$ so that it reads as a Airy equation of the form
 %
 \begin{equation}\label{eq:airy}
         \frac{\dd^2y}{\dd s^2} = sy,
@@ -133,7 +134,7 @@ By backward substitution, and in the past limit $t\to-\infty$, the pullback attr
 \end{equation}
 %
 From \eqref{eq:pullback_attractor}, $x_{\mathrm{pb}}\to-\infty$ as $\Ai\to0$, which occurs at $s\approx2.338$.
-It follows trivially that the tipping time of the pullback attractor is given by $\tau_{\mathrm{pb }}\approx \tau + 2.338\,\varepsilon^{-1/3}$ and thus the opportunity window scales with the reciprocal of the cubic root of the parameter speed, i.e. $\Delta\tau\propto\varepsilon^{-1/3}$.
+It thus follows that the tipping time of the pullback attractor is given by $\tau_{\mathrm{pb }}\approx \tau + 2.338\,\varepsilon^{-1/3}$ and the opportunity window scales with the reciprocal of the cubic root of the parameter speed, i.e. $\Delta\tau\propto\varepsilon^{-1/3}$.
 
 \subsection{Tipping time distribution}\label{subsec:exit}
 We now consider the more general case of stochastic fluctuations of slow passage through the bifurcation by restoring $\sigma>0$ in \eqref{eq:model}.
@@ -155,8 +156,8 @@ At any $\mu<0$, the potential barrier, separating the local minimum $x_+(\mu)$ f
         \Delta V\coloneqq V\bigl(x_-(\mu)\bigr)-V\bigl(x_+(\mu)\bigr) = \frac43(-\mu)^{3/2} .
 \end{equation}
 %
-The critical transition of a solution of \eqref{eq:model}, starting in a neighbourhood of $x_+(\mu)$, can thus be reframed as the escape of an overdamped particle across the potential barrier $\Delta V$ driven by noisy fluctuations of intensity $D$.
-For fixed values of $\mu<0$ such that $\Delta V\gg D$, these escapes are rare events described by Freidlin--Wentzell theory \cite{Freidlin2012} with connections in statistical mechanics \cite{Santolin2025}.
+The critical transition of a solution of \eqref{eq:model}, starting in a neighbourhood of $x_+(\mu)$, can thus be associated to the escape of an overdamped particle across the potential barrier $\Delta V$ driven by noisy fluctuations of intensity $D$.
+For fixed values of $\mu<0$ such that $\Delta V\gg D$, these escapes are rare events described by Freidlin--Wentzell theory \cite{Freidlin2012} which has been recently applied in statistical mechanics \cite{Santolin2025}.
 In particular, the event of a trajectory $X_t$ of \eqref{eq:gradient}, starting near $x_+(\mu)$ and reaching $x_-(\mu)$ across the potential barrier $\Delta V$, satisfies a so-called \emph{large deviation principle}.
 The \emph{first exit time} of such event \cite[\S~$5.5$]{Gardiner2009}  
 %
@@ -179,9 +180,7 @@ where the rate parameter is given by Kramers formula
 %
 Notice that the reciprocal of the escape rate in \eqref{eq:rate} gives the \emph{mean first exit time} of \eqref{eq:first_exit}, i.e. $\E[\tau_{\mathrm{exit}}] = 1/k(\mu)$.
 This result, originally formulated for stationary diffusion \cite{Day1983} and jump processes \cite{Imkeller2006}, was then extended to the dynamic saddle-node normal form \eqref{eq:model}.
-Remarkably, the distribution of the tipping time $\tau_{\mathrm{tip}}$ for the slow passage through the bifurcation is greatly dependent by the competing effects of the noise intensity $D$ and the ramp speed $\varepsilon$.
-In the limiting regime $D\ll\varepsilon/2$, it was shown that the escapes occur after the breaking time $\tau$.
-In particular, the approximate tipping time distribution $\tau_{\mathrm{tip}}\overset{d}{\approx}p_1$, derived in \cite[Eq.~$(19)$]{Miller2012}, reads
+In the limiting regime of low noise intensity $D\ll\varepsilon/2$, the approximate distribution $\tau_{\mathrm{tip}}\overset{d}{\approx}p_1$ of the tipping time $\tau_{\mathrm{tip}}$ has been shown to be \cite[Eq.~$(19)$]{Miller2012}
 %
 \begin{equation}\label{eq:small_noise}
         p_1(t)\coloneqq\frac{\varepsilon^{2/3}}{\sqrt{4\pi^{5}D}\,\Bi^{2}\bigl(-\mu(t)\varepsilon^{-2/3}\bigr)\,\mathcal J(t)^{1/2}}
@@ -189,15 +188,17 @@ In particular, the approximate tipping time distribution $\tau_{\mathrm{tip}}\ov
         {4\pi^{2}D\,\Bi^{2}\bigl(-\mu(t)\varepsilon^{-2/3}\bigr)\,\mathcal J(t)}\Biggr] ,
 \end{equation}
 %
-with $\mathcal J(t)\coloneqq\int_{-\infty}^{t}\Ai^{4}\bigl(-\mu(s)\varepsilon^{-2/3}\bigr)\,\dd s$, has support in the interval $\tau+1.17 \varepsilon^{-1/3} < t < \tau + 3.27 \varepsilon^{-1/3}$.
-Notice that such interval contains the tipping time of the pullback attractor $\tau_{\mathrm{pb}}\approx\tau+2.338\,\varepsilon^{-1/3}$.
-Remarkably, \eqref{eq:small_noise} is approximately Gaussian locally to its maximum
+with $\mathcal J(t)\coloneqq\int_{-\infty}^{t}\Ai^{4}\bigl(-\mu(s)\varepsilon^{-2/3}\bigr)\,\dd s$. 
+We remark that $p_1(t)$ has support in the interval $\tau+1.17 \varepsilon^{-1/3} < t < \tau + 3.27 \varepsilon^{-1/3}$ and it contains the tipping time of the pullback attractor $\tau_{\mathrm{pb}}\approx\tau+2.338\,\varepsilon^{-1/3}$.
+Furthermore \eqref{eq:small_noise} is approximately Gaussian locally to its maximum
 %
 \begin{equation}\label{eq:small_noise_approximation}
-        \tau_{\mathrm{tip}}\overset{d}{\approx}\mathcal{N}\biggl(\tau_{\mathrm{pb}}\bigl[1+O(D/\varepsilon)\bigr],O\bigl(D\varepsilon^{-5/3}\bigr)\biggr).
+        \tau_{\mathrm{tip}}\overset{d}{\approx}\mathcal{N}\biggl(\tau_{\mathrm{pb}}\bigl[1+O(D/\varepsilon)\bigr],O\bigl(D\varepsilon^{-5/3}\bigr)\biggr),
 \end{equation}
 %
-In the opposite regime of large noise intensity $\varepsilon/2\ll D$, and up to $-\mu(t)\gg D^{2/3}$, it was later shown that the approximate tipping time distribution $\tau_{\mathrm{tip}}\overset{d}{\approx}p_2$ has a maximum before the breaking time $\tau$ and has the form \cite[Eq.~$(4)$]{Herbert2017}
+with mean close to the tipping time of the deterministic solution, i.e. $\E[\tau_{\mathrm{tip}}]\approx\tau_{\mathrm{pb}}$
+ 
+In the opposite regime of large noise intensity $\varepsilon/2\ll D$, and up to $-\mu(t)\gg D^{2/3}$, it was later shown that the approximate tipping time distribution $\tau_{\mathrm{tip}}\overset{d}{\approx}p_2$ has a maximum before the breaking time $\tau$ and it has the form \cite[Eq.~$(4)$]{Herbert2017}
 %
 \begin{equation}\label{eq:large_noise}
         p_2(t)\coloneqq k\bigl(\mu(t)\bigr)\,
@@ -225,26 +226,29 @@ From \S~\ref{sec:tipping}, we summarize three important results that motivate th
 \begin{enumerate}
         \item for a slow passage through a saddle-node bifurcation the leading eigenvalue $\lambda(t)$ explicitly depends on the breaking time $\tau$ via Eq.~\eqref{eq:eigenvalue_time};
         \item the time at which a slowly ramped solution tips $\tau_{\mathrm{pb}}$ is delayed with respect to the breaking time $\tau$ by a factor of $\varepsilon^{-1/3}$ that depends on the speed of the forcing, thereby creating an opportunity window $\Delta\tau$;
-        \item in the small noise regime $\sigma=\sqrt{2D}\ll\sqrt{\varepsilon}$, the delayed tipping time of a noisy solution $\tau_{\mathrm{tip}}$ occurs almost always after the breaking time $\tau$, as per the support of the density $p_1(t)$ in Eq.~\eqref{eq:small_noise}, and on average close to the deterministic tipping time, i.e. $\E[\tau_{\mathrm{tip}}]\approx\tau_{\mathrm{pb}}$ as per Eq.~\eqref{eq:small_noise_approximation}.
+        \item in the small noise regime $\sigma=\sqrt{2D}\ll\sqrt{\varepsilon}$, the delayed tipping time of a noisy solution $\tau_{\mathrm{tip}}$ occurs almost always after the breaking time $\tau$, as per the support of the density $p_1(t)$ in Eq.~\eqref{eq:small_noise}, and on average close to the deterministic tipping time, as per Eq.~\eqref{eq:small_noise_approximation}.
 \end{enumerate}
 %
-Provided a timeseries that is slowly ramped towards a saddle-node bifurcation, with noise and speed satisftying $0<\sigma^2\ll\varepsilon\ll1$, then, if we accurately forecast the breaking time $\tau$ (by $1.$), we can avoid the bifurcation-induced catastrophe with high probability (by $3.$) by reversing the forcing $\varepsilon$ within a time window $\Delta\tau>0$ (by $2.$).
-To formulate the forecasting problem of the breaking time $\tau$ we introduce the \emph{(squared) return rate} $\alpha(t)\coloneqq\lambda^2(t)$, where $\lambda(t)$ is given in \eqref{eq:eigenvalue_time}
+Provided a timeseries that is slowly ramped towards a saddle-node bifurcation, with noise $\sigma$ and speed $\varepsilon$ satisftying $0<\sigma^2\ll\varepsilon\ll1$, then, if we accurately forecast the breaking time $\tau$ (i), we identify a window of opportunity (ii) and avoid the bifurcation-induced catastrophe with high probability (iii) by stopping or reversing the forcing of the parameter.
+To formulate the forecasting problem of the breaking time $\tau$ we introduce the \emph{(squared) return rate} $\alpha(t)\coloneqq\lambda^2(t)$ which, from \eqref{eq:eigenvalue_time}, reads
 %
 \begin{equation}\label{eq:return_rate}
         \alpha(t) = 4\varepsilon(\tau-t)>0\quad\forall t<\tau . 
 \end{equation}
 %
-Notice that, while $\alpha(t)\downarrow0$ as $t\uparrow\tau$ just like $-\lambda(t)$ does in \eqref{eq:eigenvalue_time}, Eq.~\eqref{eq:return_rate} establishes an affine dependence of the return rate on time $t$.
-This property benefits the forecasting of $\tau$ using timeseries data that preceede the critical transition.
-To understand this suppose that $\mathcal{X}\coloneqq\{X_j\coloneqq X_{t_j}\}_{j=1,\dots,n}$ is a solution of \eqref{eq:model} with $t_j<t_{j+1}$, that is in a regime of safe distance from the bifurcation, i.e. $t_n\ll\tau$.
-Assuming we are able of doing so, we can estimate the true return rate \eqref{eq:return_rate} from the sample $\mathcal{X}$, thus yielding a sequence $\hat{\alpha}\coloneqq\{\hat\alpha_j\coloneqq\hat\alpha(t_j)\}_{j=1,\dots,n}$.
-Given the estimate sequence $\hat\alpha$, we can fit a linear model of the form $\hat\alpha(t) = \hat m t + \hat q$, with slope $\hat m$ and offset $\hat q$. 
-Then, the forecasted breaking time $\hat\tau$ corresponds to the zero-crossing of the linear fit, which, by extrapolation, reads $\hat\tau = -\hat q/\hat m$.
-Conseqentially, we translated the problem of forecasting the breaking time $\tau$ from timeseries data $\mathcal{X}$ into a trivial, linear extrapolation $\hat\tau$ from estimates $\hat\alpha$.
-Clearly, this problem features two bottlenecks for the accuracy of the forecasted $\hat\tau$: first, we need the estimates $\hat\alpha$  to be as close as possible to the ground truth $\alpha$ and; second, given those estimates $\hat\alpha$, we need the linear extrapolation $\hat\tau=-\hat q/\hat m$ to be as close as possible to the ground truth $\tau$.
+Notice that, while $\alpha(t)\downarrow0$ as $t\uparrow\tau$ just like $-\lambda(t)$, the return rate in \eqref{eq:return_rate} establishes an affine dependence of the return rate on time $t$ which benefits the forecasting of $\tau$ using timeseries data.
+
+To understand this suppose that $\mathcal{X}_1\coloneqq\{X^{(1)}_j\coloneqq X_{t^{(1)}_j}\}_{j=1,\dots,n}$, $t^{(1)}_j<t^{(1)}_{j+1}$, is a solution of \eqref{eq:model} that is at safe distance from the bifurcation, i.e. $t^{(1)}_n\ll\tau$.
+Assume also that we can estimate the true return rate \eqref{eq:return_rate} from the sample $\mathcal{X}$, which we denote with $\hat\alpha_1\coloneqq\hat\alpha(t^{(1)}_n)$.
+We are then presented with another sample $\mathcal{X}_2$, which is also at safe distance from the bifurcation but closer to it than the previous sample $\mathcal{X}_1$, i.e. $t^{(1)}_n<t^{(2)}_n$; once again, assuming we can do so, we estimate the return rate $\hat\alpha_2$.
+Suppose with repeat this procedure for $N$ different samples $\mathcal{X}_1,\dots,\mathcal{X}_N$, yielding a sequence $\hat{\alpha}\coloneqq\{\hat\alpha_j\}_{j=1,\dots,N}$.
+Given this sequence $\hat\alpha$ we can then fit a linear model of the form $\hat\alpha(t) = \hat m t + \hat q$, with slope $\hat m$ and intercept $\hat q$. 
+The forecasted breaking time $\hat\tau$ thus corresponds to the zero-crossing of the linear fit, which by extrapolation reads $\hat\tau = -\hat q/\hat m$.
+
+Conseqentially, we translated the problem of forecasting the breaking time $\tau$ from timeseries data $\mathcal{X}_1,\dots,\mathcal{X}_N$ into a trivial, linear extrapolation $\hat\tau$ from estimated return rates $\hat\alpha$.
+This procedure however features two bottlenecks: first, we need $\hat\alpha$ to be a sequence of unbiased and accurate estimators of the ground truth $\alpha$ and; second, given those estimates $\hat\alpha$, we need the linear extrapolation $\hat\tau=-\hat q/\hat m$ to be as close as possible to the ground truth $\tau$ to not shrink the window of opportunity.
 In particular, depending on applications, we would prefer to slightly underestimate the breaking time $\hat\tau\lesssim\tau$, rather than slightly overestimating it $\hat\tau\gtrsim\tau$, thereby biasing our forecast to minimize missed alarms (i.e. false negatives) in favour of spurious warnings (i.e. false positives).
-In the remaining of this section we present three data-driven techniques to accurately extract the estimates $\hat\alpha$ from a sample $\mathcal{X}$ while we address the problem of precise extrapolation in \S\ref{sec:observation}.
+In the remaining of this section we present three data-driven techniques to accurately extract the estimates $\hat\alpha$ from a sample $\mathcal{X}$ while we address the extrapolation problem in \S\ref{sec:observation}.
 
 \subsection{Ornstein-Uhlenbeck approximation}\label{subsec:OUP}
 Let us start by characterizing the statistical properties of the noisy fluctuations of a solution $\mathcal{X}$ of \eqref{eq:model} around the pullback attractor $x_{\mathrm{pb}}(t)$ given in Eq.~\eqref{eq:pullback_attractor}.
@@ -255,14 +259,14 @@ Substituting this into \eqref{eq:model}, recalling that by definition $\dd x_{\m
   \dd Z_t=\bigl(-2 x_{\mathrm{pb}}(t)\,Z_t-Z_t^2\bigr)\dd t+\sigma\,\dd W_t .
 \end{equation}
 %
-Let us consider time instances $t\ll\tau$ away from the saddle-node bifurcation; in this case $f(x_{\mathrm{pb}},\mu)\approx f\bigl(x_+(\mu),\mu\bigr)$ which implies $\partial_x f(x_{\mathrm{pb}},\mu)\approx\lambda(t)$.
+At any time $t\ll\tau$ away from the saddle-node bifurcation $f(x_{\mathrm{pb}},\mu)\approx f\bigl(x_+(\mu),\mu\bigr)$ which implies $\partial_x f(x_{\mathrm{pb}},\mu)\approx\lambda(t)$.
 Substituting this into \eqref{eq:fluctuations} gives
 %
 \begin{equation}\label{eq:fluctuations_scaled}
         \dd Z_t=\bigl(\lambda(t)\,Z_t-Z_t^2\bigr)\dd t+\sigma\,\dd W_t .
 \end{equation}
 %
-It can be shown that $|Z_t|\approx\sigma/\sqrt{2|\lambda(t)|}$ \cite[Thm.~$4.1$]{Kuehn2011}, and thus $Z_t^2=o(|\lambda(t)Z_t|)$ for any $\sigma\ll\sqrt{\varepsilon}$ and any time $t\ll\tau$ such that $\sigma\ll\sqrt{2}\bigl(4\varepsilon(\tau-t)\bigr)^{3/4}$.
+It can be shown that $|Z_t|\approx\sigma/\sqrt{2|\lambda(t)|}$ \cite[Thm.~$4.1$]{Kuehn2011}, and thus $Z_t^2=o\bigl(|\lambda(t)Z_t|\bigr)$ for any $\sigma\ll\sqrt{\varepsilon}$ and any $t\ll\tau$ such that $\sigma\ll\sqrt{2}\bigl(4\varepsilon(\tau-t)\bigr)^{3/4}$.
 We can therefore reasonably approximate \eqref{eq:fluctuations_scaled} by neglecting the nonlinear term $Z_t^2$, thereby obtaining 
 %
 \begin{equation}\label{eq:oup}
@@ -270,13 +274,8 @@ We can therefore reasonably approximate \eqref{eq:fluctuations_scaled} by neglec
 \end{equation}
 %
 The linear, nonautonomous Eq.~\eqref{eq:oup} is a time-inhomogeneous Ornstein-Uhlenbeck process.
-Suppose the sample $\mathcal{X}$ is recorded across a time window $T_w>0$ in which the underlying forcing parameter $\mu(t)$ changes very little, i.e.
-%
-\begin{equation}\label{eq:sample_assumption}
-        \mathcal{X}=\{X_{t_j}\}_{j=1,\dots,n} , \quad \text{such that} \quad |\mu(t_1)-\mu(t_n)|\approx0.
-\end{equation}
-%
-Then $\lambda(t)\approx\lambda$ is approximately constant and \eqref{eq:oup} admits a stationary solution \cite[\S~$3.8$]{Gardiner2009} with zero mean $\E[Z_t]\eqqcolon\bar{Z}=0$ and variance $\Var[Z_t]\eqqcolon\gamma=\sigma^2/2|\lambda|$.
+Suppose the sample $\mathcal{X}$ is recorded across a time window $T_w>0$ in which $\lambda(t)\approx\lambda$ is approximately constant. 
+Then such sample can be considered as an approximate solution of the stationary process \eqref{eq:oup} which admits a Gaussian distribution \cite[\S~$3.8$]{Gardiner2009} with zero mean $\E[Z_t]\eqqcolon\bar{Z}=0$ and variance $\Var[Z_t]\eqqcolon\gamma=\sigma^2/2|\lambda|$.
 Written in terms of the return rate $\alpha=\lambda^2$, the last identity reads
 %
 \begin{equation}\label{eq:oup_variance}
@@ -289,11 +288,11 @@ Let $\hat\gamma$ be the sample variance of $\mathcal{X}$, then \eqref{eq:oup_var
         \hat\alpha = \frac{\sigma^4}{4\hat\gamma^2} .
 \end{equation}
 %
-The use of the sample variance as an early-warning signal dates back to the very first works in the topic and it has since been established as a benchmark precursor of critical slowing down for the detection of bifurcation-induced critical transitions (see e.g. \cite{Kuehn2011} and references therein).
+The use of the sample variance as an early-warning signal dates back to the very first attempts in predicting bifurcation-induced tipping points and it has since been established as a benchmark precursor of critical slowing down (see e.g. \cite{Kuehn2011} and references therein).
 
 \subsection{Autoregressive approximation}\label{subsec:AC1}
 In the same time window $T_w>0$ above, the homogeneous Ornstein-Uhlenbeck process has correlation function $\Corr(Y_t,Y_{t+Tw})=\gamma\exp\bigl(-\sqrt{\alpha}T_w\bigr)$ \cite[\S~$3.8$]{Gardiner2009}, with $\gamma$ given in \eqref{eq:oup_variance}.
-As a result, the discrete observations in sample $\mathcal{X}$ can be approximated by fitting a continuous-time autoregressive model of order one
+As a result, the discrete observations in the sample $\mathcal{X}$ can be approximated by fitting a continuous-time autoregressive model of order one
 %
 \begin{equation}\label{eq:autoregressive}
         X_{j+1}\approx\rho X_{j} + \sqrt{\gamma(1-\rho^2)}\,\eta_t , \quad \eta_t\sim\mathcal{N}(0,1),
@@ -306,7 +305,7 @@ where
 \end{equation}
 %
 is the autocorrelation coefficient at lag$-1$.
-Given the sample mean $\hat X$ the sample autocorrelation coefficient can be obtained by maximum likelihood estimation
+Given the sample mean $\hat X$ the sample autocorrelation coefficient can be obtained by maximum likelihood estimation \cite{Sahalia2002} and it reads
 %
 \begin{equation}\label{eq:ac1_sample}
         \hat\rho = \frac{\sum_{j=1}^{n-1}(X_j - \hat X)(X_{j+1} - \hat X)}{\sum_{j=1}^{n}(X_j - \hat X)^2}.
@@ -319,7 +318,7 @@ Using \eqref{eq:ac1_sample} one can estimate the return rate of the sample $\mat
 \end{equation}
 %
 Autoregressive based early-warning signals have found widespread applications in ecology \cite{Dakos2012} and climate science \cite{Boers2021}.
-In particular, estimators of the form \eqref{eq:AC1} have been used in \cite{Ditlevsen2023}, via maximum likelihood estimation \cite{Sahalia2002}, for estimating the tipping time of the subpolar gyre of the Atlantic Meridional Overturning Circulation system, and in \cite{Ashwin2025} for establishing a framework that quantifies the predicting skill of early-warning signals.
+In particular, estimators of the form \eqref{eq:AC1} have been used in \cite{Ditlevsen2023} for estimating the tipping time of the subpolar gyre of the Atlantic Meridional Overturning Circulation system, and in \cite{Ashwin2025} for establishing a framework that quantifies the predicting skill of early-warning signals.
 
 \subsection{Euler-Maruyama approximation}\label{subsec:LLS}
 A solution of the nonlinear system \eqref{eq:model} in a time window $T_w>0$ as per above, can be approximated by the process \cite[\S~$8.4$]{Lord2014}
@@ -335,16 +334,18 @@ We can rearrange the terms in \eqref{eq:EM} to define the first-order time incre
         Y_t\coloneqq\frac{X_{t+1} - X_t}{\Delta} = f(X_t,\mu) + \tilde{\xi}_t , \quad \tilde{\xi}_t\sim\mathcal{N}\biggl(0,\frac{\sigma^2}{\Delta}\,\biggr) .
 \end{equation}
 %
-Provided a sample $\mathcal{X} = \{X_j\}_{j=1,\dots,n}$ in a time window $T_w=n\Delta$, and a choice of the model function $f$, Eq.~\eqref{eq:increments} can be interpreted as a ordinary least square regression problem, with the residuals $r_j\coloneqq Y_{j+1} - f(X_j)=\tilde{\xi}_t$ being normally distributed.
-This technique is part of a broader class of drift inference methods called \emph{quasi-maximum likelihood estimators} \cite{Jimenez2020}.
+Provided a sample $\mathcal{X} = \{X_j\}_{j=1,\dots,n}$ in a time window $T_w=n\Delta$, and a choice of the model function $f$, Eq.~\eqref{eq:increments} can be interpreted as an ordinary least--squares regression problem, with normally distributed residuals $r_j\coloneqq Y_{j+1} - f(X_j)=\tilde{\xi}_t$.
+This is part of a broader class of drift inference methods called \emph{quasi-maximum likelihood estimators} \cite{Jimenez2020}.
+
 Away from the saddle-node bifurcation, the sample is approximately an Ornstein-Uhlenbeck process of the form \eqref{eq:oup} and thus we can reasonably fit a linear model of the form $f(x,\theta) = \theta x$ to the time increments $Y_j$.
-Substituting this ansatz into \eqref{eq:increments}, and minimizing the square root of the sum of the squared residuals across the sample, yields the ordinary least square problem
+Substituting this ansatz into \eqref{eq:increments}, and minimizing the square root of the sum of the squared residuals across the sample, yields the optimization problem
 %
 \begin{equation}\label{eq:ordinary_least_squares}
-        \hat\theta = \argmin_{\theta\in\mathbb{R}}\Biggl(\sqrt{\sum_{j=1}^{n-1}\bigl(Y_j-f(X_j,\theta)\bigr)^2}\Biggr) .
+        \hat\theta = \argmin_{\theta\in\mathbb{R}}\Biggl(\sqrt{\sum_{j=1}^{n-1}\bigl(Y_j-f(X_j,\theta)\bigr)^2}\Biggr) ,
 \end{equation}
 %
-Notice that $f\in\mathbb{P}_1[x]$, meaning that the problem \eqref{eq:ordinary_least_squares} is linear in $\theta$; the solution of the ordinary (linear) least squares problem is thus found by the normal equation
+which is linear in $\theta$ due to $f\in\mathbb{P}_1[x]$.
+The solution of \eqref{eq:ordinary_least_squares} is given by the normal equation
 %
 \begin{equation}\label{eq:normal_equation}
         \hat\theta = (A^TA)^{-1}A^TY,
@@ -357,23 +358,24 @@ Notice that, by definition, $\hat{\theta}$ is an estimate of the leading eigenva
         \hat\alpha = \hat{\theta}^{\,2},
 \end{equation}
 %
-is a sample estimate of the return rate using an ordinary linear least square approximation. 
-The application of quasi-maximum likelihood estimations for the construction of early-warning signals is much more recent than the more established autoregressive and Ornstein-Uhlenbeck approximation, with early adoptions found in \cite{Papapicco2026}.
+is a sample estimate of the return rate using an ordinary (linear) least--squares approximation. 
+The application of quasi-maximum likelihood estimations for the construction of early-warning signals is much more recent than the more established autoregressive and Ornstein-Uhlenbeck approximation, with an early adoption discussed in \cite{Papapicco2026}.
 
 \section{Observation protocol}\label{sec:observation}
-The return rate estimators using the Ornstein-Uhlenbeck \eqref{eq:OUP}, autoregressive \eqref{eq:AC1} and linear least squares \eqref{eq:LLS} approximations all provide a data-drive pipeline to extract $\hat\alpha$ from a given sample $\mathcal{X}$ collected over a time window $T_w=n\Delta$, with $n>0$ number of observations sampled at (regular) frequency $\Delta$.
-As noted at the beginning of \S~\ref{sec:formulation} however, these estimates are only useful to forecast the tipping time $\hat\tau$ of the given sample $\mathcal{X}$.
-In this section we address this problem in two parts. 
-First, we discuss the limitations and uncertainties associated in the estimators of the return rate $\hat\alpha$ derived above.
-Second, we formulate the extrapolation problem of $\hat\tau$ given a sequence $\hat\alpha=\{\hat\alpha_j\}_{j=1,\dots,n}$ of optimal estimators of the return rate and provide a data-driven pipeline for the accurate forecasting problem.
+The return rate estimators using the Ornstein--Uhlenbeck \eqref{eq:OUP}, autoregressive \eqref{eq:AC1} and Euler--Maruyama \eqref{eq:LLS} approximations provide three different, data--drive pipelines to extract $\hat\alpha$ from a given sample $\mathcal{X}$ collected over a time window $T_w=n\Delta$, with $n>0$ number of observations sampled at (regular) frequency $\Delta$.
+As noted at the beginning of \S~\ref{sec:formulation} however, we then use these estimates to forecast the tipping time $\hat\tau$ given a sequence of samples $\mathcal{X}_1,\dots,\mathcal{X}_N$.
+In this section we address this problem in two parts.
+First, we discuss the accuracy and uncertainty associated to the estimators of the return rate $\hat\alpha$ proposed above.
+Second, we formulate the extrapolation problem of $\hat\tau$ given a sequence $\hat\alpha=\{\hat\alpha_j\}_{j=1,\dots,N}$ of estimators of the return rate and construct the full, data-driven pipeline for the accurate forecasting problem given input timeseries data.
 
 \subsection{Estimating the return rate}\label{subsec:estimators}
-In addressing the problem of estimating the return rate from a finite sample we encounter three major limitations: one is associated to the discrepancy between the return rate evaluated at the quasi-steady equilibrium and the one observed from fluctuating residuals following the pullback attractor and; two are associated with \emph{finite-sample effects} that need to be considered when designing an optimal observation protocal with the aim of forecasting tipping times.
+The optimal estimation of the return rate from a finite sample is, perhaps unsurprisingly, highly limited by the quality of the input data provided by the samples $\mathcal{X}_1,\dots,\mathcal{X}_N$.
+We hereby discuss three major design constraints that modellers and scientists have to consider when applying the proposed forecasting methodology to their samples.
 
 \subsubsection{Admissible time horizon}\label{subsubsec:horizon}
-The analytical return rate \eqref{eq:return_rate}, and thus the sample estimators \eqref{eq:OUP}, \eqref{eq:AC1} and \eqref{eq:LLS}, is obtained from the time-dependent eigenvalue \eqref{eq:eigenvalue_time}, which is itself evaluated along the drifting quasi-steady equilibrium $x_+(\mu(t))$.
-However, a sample $\mathcal{X}$ that is a solution of \eqref{eq:model} follows the pullback attractor \eqref{eq:pb_attractor}, which lags behind $x_+(\mu(t))$ at any $t<\tau$.
-After a fast relaxation of the initial condition, in the slow regime the distance at which $x_{\mathrm{pb}}(t)$ tracks $x_+(\mu(t))$ increases with time and it reaches its maximum at the saddle-node bifurcation $|x_{\mathrm{pb}}(t)-x_+(\mu(t))|=O(\varepsilon^{1/3})$, $t\uparrow\tau$ \cite[Thm.~$2.2.2$]{Berglund2006}.
+First observe that the analytical return rate \eqref{eq:return_rate}, on which the sample estimators \eqref{eq:OUP}, \eqref{eq:AC1} and \eqref{eq:LLS} are based on, is obtained from the time--dependent eigenvalue \eqref{eq:eigenvalue_time}, which is itself evaluated along the drifting quasi--steady equilibrium $x_+(\mu(t))$.
+However, if the sample $\mathcal{X}$ is assumed to be a slowly forced solution of \eqref{eq:model} away from the bifurcation, then it must follow the pullback attractor \eqref{eq:pb_attractor}, which lags behind $x_+(\mu(t))$ at any $t<\tau$.
+In the slow regime (after the fast relaxation of the initial condition) the distance at which $x_{\mathrm{pb}}(t)$ tracks $x_+(\mu(t))$ increases with time and it reaches its maximum at the saddle-node bifurcation $|x_{\mathrm{pb}}(t)-x_+(\mu(t))|=O(\varepsilon^{1/3})$, $t\uparrow\tau$ \cite[Thm.~$2.2.2$]{Berglund2006}.
 We are thus interested to quantify a time horizon $t=T_c$ for which the return rate $\alpha(t)$ of the quasi-steady equilibrium is accurate, at least to first-order, to that of the pullback attractor $\alpha_{\mathrm{pb}}(t)=\lambda_{\mathrm{pb}}^2(t)=4x_{\mathrm{pb}}^{\,2}(t)$.
 Sufficiently far from the saddle-node bifurcation we can exploit the asymptotic expansion of Airy's function \cite[\S~$10.4$]{Abramowitz1965} to approximate \eqref{eq:pullback_attractor} to first-order
 %
@@ -393,7 +395,7 @@ and dividing each term in \eqref{eq:pb_return_rate} by $\alpha(t)$ gives
   \frac{\alpha_{\mathrm{pb}(t)}}{\alpha(t)} = 1 + \frac{1}{16 \varepsilon(\tau - t)^3} + \frac{1}{2\sqrt{\varepsilon(\tau - t)^3}} = 1 + 2\eta(t) + \eta^2(t) = \bigl(1+\eta(t)\bigr)^2 ,
 \end{equation}
 %
-where $\eta(t)=\frac{1}{4\sqrt{\varepsilon(\tau-t)^3}}$ quantifies the lag correction of the return rate of the pullback attractor.
+where $\eta(t)\coloneqq 1/(4\sqrt{\varepsilon(\tau-t)^3})$ quantifies the lag correction of the return rate of the pullback attractor.
 From \eqref{eq:lag_correction} it follows that $\alpha(t)\approx \alpha_{\mathrm{pb}}(t)$ at any time $t\ll\tau$ such that $\eta(t)\ll1$, from which we obtain the admissible time horizon
 %
 \begin{equation}\label{eq:admissible_time_horizon}
@@ -412,21 +414,22 @@ From \eqref{eq:lag_correction} it follows that $\alpha(t)\approx \alpha_{\mathrm
 The critical threshold \eqref{eq:admissible_time_horizon} gives us a criterion for which the estimation of the frozen return rate yields admissible results for the extrapolation of the tipping time, as the lag correction $\eta(t)$ of the pullback attractor with respect to the quasi-steady equilibrium $x_+(\mu(t))$ is negligible. 
 
 \subsubsection{Biased estimators}\label{subsubsec:effects}
-In our data-driven pipeline, the estimation of the return rate is performed out of a sample $\mathcal{X}$ that is assumed to be a solution of \eqref{eq:model}. 
-Provided that the sample is in the admissible time horizon $t<T_c$ quantified above, a local estimation of $\alpha(t)$ requires that the sample $\mathcal{X}$ is recorded over a window of time in which the leading eigenvalue $\lambda(t)$ at the quasi-steady equilibrium remains relatively unchanged. 
+Provided that the sample is in the admissible time horizon $t<T_c$ quantified above, a local estimation of $\alpha(t)$ requires that the sample $\mathcal{X}$ is recorded over a time window $T_w$ in which the leading eigenvalue $\lambda(t)$ at the quasi--steady equilibrium remains approximately constant.
 This in turn requires the sample to be limited in a finite observation window $T_w=n\Delta$ that induces biases and uncertainties in the estimation of the return rate.
-We shall henceforth adopt an ensemble approach in which $\Omega = \{\mathcal{X}_{j}\}_{j=1,\dots,N}$ denotes a collection of $N>1$ independent and identically distributed finite samples that correspond to different noise realizations of \eqref{eq:model}.
+
+To quantify those, we shall henceforth adopt an ensemble approach in which $\Omega = \{\mathcal{X}_{j}\}_{j=1,\dots,N}$ denotes a collection of $N>1$ independent and identically distributed finite samples that correspond to different noise realizations of \eqref{eq:model}.
+In particular, let us assume that each sample $\mathcal{X}_j$ in the ensemble $\Omega$ is a sequence of stationary residuals obtained by detrending a finite windowed solution of \eqref{eq:model} so that $t^{(1)}_n\equiv t^{(N)}_n$.
+Then, the resulting Ornstein-Uhlenbeck processes \eqref{eq:oup} can be approximated by order one autoregressive models of the form \eqref{eq:autoregressive}.
+
 Then let $\hat \beta$ be a generic random variable estimating some ground truth $\beta$ from a single sample in the ensemble.
 Denote $\E[\hat \beta]$ to be the ensemble mean of $\hat\beta$ over $\Omega$ and $\Var[\hat\beta]$ to be the variance of $\hat\beta$ over the ensemble $\Omega$.
-We can thus identify the bias $b_{\hat\beta}$ and uncertainty $u_{\hat\beta}$ of the estimator $\hat\beta$ to be 
+We thus define the bias $b_{\hat\beta}$ and uncertainty $u_{\hat\beta}$ of the estimator $\hat\beta$ in the canonical fashion
 %
 \begin{equation}\label{eq:bias_and_uncertainty}
-  b_{\hat\beta}\coloneqq\E[\hat\beta - \beta] \quad \text{and}\quad u_{\hat\beta}\coloneqq\sqrt{\Var[\hat\beta]} .
+  b_{\hat\beta}\coloneqq\E[\hat\beta - \beta] \quad \text{and}\quad u_{\hat\beta}\coloneqq\sqrt{\Var[\hat\beta]} ,
 \end{equation}
 %
-Depending on the context, the bias and uncertainty of statistical estimators are also referred to as accuracy and precision respectively; here these two terminologies will be used interchangeably.
-In the following we shall assume each sample $\mathcal{X}_j$ in the ensemble $\Omega$ to be a sequence of stationary residuals obtained by detrending a finite windowed solution of \eqref{eq:model} that is collected sufficiently away from the saddle-node bifurcation.
-The resulting Ornstein-Uhlenbeck process \eqref{eq:oup} can be approximated by an autoregressive model of order one \eqref{eq:autoregressive}.
+where, depending on the context, these are also referred to as accuracy and precision respectively; here these two terminologies will be used interchangeably.
 
 \paragraph{Bias in the sample variance}
 The return rate estimator \eqref{eq:OUP} uses the sample variance in the Ornstein-Uhlenbeck approximation.
@@ -438,13 +441,13 @@ Specifically, its accuracy and precision at lag-$1$ are given by \cite[Eq.~$(4.6
 \end{equation}
 %
 where $\rho$ is the autocorrelation coefficient given in \eqref{eq:ac1}.
-Following a standard delta method \cite[\S~$5.5.4$]{Casella2024}, and using \eqref{eq:oup_variance}, we obtain a second-order approximation of the bias in the estimated leading eigenvalue within the Ornstein-Uhlenbeck assumption, which reads
+Following a standard delta method \cite[\S~$5.5.4$]{Casella2024}, and using \eqref{eq:oup_variance}, we obtain a second-order approximation of the bias in the estimated leading eigenvalue, which reads
 %
 \begin{equation}\label{eq:taylor_expansion}
   b_{\hat\lambda}^{\text{\tiny OUP}} = \frac{|\lambda|}{\gamma}b_{\hat\gamma} - \frac{|\lambda|}{\gamma^2}u^2_{\hat\gamma}.
 \end{equation}
 %
-Plugging \eqref{eq:bias_law} into \eqref{eq:taylor_expansion} yields a closed form expression for the bias in the estimation of the leading eigenvalue of the sample $\mathcal{X}$ using the variance of its residuals
+Plugging \eqref{eq:bias_law} into \eqref{eq:taylor_expansion} yields a closed form expression for the bias in the estimation of the leading eigenvalue of a finite sample of residuals given its sample variance
 %
 \begin{equation}\label{eq:OUP_bias}
   b_{\hat\lambda}^{\text{\tiny OUP}} = -\frac{2|\lambda|(1+\rho+2\rho^2)}{(n-1)(1-\rho^2)}.
@@ -466,20 +469,20 @@ Applying again the delta method, the above yields the bias in the leading eigenv
 %
 
 \paragraph{Bias in the ordinary least squares solution}
-The return rate estimator \eqref{eq:LLS} is the square the ordinary least squares solution of the Euler-Maruyama approximation \eqref{eq:normal_equation}, which coincides with the estimated leading eigenvalue of the sample $\mathcal{X}$ by definition.
+The return rate estimator \eqref{eq:LLS} is the square of the ordinary least--squares solution of the Euler-Maruyama approximation \eqref{eq:normal_equation}, which coincides with the estimated leading eigenvalue of the sample $\mathcal{X}$ by definition.
 Its bias is thus more straightforward to compute \cite[Eq.~$(4.5)$]{Florens1989} and it reads
 %
 \begin{equation}\label{eq:LLS_bias}
   b_{\hat\lambda}^{\text{\tiny OLS}} = \frac{\Delta\lambda^2}{2} - \frac{1+3\rho}{\Delta(n-1)}. 
 \end{equation}
 %
-Notice that, while \eqref{eq:OUP_bias} and \eqref{eq:AC1_bias} are negative for all samples up to the saddle-node bifurcation $\lambda=-2\sqrt{-\mu}<0$, the bias in the least squares estimator \eqref{eq:LLS_bias} changes sign at 
+Notice that, while \eqref{eq:OUP_bias} and \eqref{eq:AC1_bias} are negative for all samples up to the saddle-node bifurcation $\lambda=-2\sqrt{-\mu}<0$, the bias in the least--squares estimator \eqref{eq:LLS_bias} changes sign at 
 %
 \begin{equation}\label{eq:unbiased_LLS}
   \mu = - \frac{1+3\rho}{2\Delta^2(n-1)} ,
 \end{equation}
 %
-for which \eqref{eq:LLS} is thus an unbiased estimator of the leading eigenvalue.
+for which \eqref{eq:LLS} becomes the only unbiased estimator of the leading eigenvalue.
 
 \paragraph{Accuracy and precision of the estimators}
 Eqs.~\eqref{eq:OUP_bias}-\eqref{eq:LLS_bias} measure the accuracy for the estimation of the leading eigeinvalue $\lambda$ of a sample. To convert those into biases of the return rate $\alpha$, notice that
@@ -517,13 +520,14 @@ The topic of selecting an optimal window length to forecast critical transitions
 In particular, the authors showed that windowed observations with less than $10\%$ of the data from a given sample yield spurious early-warning signals.
 Such study however only considers fixed window lengths across a solution approaching a critical transition, which neglects the changing characteristic of the solution in the slow passage through the saddle-node.
 Here we derive the optimal, time-dependent window length of a sample for the accurate forecasting of the tipping time. 
-In particular, given a sample $\mathcal{X}=\{X_{t_1},\dots,X_{t_n}\}$ recorded across a window $T_{\mathrm{w}}=t_n-t_1$, we look for bounds of the form
+
+Given a sample $\mathcal{X}=\{X_{t_1},\dots,X_{t_n}\}$ recorded across a window $T_{w}=t_n-t_1$, we look for bounds of the form
 %
 \begin{equation}\label{eq:bounds}
   L(t)\ll T_\mathrm{w} \ll U(t) ,
 \end{equation}
 % 
-in which the residuals retain the necessary properties for the estimation of the frozen return rate \eqref{eq:return_rate}.
+in which the residuals retain the necessary properties for the estimation of the return rate \eqref{eq:return_rate}.
 The lower bound $L(t)$ is derived by imposing that the sample $\mathcal{X}$ is observed on a window that is much longer than the relaxation time $1/|\lambda|$ which, from \eqref{eq:eigenvalue_time}, reads
 %
 \begin{equation}\label{eq:lower_bound}
@@ -539,7 +543,7 @@ To derive $U(t)$ observe that, from \eqref{eq:eigenvalue_time}, the instantaneou
 \end{equation*}
 %
 which is positive and monotonically increasing for any $t<\tau$, which implies that $\dot\lambda(t_n)=\sup_{t_1<t<t_n}\dot\lambda(t)$ over any finite time window $(t_1,t_n)$.
-By setting $T_{\mathrm{w}}=t_n-t_1$ it follows
+By setting $T_{w}=t_n-t_1$ it follows
 %
 \begin{equation*}
   0<\Delta\lambda = \lambda(t_n) - \lambda(t_1) = \int_{t_1}^{t_n}\dot\lambda(t)dt < \dot\lambda(t_n)T_{\mathrm{w}}  = \frac{2 \varepsilon}{|\lambda(t_n)|}T_{\mathrm{w}},
@@ -551,13 +555,13 @@ and dividing each term by $|\lambda(t_n)|$ yields
   \frac{\Delta\lambda}{|\lambda(t_n)|} < \frac{2 \varepsilon}{\lambda^2(t_n)}T_{\mathrm{w}} .
 \end{equation*}
 %
-Our requirement for the sample $\mathcal{X}$ to be quasi-stationarity across $T_{\mathrm{w}}$ corresponds to small changes of the leading eigenvalue compared to its endpoint value, i.e. $\Delta\lambda/|\lambda(t_n)|\ll 1$, which is guaranteed by imposing
+Our requirement for the sample $\mathcal{X}$ to be quasi-stationarity across $T_{w}$ corresponds to small changes of the leading eigenvalue compared to its endpoint value, i.e. $\Delta\lambda/|\lambda(t_n)|\ll 1$, which is guaranteed by imposing
 %
 \begin{equation*}
   \frac{2 \varepsilon}{\lambda^2(t_n)}T_{\mathrm{w}} \ll 1 ,
 \end{equation*}
 %
-yielding a sufficient condition for the upper bound for the window length
+yielding a sufficient condition for the upper bound of the window length
 %
 \begin{equation}\label{eq:upper_bound}
   T_\mathrm{w}\ll U(t) = \frac{\lambda^2(t)}{2 \varepsilon} = 2(\tau - t),
@@ -570,13 +574,12 @@ Plugging \eqref{eq:lower_bound} and \eqref{eq:upper_bound} into \eqref{eq:bounds
   \frac{1}{2\sqrt{\varepsilon(\tau-t)}}\ll T_{\mathrm{w}} \ll 2(\tau - t),
 \end{equation}
 %
-where notice that only the lower bound depends on the rate of change $\varepsilon$ of the parameter.
+where notice that only the lower bound depends on the speed of the parameter $\varepsilon$.
 
 \subsection{Extrapolating the tipping time}\label{subsec:extrapolators}
-Having derived the design conditions for the collection of samples that yield optimal estimators $\hat\alpha$ we are now ready to specify a data-driven pipeline for the forecasting of the tipping time.
-As anticipated in \S~\ref{sec:formulation}, given a sequence of estimators $\hat\alpha=\{\hat\alpha_j\}_{j=1,\dots,N}$, the forecasting of the tipping time $\tau_{\mathrm{tip}}$ is translated into an extrapolation problem for the breaking time $\hat\tau = -\hat q/\hat m$ via the linear fit $\hat\alpha(t)=\hat m t + \hat q$.
-We are thus concerned in formulating the optimal setup for estimating the slope $\hat m$ and intercept $\hat q$ of the underlying return rate $\alpha(t)$ given a sample of its estimation $\hat\alpha(t)$.
-As for the Euler--Maruyama approximation outlined in \S~\ref{subsec:LLS}, the linear regression for the sample $\hat\alpha$ corresponds to a linear least squares problem whose solution is given by the normal equation 
+Having derived the design conditions for the collection of samples that yield optimal estimators $\hat\alpha$ we are now ready to specify the full data-driven pipeline for the forecasting of the breaking time $\tau_{\mathrm{tip}}$.
+As anticipated in \S~\ref{sec:formulation}, given a sequence of estimators $\hat\alpha=\{\hat\alpha_j\}_{j=1,\dots,N}$, the forecasting of $\tau_{\mathrm{tip}}$ is translated into an extrapolation problem $\hat\tau = -\hat q/\hat m$ via the linear fit $\hat\alpha(t)=\hat m t + \hat q$ of slope $\hat m$ and intercept $\hat q$.
+As for the Euler--Maruyama approximation outlined in \S~\ref{subsec:LLS}, the linear regression of the sample $\hat\alpha$ to the fit $\hat q,\hat m$ corresponds to a linear least--squares problem whose solution is given by the normal equation 
 %
 \begin{equation}\label{eq:ordinary_regression}
   \begin{pmatrix}
@@ -586,10 +589,10 @@ As for the Euler--Maruyama approximation outlined in \S~\ref{subsec:LLS}, the li
 \end{equation}
 %
 where $B = (1, t_j)_{j=1,...,N}$ is the model matrix and $\hat\alpha_j=\hat\alpha(t_j)$ is the estimated return rate at time $t_j$.
-The ordinary least square regression \eqref{eq:ordinary_regression} requires that the uncertainty in the input data is homogeneous (i.e. \emph{homoskedasticity}) to be an efficient estimator of $(\hat q,\hat m)^T$.
-This however is clearly not the case for the return rate sample $\hat\alpha$ as evidenced in Figure~\ref{fig:bias_estimators}; in particular, all three estimators \eqref{eq:OUP}, \eqref{eq:AC1} and \eqref{eq:LLS} appear to have decreasing uncertainty the closer the system is to the saddle-node bifurcation.
-Therefore the heterogeneity in the uncertainty of the sample $\hat\alpha(t)$ (i.e. \emph{heteroskedasticiy}) makes the ordinary least square regression \eqref{eq:ordinary_regression} an inefficient point estimate of the linear trend $\hat m$ and intercept $\hat q$ \cite{White1980}.
-Assuming that, albeit heterogeneous, the uncertainty $u_{\hat\alpha_j}$ in the estimate $\hat\alpha_j$ is uncorrelated with that of any other estimate $\hat \alpha_k$ in the sequence $\hat\alpha$, then the weighted least square formulation
+To be an efficient estimator of $(\hat q,\hat m)^T$ the solution \eqref{eq:ordinary_regression} requires that the uncertainty in the input data is homogeneous (i.e. assuming \emph{homoskedasticity}) .
+This however is clearly not the case for the return rate sample $\hat\alpha$ as evidenced in Figure~\ref{fig:bias_estimators}; in particular, all three estimators \eqref{eq:OUP}, \eqref{eq:AC1} and \eqref{eq:LLS} appear to have decreasing uncertainty as the system is driven closer to the saddle-node bifurcation.
+Therefore the heterogeneity in the uncertainty of the sample $\hat\alpha(t)$ (i.e. \emph{heteroskedasticiy}) makes the ordinary least--square regression \eqref{eq:ordinary_regression} an inefficient point estimate of the linear trend $\hat m$ and intercept $\hat q$ \cite{White1980}.
+Assuming that, albeit heterogeneous, the uncertainty $u_{\hat\alpha_j}$ in the estimate $\hat\alpha_j$ is uncorrelated with that of any other estimate $\hat \alpha_k$ in the sequence $\hat\alpha$, then the weighted least--square formulation
 %
 \begin{equation}\label{eq:weighted_regression}
   \begin{pmatrix}
@@ -599,9 +602,27 @@ Assuming that, albeit heterogeneous, the uncertainty $u_{\hat\alpha_j}$ in the e
 \end{equation}
 %
 provides the best possible (unbiased) estimator for the linear fit \cite{Aitken1936}.
-Using the squared residuals of the ordinary least squares solution \eqref{eq:ordinary_regression} as heteroskedasticiy--consistent estimators of the entries of the weight matrix $W$ \cite[Thm.~$1$]{White1980}, one can thus implement a fully data-driven (weighted) extrapolation problem \eqref{eq:weighted_regression}, from the sequence $\hat\alpha$, to forecast $\hat\tau$.
+Using the squared residuals of the ordinary least--squares solution \eqref{eq:ordinary_regression} as heteroskedasticiy--consistent estimators of the entries of the weight matrix $W$ \cite[Thm.~$1$]{White1980}, one can thus implement the full, data-driven (weighted) extrapolation problem \eqref{eq:weighted_regression}, from the sequence $\hat\alpha$, to finally forecast the breaking time $\hat\tau$.
 
 \section{Practical applications}\label{sec:application}
+The tipping time framework and observation protocal specified in \S~\ref{sec:tipping},\ref{sec:observation} respectively provides us with a series of constraints to collect or generate timeseries samples in order to apply the proposed, data--driven, forecasting pipeline.
+These constraints allow for the optimal design of experiments, data collection and modeling choices for applications and are summarized as follows: 
+%
+\begin{enumerate}
+  \item the noisy fluctuations in the residuals $\mathcal{X}$ are additive, i.e. $\sigma(x)=\sigma>0$, and small compared to the timescale separation between the state $x$ and its parameter $\mu$, i.e. $\sigma\ll\sqrt{\varepsilon}$;
+  \item the residuals are collected prior to the critical transition and within the admissible time horizon $T_c < \tau - \varepsilon^{-1/3}$;
+  \item the residuals are sampled at regular frequency resulting in constant, small enough time intervals $\Delta$ to control bias and uncertainty in the estimation of the return rate $\hat\alpha$;
+  \item the residuals are collected over a time window that is long enough so that the correlation in the observation is negligible, i.e. $1/(2\sqrt{\varepsilon(\tau - t)})\ll T_w$, and short enough so that the sample can be considered a stationary approximation of the nonlinear evolution, i.e. $T_w\ll 2(\tau - t)$.
+\end{enumerate}
+%
+We hereby apply this constraints to design the optimal conditions for which data can be collected to accurately forecast the breaking time.
+
+To do so we first consider the canonical case of the dynamic saddle-node normal form \eqref{eq:model} to show how the pipeline performs in the forecast of a simplified model.
+We subsequentially apply our methodology to the timeseries data of ... AMOC?
+
+\subsection{Dynamic saddle-node normal form}\label{subsec:dynamic_sn_normal_form}
+
+\subsection{AMOC ?}\label{subsec:amoc}
 
 \section{Conclusions}\label{sec:conclusion}
 
