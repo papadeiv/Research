@@ -38,26 +38,57 @@
 \keywords{early warning signals, tipping points, numerical methods, statistical inference, multiscale dynamics}
 
 \begin{abstract}
-        Combining recent results in nonautonomous dynamics and statistical estimation for stochastic differential equations we derive a fully data-driven pipeline for the accurate forecast of tipping times in complex systems. \absbreak 
+        We combine established results in nonautonomous dynamics, stochastic processes and statistical estimation for stochastic differential equations to derive a fully data-driven pipeline for the accurate forecast of tipping times in complex systems. 
+        Our aim is to provide a practical guide for the generation and collection of data to scientists and modelers that are interested in predicting tipping events from recorded timeseries of their systems.
+        This pipeline relies on a series of assumptions, discussed and proved throughout this paper, that form an optimal observation protocol for the forecast of tipping times.
+        \absbreak 
 \end{abstract}
 
 %\rsbreak
 
 \begin{fmtext}
         \section{Introduction}
-        We are concerned with the problem of forecasting the time at which complex systems will undergo critical transitions given past and present data.
-        The forecast is a (linear) extrapolation of the estimated return rate of nonlinear systems slowly ramped towards a saddle-node bifurcation.
-        In \S~\ref{sec:tipping} we introduce the mathematical formalism of tipping times in slow-fast stochastic processes.
-        In \S~\ref{sec:formulation} we formulate the extrapolation problem and present three techniques to estimate the return rate of a given sample, two of which have already been proposed in the literature and a new one which we introduce.
-        In \S~\ref{sec:observation} we derive a series of conditions that allow for the accurate forecast of the tipping times to be considered when applying this methodology to collected measurements or experiments data.
-        In \S~\ref{sec:application} we apply the forecasting methodology and the observation protocols of \S\ref{sec:formulation} and \S\ref{sec:observation} to simulated and real-world timeseries data.
-        In \S~\ref{sec:conclusion} we conclude.
+        Tipping phenomena (or critical transitions) are abrupt changes in the state of complex systems that correspond to disruptive, possibly permanent alterations in their long--term behaviour.
+        They have been studied across a heterogenous collection of very different natural and human critical phenomena including ecosystems degradation \cite{OSullivan2023,Kumar2026}, neurobiological activity spikes \cite{Boerner2024}, onset of asthma \cite{Donovan2015}, weakining of ocean currents \cite{Boers2021,Dijkstra2026}, hysteresis in laser systems \cite{Hohl1995}, generation of instabilities in magnetically confined plasma \cite{Cowley2015}, vessels capsizing \cite{Shao2026}, formation of traffic congenstions \cite{Chattopadhyay2026} and civilization collapse \cite{Scheffer2021,Doak2026}.
+
+        The mathematical characterization of such catastrophic events follows the loss of stability of the nonlinear and noisy response of state variables and observables of the system under investigation to slow--varying external forcing.
+        A canonical classification of the causes leading to these events has been proposed in \cite{Ashwin2012} distinguishing the cases of bifurcation--induced (B-), rate--induced (R-) and noise--induced (N-) tipping points.
+        Furthermore, slow--fast dynamics and bifurcation theory have been shown to provide a modeling framework for the forecast of critical transitions in \cite{Kuehn2011}.
 \end{fmtext}
 
 \maketitle
 
 %\section{Introduction}
 \noindent
+The early prediction of approaching catastrophes, commonly known as \emph{early-warning signals}, relies on the detection of precusors signature from non--stationary 
+timeseries such as \emph{critical slowing down} \cite{Tredicce2004}.
+        These precursors are often associated to changing statistical quantities, such as sample autocorrelation and variance, to measure the increase in memory of the observed signal.
+
+Several early-warning signals have been proposed in the last two decades; we refer interested readers to \cite{Boettiger2013}, and more recently \cite{Dakos2024}, for a concised overview on the state--of--the--art research on the topic.
+Debates regarding the legitimacy of theoretical early-warnings applied to real--worl data have since followed \cite{Ditlevsen2010,Dakos2015} suggesting that caution should be exercised when relying on these indicators to preict critical events \cite{Morr2024a,Parry2026}.
+Among the raised concerns, of particular importance for applications are:
+\begin{itemize}
+  \item recording optimal observables from high--dimensional (spatio--temporal or networked) systems is necessary in order to detect critical slowing down \cite{Lohmann2025b};
+  \item reliable and skillfull early-warnings require sufficient timescale separation between the fast (state) and the slow (forcing) variables \cite{Pavithran2021};
+  \item predictions based on ensemble averages without uncertainty quantification of the single realizations can lead to missed warnings (i.e. false negatives) and/or spurious signals (i.e. false positives) \cite{Ashwin2025};
+  \item lack of knowledge of baseline values of classical early-warning signals result in lack of interpretability of statistical quanties without context and historical trends \cite{Papapicco2026}.
+\end{itemize}
+
+In this manuscript we are concerned with the problem of forecasting the time at which complex systems will undergo critical transitions given past and present data.
+The forecast is a (linear) extrapolation of the estimated return rate of nonlinear systems slowly ramped towards a saddle-node bifurcation.
+Saddle-node B-tipping events are generic across the many applications mentioned above in which the collected timeseries samples provide a discrete time approximation of a slow passage through the tipping point \cite{Tsai2025}.
+This paper provides a data--driven pipeline and an observation protocol with which scientists and modelers can collect data to predict such tipping events, far enough in the future and with sufficient accuracy, to enable policies that stop or reverse the catastrophe.
+
+To achive this we leverage well--known results in classical and nonautonomous dynamical systems theory and stochastic dynamics as well as canonical statistical estimation techniques applied to timeseries data.
+The pipeline and the protocol rely on a series of assumptions that we discuss and derive; these assumptions provide the constraints that the data must satisfy in order for the forecasting technique to yield consistent and reliable results.
+
+The following discussion is structured as follows.
+In \S~\ref{sec:tipping} we introduce the mathematical formalism of tipping times in slow--fast stochastic processes.
+In \S~\ref{sec:formulation} we formulate the extrapolation problem at the core of the data--driven pipeline by presenting three techniques to estimate the return rate of a given sample, two of which have already been proposed in the literature and a new one which we introduce.
+In \S~\ref{sec:observation} we derive the observation protocoal, that is a series of conditions that allow for the accurate forecast of tipping times from collected measurements or experimental data.
+In \S~\ref{sec:application} we apply the proposed methodology to simulated and real--world timeseries data.
+In \S~\ref{sec:conclusion} we discuss our findings, address the limitations of the pipeline within the protocol and suggest future directions for this line of research.
+
 \section{Tipping time of a slowly ramped systems}\label{sec:tipping}
 The prototypical case of critical transitions in complex system is that of a dynamic saddle-node normal form, with slow (linear) passage through the bifurcation and (additive) noisy fluctuations modelled as an It\^o stochastic differential equation of the form
 %
@@ -623,8 +654,12 @@ We subsequentially apply our methodology to the timeseries data of ... AMOC?
 \subsection{Dynamic saddle-node normal form}\label{subsec:dynamic_sn_normal_form}
 
 \subsection{AMOC ?}\label{subsec:amoc}
+Edge states for saddle-node escapes in $5-$box model of AMOC \cite{Boers2021,Lohmann2025a}.
 
 \section{Conclusions}\label{sec:conclusion}
+So far the theory of early-warning signals has largely been developed within the same setup we considered through this paper: slow, linear passage through saddle-node bifurcations in low-dimensiona, additive noisy systems.
+This leaves a large set of models for which the theory has not been developed yet, if not in very incremental steps.
+The relaxation of the above assumptions requires extensive mathematical development; recent early development being made in that direction include works on systems driven by multiplicative noise \cite{Morr2024b} and jump processes \cite{Layritz2025}, nonlinear \cite{Ritchie2016} and periodically \cite{Kuehn2018} forced parameter shifts with no timescale separattion, and spatially extended models \cite{Gowda2015,Bernuzzi2024,Clarke2026,Miyauchi2026}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %               Declarations               % 
@@ -637,7 +672,7 @@ We subsequentially apply our methodology to the timeseries data of ... AMOC?
 \aucontribute{D.P.: Conceptualization, Methodology, Formal analysis, Investigation, Writing - Original draft preparation; L.S.: Supervision, Conceptualization, Validation, Writing - Review \& editing; G.D.: Project administration, Supervision, Funding acquisition, Conceptualization, Validation, Writing - Review \& editing.\\ All authors gave final approval for publication and agreed to be held accountable for the work performed
 therein.}
 \conflict{We declare we have no competing interests.}
-\funding{D.P. and G.D. have received support from the Royal Society of New Zealand, Te Ap\={a}rangi by the Marsden fund n.UOA2223; L.S. has received support from the Royal Society of New Zealand, Te Ap\={a}rangi by the Marsden fund n.23-UOA-152}
+\funding{D.P. and G.D. have received support from the Royal Society of New Zealand, Te Ap\={a}rangi by the Marsden fund n.UOA2223; L.S. has received support from the Royal Society of New Zealand, Te Ap\={a}rangi by the Marsden fund n.23-UOA-152.}
 %\ack{We thank the reviewers.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -663,8 +698,6 @@ date &Dutch policy &date &European policy \\
 \end{tabular}
 \vspace*{-4pt}
 \end{table}%%%End of the table
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %               Bibliography               % 
