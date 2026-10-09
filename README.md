@@ -20,15 +20,20 @@ These are repositories associated to peer-reviewed papers that have been _Publis
 <!-- ### Submitted -->
 
 _Under review_ projects are works whose manuscripts have been submitted to a journal and are under peer-review. 
-If accepted, they are promoted" to _Published_ repositories; if rejected, that's life I guess '¯\_(ツ)_/¯.
+If accepted, they are "_promoted_" to _Published_ repositories; if rejected, that's life I guess '¯\_(ツ)_/¯.
 
 - [Likelihood estimation of an interpretable early-warning sign of critical transitions](./2026_phys_a/).
+
+### Submitted 
+
+_Submitted_ manuscripts are finished drafts currently with the editor of a journal; they live in this limbo of not being drafts anymore and not being under revision either, I love it.
+
+- [Collapsing economies and endogenous takeoff in unified growth theory](https://github.com/samuelbolduc44/UGT---codes) (2026, external repository).
 
 ### In progress
 
 _In progress_ are projects whose manuscript is currently being typed and close to submission.
 
-- [Dynamics, bifurcations and extensions of models of unified growth](https://github.com/samuelbolduc44/UGT---codes) (est. 2026, external repository).
 - [Forecasting tipping times from data](./2027_proc_r_soc_a/) (est. 2026).
 
 ### Preliminary investigation
