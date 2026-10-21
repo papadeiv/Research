@@ -4,8 +4,12 @@
 Run this file to execute the simulation, analyse and plot the results.
 """
 
-using StochasticDiffEq, Statistics, Random
-using CairoMakie, SpecialFunctions, Printf, ProgressMeter
+using StochasticDiffEq
+using SpecialFunctions
+using Statistics
+using Random
+using Printf
+using CairoMakie
 
 Random.seed!(1)
 
@@ -16,24 +20,17 @@ include("src/plotting.jl")
 
 # Main algorithm
 function main()
+  # Solve the ensemble problems
+  Ω_stationary = generate_samples(stationary)
+  Ω_small = generate_samples(small_noise)
+  Ω_large = generate_samples(large_noise)
 
-  # Initialize empty data structure
-  results = []
+  # Solve the pullback attractors
+  pullback_small = generate_pullback(small_noise)
+  pullback_large = generate_pullback(large_noise)
 
-  # Loop over the three experiments
-  printstyled("Simulating the experiments\n"; bold = true, color = :light_blue)
-  @showprogress for P in runs
-    # Solve the ensemble problem
-    Ω = generate_samples(P)
-
-    # Collect the tipping times and the solutions to be drawn
-    push!(results, (paths = collect_solutions(Ω),
-                    pullback = generate_pullback(P),
-                    ttip = collect_tipping_times(Ω, P)))
-  end
-
-  # Analyse and plot the results
-  plot(results)
+  # Plot the samples and the distributions of the tipping times
+  plot(Ω_stationary, Ω_small, Ω_large, pullback_small, pullback_large)
 end
 
 # Execute main

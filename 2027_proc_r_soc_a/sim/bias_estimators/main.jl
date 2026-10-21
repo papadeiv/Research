@@ -4,8 +4,11 @@
 Run this file to execute the simulation, analyse and plot the results.
 """
 
-using StochasticDiffEq, Statistics, Random
-using CairoMakie, ProgressMeter
+using StochasticDiffEq 
+using Statistics
+using Random
+using CairoMakie
+using ProgressMeter
 
 Random.seed!(1)
 
@@ -24,17 +27,17 @@ function main()
 
   # Loop over the parameter set
   printstyled("Performing the parameter sweep\n"; bold = true, color = :light_blue)
-  @showprogress for (i, μ) in enumerate(μ_set)
+  @showprogress for (idx_μ, μ) in enumerate(μ_set)
     # Solve the ensemble problem
     Ω = generate_samples(μ)
 
     # Loop over the samples
-    for (j, x) in enumerate(Ω)
+    for (idx_x, x) in enumerate(Ω)
       # Estimate the return rate of the sample
       α = estimate_return_rate(x)
-      estimates.OUP[i,j] = α.OUP
-      estimates.AC1[i,j] = α.AC1
-      estimates.OLS[i,j] = α.OLS
+      estimates.OUP[idx_μ,idx_x] = α.OUP
+      estimates.AC1[idx_μ,idx_x] = α.AC1
+      estimates.OLS[idx_μ,idx_x] = α.OLS
     end
   end
 

@@ -692,8 +692,6 @@ The noise intensity is set to $\sigma=10^{-2}$ which satisfies the small noise r
     \label{fig:dynamic_saddle_node}
 \end{figure}
 
-
-
 We simulate an ensemble $\Omega = \{\mathcal{X}_k\}_{k=1,\dots,N}$ of $N=1000$ independent sample paths (grey curve in panel (a1)); each realization $X_{t_j}^{(k)}\in\mathcal{X}_k$ is sampled at regular frequency $\Delta=10^{-2}$.
 According to the observation protocol \S~\ref{subsec:estimators}, from each sample path we extract a subseries (pink curve in panel (a1)) corresponding to the time window $t\in[400,1600]$ (grey dahsed vertical lines in panel (a1)), where the lower bound guarantees the extintion of the transient of the initial condition and the upper bound is given by the admissible time horizon \eqref{eq:admissible_time_horizon}.
 Each subseries is then analysed in a rolling window technique to estimate the return rate; from \eqref{eq:window_length} we set the window length to be $T_\mathrm{w} = 80$ which correpsonds to $n=8000$ observations for each sample.
@@ -722,6 +720,13 @@ In this section we apply the data--driven pipeline introduced in this work to pr
 Specifically we use the circulation strength timeseries of the fifth version of the Coupled Model Intercomparison Project (CMIP5) in the Community Earth System Model (CESM) as provided in \cite{vanWesten2024}.
 
 % Smolders et al. \cite{Smolder2025} suggest an optimal observation location of X deg N, Y deg E. Ditlevsen and Ditlevsen forecasted the time of collapse of the AMOC to be X \pm Y years from the same timeseries and using an extrapolation procedure similar to the one we constructed here.
+ 
+\begin{figure}[t]
+    \centering 
+    \includegraphics[keepaspectratio, width=\textwidth]{./figures/amoc_collapse.pdf}
+    \caption{}
+    \label{fig:amoc_collapse}
+\end{figure}
 
 \section{Conclusions}\label{sec:conclusion}
 So far the theory of early-warning signals has largely been developed within the same setup we considered through this paper: slow, linear passage through saddle-node bifurcations in low-dimensiona, additive noisy systems.

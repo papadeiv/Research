@@ -4,8 +4,13 @@
 Run this file to execute the simulation, analyse and plot the results.
 """
 
-using StochasticDiffEq, LinearAlgebra, Statistics, Random
-using CairoMakie, SpecialFunctions, Printf
+using StochasticDiffEq
+using SpecialFunctions
+using LinearAlgebra
+using Statistics
+using Random
+using Printf
+using CairoMakie
 
 Random.seed!(1)
 
@@ -16,24 +21,28 @@ include("src/plotting.jl")
 
 # Main algorithm
 function main()
-
-  # Solve the ensemble problem and estimate the return rates of every sample
-  printstyled("Simulating the ensemble and estimating the return rates\n"; bold = true, color = :light_blue)
+  # Solve the ensemble problem
   Ω = generate_samples()
 
-  # Collect the estimates in matrices of size (windows, samples)
-  estimates = reduce(hcat, [sample.α for sample in Ω])
-  uncertainties = reduce(hcat, [sample.u for sample in Ω])
-  tipping_times = filter(isfinite, [sample.tip for sample in Ω])
+  # Compute the ensemble tipping time 
+  tipping_times = filter(isfinite, [ω.tip for ω in Ω])
 
-  # Extrapolate the breaking time of every sample
-  breaking_times = [estimate_breaking_time(tw, estimates[:,j], uncertainties[:,j]).τ for j in 1:Ne]
-  τ̂ = filter(isfinite, breaking_times)
-  @printf("τ = %.1f, τpb = %.1f, median breaking time %.1f\n", τ, τpb, median(τ̂))
-  @printf("forecasts before the tipping time of the pullback attractor: %.1f%%\n", 100*count(τ̂ .< τpb)/length(τ̂))
+  # Estimate the ensemble breaking time
+  breaking_times = filter(isfinite, [extrapolate_breaking_time(ω.rate).τ for ω in Ω])
+
+  @printf("Median breaking time: %.1f\n", median(breaking_times))
+  @printf("Forecasts before the tipping time: %.1f%%\n", 100*count(breaking_times .< τpb)/length(breaking_times))
+
+  # Extract the ensemble median
+  α = median(reduce(hcat, [ω.rate.α for ω in Ω[1:Nm]]), dims=2)[:]
+  u = median(reduce(hcat, [ω.rate.u for ω in Ω[1:Nm]]), dims=2)[:]./Nm
+  rate = (t = Ω[1].rate.t, α = α, u = u)
+
+  # Extrapolate the breaking time of the median return rate
+  forecast = extrapolate_breaking_time(rate)
 
   # Plot the results
-  plot(Ω[1], estimates, uncertainties, breaking_times, tipping_times)
+  plot(Ω[1], rate, forecast, tipping_times, breaking_times)
 end
 
 # Execute main

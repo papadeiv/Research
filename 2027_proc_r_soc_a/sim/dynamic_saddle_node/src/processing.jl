@@ -1,90 +1,82 @@
 """
     Processing
 
-Routines to postprocess and analyse the results of a simulation.
+Routines to estimate the return rate and extrapolate the tipping time.
 """
 
-# Detrend a window by removing its linear trend
+# Linear detrending of a non-stationary timeseries
 function detrend(t, x)
   B = hcat(ones(length(t)), t .- mean(t))
   return x .- B*(B\x)
 end
 
-# Estimate the return rate using (3.16), corrected for the uncertainty using (4.13) and (4.14)
-function estimate_return_rate(z)
-  # Compute the solution of the ordinary least square problem
-  y = diff(z)./Δ
-  λ̂ = sum(z[1:(end-1)].*y)/sum(abs2, z[1:(end-1)])
+# Estimate the return rate
+function estimate_return_rate(t, x)
+  # Locate the first and last observation in the admissible time horizon
+  T1_idx = searchsortedfirst(t, T1)
+  T2_idx = searchsortedlast(t, T2)
 
-  # Compute the uncertainty in the leading eigenvalue
-  uλ = 2*abs(λ̂)/(Δ*(Nw - 1))
+  # Initialize empty arrays
+  timesteps = Float64[]
+  rate = Float64[]
+  uncertainty = Float64[]
 
-  return (α = λ̂^2 - uλ, u = 4*λ̂^2*uλ)
-end
+  # Loop over the windows
+  for idx in T1_idx:Nw:(T2_idx - Nw + 1)
+    # Obtain windowed residuals
+    window = idx:(idx + Nw - 1)
+    z = detrend(t[window], x[window])
 
-# Summarise a sample by its thinned path and the return rates estimated in every window
-function summarise_sample(path)
-  α, u = fill(NaN, length(tw)), fill(NaN, length(tw))
+    # Estimate the leading eigenvalue and its uncertainty
+    y = diff(z)./Δ
+    λ = sum(z[1:(end-1)].*y)/sum(abs2, z[1:(end-1)])
+    u = 2*abs(λ)/(Δ*(Nw - 1))
 
-  # Loop over the rolling windows that the sample reaches
-  for (i, s) in enumerate(starts)
-    s + Nw - 1 <= length(path.u) || continue
-    w = s:(s + Nw - 1)
-    α[i], u[i] = estimate_return_rate(detrend(path.t[w], path.u[w]))
+    # Compute the return rate and its uncertainty
+    α = λ^2 - u
+    u = 4*(λ^2)*u
+
+    # Store the estimate at the midpoint of the window
+    push!(timesteps, t[idx + Nw ÷ 2])
+    push!(rate, α)
+    push!(uncertainty, u)
   end
 
-  # Record the tipping time of the sample, if it tipped
-  tip = path.t[end] < T - Δ ? path.t[end] : NaN
-
-  return (t = thin(path.t, Nt), x = thin(path.u, Nt), α = α, u = u, tip = tip)
+  return (t = timesteps, α = rate, u = uncertainty)
 end
 
-# Extrapolate the breaking time by weighted least squares
-function estimate_breaking_time(t, α, u)
-  # Discard the windows without an estimate
-  k = findall(i -> isfinite(α[i]) && u[i] > 0, eachindex(α))
-  length(k) < 2 && return (τ = NaN, q = NaN, m = NaN)
+# Extrapolate the breaking time
+function extrapolate_breaking_time(estimates)
+  # Filter NaN and Inf
+  valid = isfinite.(estimates.α) .& isfinite.(estimates.u) .& (estimates.u .> 0)
+  count(valid) < 2 && return (τ = NaN, q = NaN, m = NaN)
+  t = estimates.t[valid]
+  α = estimates.α[valid]
+  u = estimates.u[valid]
 
-  # Solve the weighted normal equations
-  B = hcat(ones(length(k)), t[k])
-  W = Diagonal(1.0./u[k])
-  q, m = (B'*W*B) \ (B'*W*α[k])
+  # Assemble the model and the weight matrix
+  B = hcat(ones(length(t)), t)
+  W = Diagonal(1.0./u)
+
+  # Solve the weighted normal equation
+  q, m = (B'*W*B) \ (B'*W*α)
 
   return (τ = -q/m, q = q, m = m)
 end
 
-# Compute the median of the estimates in every window
-compute_median(M) = [median(filter(isfinite, M[i,:])) for i in axes(M, 1)]
-
-# Split a sample into the parts lying outside and inside the admissible horizon
-function split_admissible(t)
-  return (before = t .<= tw[1],
-          admissible = tw[1] .<= t .<= tw[end],
-          after = t .>= tw[end])
-end
-
-# Compute the tail integral of the fourth power of Ai by the trapezoidal rule
-function airy_tail(w; wmax=10.0, n=3000)
-  u = range(w, wmax, length=n)
-  y = airyai.(u).^4
-
-  return (sum(y) - (y[1] + y[end])/2)*step(u)
-end
-
-# Compute the small noise law of the tipping time, supported between the first two zeros of Bi
-function p_small_noise(t)
+# Muller's approximation
+function tipping_distribution(t)
   # Rescale the time and reject the points outside the support
   w = ε^(1/3)*(τ - t)
   -3.2711 < w < -1.1737 || return 0.0
 
-  # Evaluate the Airy functions and their tail integral
-  A, B, g = airyai(w), airybi(w), airy_tail(w)
+  # Integrate the fourth power of Ai over the tail by the trapezoidal rule
+  s = range(w, 10.0, length=3000)
+  y = airyai.(s).^4
+  g = (sum(y) - (y[1] + y[end])/2)*step(s)
 
+  # Evaluate the density
+  A = airyai(w)
+  B = airybi(w)
   return ε^(5/6)/(sqrt(4π^5*D)*B^2*sqrt(g))*exp(-ε*A^2/(4π^2*D*B^2*g))
 end
-
-# Compute the number of histogram bins by Scott's rule
-scott(x) = max(1, ceil(Int, (maximum(x) - minimum(x))/(3.49*std(x)*length(x)^(-1/3))))
-
-# Thin a vector down to at most n points
-thin(v, n) = v[round.(Int, range(1, length(v), length=min(n, length(v))))]
