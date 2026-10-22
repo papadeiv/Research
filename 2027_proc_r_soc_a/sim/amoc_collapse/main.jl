@@ -32,6 +32,7 @@ function main()
 
   # Extrapolate the breaking time
   τ = extrapolate_breaking_time(α)
+  display(τ)
 
   # Plot the timeseries and the forecast
   plot_forecast(t, ϕ, α, τ)
