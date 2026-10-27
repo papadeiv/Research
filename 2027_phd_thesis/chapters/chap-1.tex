@@ -1,7 +1,7 @@
 The dynamics of complex systems has receveid significant attention, over the last decades, from many research communities in science and engineering.
 Of particular interest to scientists and modelers is the study of the nonlinear response of these systems to external perturbations which often features the emergence of a rich and diverse set of phenomena including pattern formation, chaotic regimes, resonance and, crucially, critical transitions.
 A critical transition in a complex system, often referred to as a \emph{tipping point} or a \emph{tipping event}, is recorded whenever a small change in the system's input leads to a large and sometimes irreversible change in the systems' response.
-More specifically, a tipping point is considered as an abrupt shift in the long--term, stable regime of a dynamical system following a slow degradation of its equilibrium.
+More specifically, a tipping point is considered as an abrupt shift in the steady--state of a dynamical system following a slow degradation of the stability of its equilibria.
 
 A concrete example, often discussed in the literaure to introduce the main concepts of critical transitions, is the collapse of multi--species ecosystems under sustained and increasing deterioration of its biomass.
 In 1977 Robert May proposed a dynamical model in which a population of herbivores, sustained by a decreasing level of vegetation biomass in a closed environment, can experience a sudden collapse due to unsustained levels of grazing \cite{May1977}.
@@ -12,28 +12,28 @@ This new, unsustainable state is also stable however, meaning that it will remai
 Interestingly however, simply driving the grazing rate past the breakpoint that caused the collapse may not suffice to guarantee the reversal of the unhealthy state following the critical transition (as shown in Figure ?).
 This increase in the restoring effort can sometimes be so significant that the tipping point may be de--facto irreversible, leaving the ecosystem in a permanent collapsed state.
 
-Despite the rather severe outcome of such event, critical transitions appear to be ubiquitous across systems of varying complexity and of substantially different nature.
-Examples of tipping events in natural and human systems that lead to catastrophic phenomena are found in extreme paleoclimatic events, ecosystems degradation \cite{OSullivan2023,Kumar2026}, spikes in neurobiological activity \cite{Boerner2024}, onset of asthma and ventilation defects \cite{Venegas2005,Donovan2015}, weakining of the strength in ocean currents due to antrhopogenic global warming \cite{Boers2021,Dijkstra2026}, hysteresis in laser systems \cite{Hohl1995}, instabilities in magnetically confined plasma \cite{Cowley2015} and thermoacustic systems \cite{Pavithran2021}, capsizing of marine vessels \cite{Shao2026}, formation of traffic congenstion \cite{Chattopadhyay2026}, financial crashes \cite{Vandewalle1998} and civilization collapse \cite{Scheffer2021,Doak2026}.
+Despite the rather severe disruptions caused by such events, critical transitions appear to be ubiquitous across many human and natural systems, with varying complexity and of substantially different nature.
+Examples of tipping events leading to catastrophic phenomena can be found in extreme paleoclimatic events, ecosystems degradation \cite{OSullivan2023,Kumar2026}, spikes in neurobiological activity \cite{Boerner2024}, onset of asthma and ventilation defects \cite{Venegas2005,Donovan2015}, anthropogenic shut--down of ocean currents \cite{Boers2021,Dijkstra2026}, hysteresis in laser systems \cite{Hohl1995}, instabilities in magnetically confined plasma \cite{Cowley2015} and thermoacustic devices \cite{Pavithran2021}, capsizing of marine vessels \cite{Shao2026}, formation of traffic congenstion \cite{Chattopadhyay2026}, financial crashes \cite{Vandewalle1998,Kozlowska2016} and civilization collapse \cite{Scheffer2021,Doak2026}.
 
-\section{Historical context}\label{sec:context}
+\section{Historical context}
 Perhaps unsurprisingly, shortly after May's paper on ecosystems collapse, several attempts in characterizing these catastrophic events in a systematic manner followed.
-In 1984 Wissel observed that the return time of perturbations towards the stable steady--state increases the closer the system is to the breakpoint described by May \cite{Wissel1984}.
+In 1984 Wissel observed that the return time of perturbations towards the stable steady--state increases the closer the system is to the breakpoint \cite{Wissel1984}.
 Two years later Wiesenfeld and McNamara realized that, more generically, systems approching bifurcations display amplifications of the spectral properties of their signal due to weakening in the attraction of the favourable steady--state \cite{Wiesenfeld1986}.
 This \emph{``universal law''} was linked to the concept of resilience in (stochastic) ecological systems by Ives in 1995 which identified an increase in variability of population densities relative to increases in environmental degradations \cite{Ives1995}.
 
-This characteristic phenomenon, later named \emph{critical slowing down} (CSD) in 1998 \cite{Gandhi1998}, usually refers to the lethargic decay of stochastic fluctuations in the neighbour of a local attractor once it approaches a tipping point.
+This characteristic phenomenon, later named \emph{critical slowing down} (CSD) in 1998 \cite{Gandhi1998}, usually refers to the lethargic decay of stochastic fluctuations in the neighbour of a local attractor as it approaches a tipping point.
 In particular, the time for these perturbations to relax back to the stable equilibrium is exponential for an attractor that is far enough from the breakpoint, and algebraic, for the same attractor, close to the breakpoint.
 The onset of CSD prior to a critical transition has since been heavily exploited by several communities to attempt to forecast catastrophic events before those points of no return.
 
 First, in 2001 Scheffer et al. proposed a model of stochastic resilience in ecosystems in which a gradually changing condition, such as the inflow of toxic chemicals and nutrients, or the loss of species diversity, can be perturbed by seemingly random events such as weather extremes, wild fires or pests outbreaks \cite{Scheffer2001}. 
-The resulting model, corroborated by empirical evidence in lakes and ocean ecosystems, was the first attempt at combining multi--stable, deterministic regimes of long--term behaviour with short--term, stochastic fluctuations in the state of a complex system.
-This was followed by a similar modeling choice in 2003 by Kleinen and Held, which once again used a stochastic approach to detect treshold switchings in the North--Atlantic thermohaline circulation within both a conceptual \cite{Kleinen2003} and intermediate complexity models \cite{Held2004}.
+The resulting model, corroborated by empirical evidence in lakes and oceans ecosystems, was the first attempt at combining multi--stable, deterministic regimes of long--term behaviour with short--term, stochastic fluctuations in the state of a complex system.
+This was followed by a similar modeling choice in 2003 by Kleinen and Held, which once again used a stochastic approach to detect treshold switchings in the North--Atlantic thermohaline circulation within both conceptual \cite{Kleinen2003} and intermediate complexity models \cite{Held2004}.
 Finally, in 2006 Carpenter and Brock used timeseries simulations of a lake model to forecast its eutrophication, with several decades in advance, by detecting CSD via increases in the signals' standard deviation \cite{Carpenter2006}.
 
-These early works in the first half of the 2000s, spurred a significant uptake in the prediction of catastrophic shifts in ecosystems and climate systems regimes for the remaining part of the decade; here we cite but a few \cite{Livina2007,vanNes2007,Carpenter2008,Dakos2008,Guttal2008,Biggs2009,Chisholm2009,Guttal2008,Brock2010,Carpenter2010,Dakos2010,Drake2010}.
+These early works in the first half of the 2000s, spurred a significant uptake in the prediction of catastrophic shifts in the stable regimes of ecological and climate systems for the remaining part of the decade; here we cite but a few \cite{Livina2007,vanNes2007,Carpenter2008,Dakos2008,Guttal2008,Biggs2009,Chisholm2009,Guttal2008,Brock2010,Carpenter2010,Dakos2010,Drake2010}.
 By the ealy 2010s the research question of detecting CSD to forecast tipping points in natural systems had spread quite substantially across many scientific communities up to the point that both early reviews \cite{Scheffer2009,Scheffer2012} and criticisms \cite{Hastings2010,Ditlevsen2010} started to appear.
 
-\section{A mathematical framework}\label{sec:math}
+\section{A mathematical framework}
 All of the early endevours in the prediction of critical transitions so far, while relying on the mathematical characterization of slower return times provided by CSD, did not rigorously quantify the proposed statistical indicators as signals of early--warning.
 In other words, a lack of mathematical justification, beside few qualitative arguments made thus far, started to, justifiably, raise some concerns and skepticism regarding the range of applicability of this new theory \cite{Boettiger2013,Boerlijst2013,Kefi2013,Bos2014}.
 
@@ -44,17 +44,17 @@ The starting point is to consider the following SDE
      dX_t = f(X_t;\mu)dt + \sigma dW_t ,
 \end{equation}
 %
-where $X_t\in \mathbb{R}^{d}$ is a collection of $d\geq1$ random variables reppresenting the state of the system (i.e. its response) at any given time $t$, $\mu\in \mathbb{R}^{p}$ is a $p-$dimensional parameter vector reppresenting the external forcing acting on the system (i.e. its input), $W_t$ is a canonical Wiener process of standard increments (i.e. $W_{t+s}-W_t\sim\mathcal{N}(0,s)$), $f:\mathbb{R}^{d}\to \mathbb{R}^{d}$ is a sufficiently smooth vector field quantifying the (deterministic) drift of the state variables and $\sigma>0$ quantifies the magntitude of the noisy fluctuations induced by the (stochastic) diffusion $W_t$ relative to the drift.
+where $X_t\in \mathbb{R}^{d}$ is a collection of $d\geq1$ random variables representing the state of the system (i.e. its response) at any given time $t$, $\mu\in \mathbb{R}^{p}$ is a $p-$dimensional parameter vector representing the external forcing acting on the system (i.e. its input), $W_t$ is a canonical Wiener process of standard increments (i.e. $W_{t+s}-W_t\sim\mathcal{N}(0,s)$), $f:\mathbb{R}^{d}\to \mathbb{R}^{d}$ is a sufficiently smooth vector field quantifying the (deterministic) drift of the state variables and $\sigma>0$ quantifies the magntitude of the noisy fluctuations induced by the (stochastic) diffusion $W_t$ relative to the drift.
 
-Steady--states in a complex systems are associated to equilibria of the drift term in \eqref{eq:sde}, that is points $x_*\in\mathbb{R}^{d}$ in the state space for which the vector field vanishes, i.e. $f(x_*)=0$.
+Steady--states of a complex system correspond to equilibria of the drift term in \eqref{eq:sde}, that is points $x_*\in\mathbb{R}^{d}$ in the state space for which the vector field vanishes, i.e. $f(x_*)=0$.
 Observable steady--states, that is states for which the complex system is measured in the real--world, are further characterized by the spectral properties of the linearized vector field $f$.
-In particular, an equilibrium $x_+\in \mathbb{R}^{d}$ is (linearly) stable if the entirety of the spectrum of the Jacobian of $f$ evaluated at $x_+$ is in the complex half--plane with negative real part, i.e.
+In particular, an equilibrium $x_+\in \mathbb{R}^{d}$ is (linearly) stable if the entirety of the spectrum of the Jacobian of $f$, evaluated at $x_+$, is in the complex half--plane with negative real part, i.e.
 %
 \begin{equation}\label{eq:stable_equilibrium}
   x_+\quad \text{is stable}\quad \iff \quad \mathfrak{Re}\Bigl[\operatorname{Spec}\bigl(Df(x_+)\bigr)\Bigr] < 0.
 \end{equation}
 %
-A stable equilibrium, corresponding to an observable steady--state, attracts nearby regions of the state space and thus it is robust to the (relatively small) stochastic fluctuations measured in nature.
+A stable equilibrium attracts nearby regions of the state space which means that (relatively small) stochastic fluctuations around $x_+$ will robustly return back to it.
 Conversely, the Jacobian of $f$ at an (linearly) unstable equilibrium $x_-\in\mathbb{R}^{d}$ features a spectrum entirely contained in the positive real half of the complex plane, i.e.
 %
 \begin{equation}\label{eq:unstable_equilibrium}
@@ -65,7 +65,7 @@ To produce critical transitions using \eqref{eq:sde}, one must allow for either 
 A prototypical example under this framework is the saddle--node normal form for which $f(x;\mu) = -\mu - x^2$.
 It is easy to deduce that for every strictly negative value of $\mu$ there exist two distinct branches of equilibria of $f$, namely $x_{\pm}(\mu) = \pm\sqrt{-\mu}$; the positive branch $x_+(\mu)$ has a negative Jacobian $Df(x_+(\mu))<0$, which makes it a stable equilibrium, while the negative branch $x_-(\mu)$ has a positive Jacobian $Df(x_-(\mu))>0$, which makes it an unstable equilibrium.
 At $\mu=0$ these two branches collide and collapse into a unique equilibrium at the origin $x_+(0)=x_-(0)=0$ which results in a saddle--node (often called \emph{fold}) bifurcation. 
-Finally, for any strictly positive values $\mu$ no real--valued root of $f$ exists and as such no equilibria are left in the state space $\mathbb{R}$.
+Finally, for any strictly positive value of $\mu$ no real--valued root of $f$ exists and as such no equilibria are left in the state space $\mathbb{R}$; the system can thus never settle on a steady--state and its fate is to \emph{escape} at infinity (finite time blow-up).
 
 Kuehn noted that, by making the parameter itself time--dependent, one can drive the state of the system across the qualitative change prescribed by the saddle--node bifurcation.
 Specifically, by setting the deterministic part of \eqref{eq:sde} to be a slow--fast (nonautonomous) drift of the form
@@ -79,4 +79,39 @@ Specifically, by setting the deterministic part of \eqref{eq:sde} to be a slow--
 %
 where $0<\varepsilon\ll1$ denotes the separation in the timescale of the evolution of $X_t$ and $\mu$, an initially stable, observed state $x(\mu_0)$, $\mu_0 < 0$, will inevitably pass through a region of instability at $\mu=0$ and eventually be forced to tip to $-\infty$, thereby resulting in a bifurcation--induced critical transition (see Figure ?).
 
-\section{Recent advances}\label{sec:advances}
+To substantiate the statistical detection of CSD from timeseries however, one needs to consider the statistical properties of noisy sample paths rather than just following its deterministic drift.
+Kuehn thus considered the singular limit $\varepsilon\downarrow0$  of \eqref{eq:sde} for which a trajectory $X_t$ evolves around the stable equilibrium $x_+(\mu)$, $\mu<0$ and its fluctuations attain a Boltzmann--like (stationary) probability distribution of the form
+%
+\begin{equation}\label{eq:stationary_fpe}
+  p(x)\overset{d}{\approx} N \exp\Bigl(-\frac{2}{\sigma^2}\int_{I}^{}f(x;\mu)dx\Bigr),
+\end{equation}
+%
+with $N>0$ being a normalization constant of $p$ over a compact set $I$ that contains $x_+(\mu)$.
+The existence of a stationary (sometimes referred to as \emph{equilibrium}) distribution \eqref{eq:stationary_fpe} enables the analytical approximation of the central variance of the random variable $X_t$ by exploiting its definition
+%
+\begin{equation}\label{eq:stationary_variance}
+  \Var[X_t] = \int_{I}^{}\bigl(x-p(x)\bigr)^2dx .
+\end{equation}
+%
+By considering the case of a saddle--node normal form $f(x;\mu) = -\mu - x^2$, $I = [x_-(\mu),+\infty)$, and plugging \eqref{eq:stationary_fpe} in \eqref{eq:stationary_variance} one can approximate $\Var[X_t]$ by quadrature and thus, in principle, show that an increase in variance of the sample paths does indeed preceed the tipping point.
+This result is then corroborated by Monte Carlo simulations (see Figure ?) in which the variance \eqref{eq:stationary_variance} of the equilibrium distribution \eqref{eq:stationary_fpe} matches the mean sample variance of the solutions of \eqref{eq:sde} with good accuracy.
+
+\section{Modern developments}
+In 2012, Ashwin et al. discovered another mechanism that is responsible for generating critical transitions, which is inherently tied to the nonautonomous nature of \eqref{eq:slow_fast}.
+They discovered that when the rate of change $\varepsilon$ of the forcing parameter $\mu$ is fast enough it would cause the quasi steady--state of a system to escape the basin of attraction of a stable equilibrium; they named this phenomenon rate--induced tipping \cite{Ashwin2012}.
+This new phenomon fundamentally differs from the bifurcation--induced critical transitions formalized by Kuehn since rate--induced escapes need not the system to be driven through a local (or global) bifurcation in order for tipping to occur, as later shown in \cite{Ashwin2017,Wieczorek2023}.
+Ritchie and Sieber later proved that CSD can still be detected for rate--induced tipping via increases in timeseries variance albeit with delay \cite{Ritchie2016}.
+Rate--induced tipping have since become an active field of research in the modeling of critical transitions, with notable applications recently discovered in ecosystems \cite{OSullivan2023,Kumar2026} and ocean currents \cite{Alkhayuon2019,Lohmann2021,Chapman2025}.
+
+Concurrently with these developments, other communities started to research possibilities to extend the theory of CSD--based early--warning signals of tipping points to high--dimensional systems.
+Specifically, attempts to generalize statistical precursors of critical transitions for spatially--extended systems started to appear in the second half of the 2010s.
+Early efforts by Kuehn and others on the loss of stability of travelling wave fronts \cite{Kuehn2012} and homogeneous steady--states \cite{Gowda2015} led the way to later advances in the derivation of early--warning signals for spatial networks which carried over in the early 2020s.
+Examples of these can be found in \cite{Jentsch2018,Chen2019,Donovan2022,Deb2024,Morr2024}.
+Finally, due to the limitations posed by the collection of large data from spatially extended systems, a question remained on how to optimally observe high--dimensional systems in order to detect CSD. 
+Most recently, works by Lohmann and Gottwald in 2025 \cite{Lohmann2025}, and Clarke et al. \cite{Clarke2026} and \cite{Miyauchi2026} in 2026, have started laying the foundations on how low--dimensional observables (i.e. smooth transformations of the state variables) can be extracted from high--dimensional systems in order to anticipate critical transitions through early--warning signals.
+
+\section{Research overview and aims}
+Despite the many efforts cited so far, there still exist a substantial discrepancy between the mathematical theory of early--warning signals and the range of applicability to real--world timeseries data from complex systems.
+Limitations involving the ? \cite{Dakos2015,Parry2026,Ditlevsen2026} have so far constrained the development of realistic early--warning systems to prevent the collapse in natural systems.
+
+\section{Thesis outline}
