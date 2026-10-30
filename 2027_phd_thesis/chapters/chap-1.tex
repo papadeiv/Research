@@ -3,13 +3,13 @@ Of particular interest to scientists and modelers is the study of the nonlinear 
 A critical transition in a complex system, often referred to as a \emph{tipping point} or a \emph{tipping event}, is recorded whenever a small change in the system's input leads to a large and sometimes irreversible change in the systems' response.
 More specifically, a tipping point is considered as an abrupt shift in the steady--state of a dynamical system following a slow degradation of the stability of its equilibria.
 
-A concrete example, often discussed in the literaure to introduce the main concepts of critical transitions, is the collapse of multi--species ecosystems under sustained and increasing deterioration of its biomass.
-In 1977 Robert May proposed a dynamical model in which a population of herbivores, sustained by a decreasing level of vegetation biomass in a closed environment, can experience a sudden collapse due to unsustained levels of grazing \cite{May1977}.
+A concrete example, often discussed in the literaure to introduce the main concepts of critical transitions, is the collapse of multi--species ecosystems under sustained and increasing deterioration of their biomass.
+In 1977 Robert May proposed a dynamical model in which a population of herbivores, sustained by a decreasing level of vegetation cover in a closed environment, can experience a sudden collapse due to unsustainable increases in the grazing rate \cite{May1977}.
 In his model, May realized that a characteristic separation between the timescales of the evolution of the animal population and the grazing rate of the biomass leads to qualitatively different regimes in the observed state of the ecosystem.
-In one state the ecosystem is in a healthy, sustainable equilibrium and the vegetation cover allows for the slowly increase in the grazing activity of the herbivores. 
-Past a certain threshold however (described as \emph{breakpoint} in May's paper) the grazing ecosystem can no longer sustain the animal population and the biomass sharply declines to near--zero across the ecosystem, resulting in the collapse of herbivores density as well. 
-This new, unsustainable state is also stable however, meaning that it will remain in a collapsed fashion unless a restoring action is enforced.
-Interestingly however, simply driving the grazing rate past the breakpoint that caused the collapse may not suffice to guarantee the reversal of the unhealthy state following the critical transition (as shown in Figure~\ref{fig:may_model}).
+In one state the ecosystem is in a healthy, sustainable equilibrium and the vegetation cover allows for the slowly increase in the grazing activity of the herbivores.
+Past a certain threshold however (described as \emph{breakpoint} in May's paper) the ecosystem can no longer sustain the animal population and the biomass sharply declines to near--zero across, resulting in the collapse of the herbivores density. 
+This new, unsustainable state is also stable however, meaning that the ecosystem will remain in its collapsed state unless a restoring action is enforced.
+Interestingly however, simply driving the grazing rate back to pre--breakpoint levels may not suffice to guarantee the reversal of the unhealthy state following the critical transition (as shown in Figure~\ref{fig:may_model}).
 %
 \begin{figure}[t]
     \centering 
@@ -23,8 +23,8 @@ Interestingly however, simply driving the grazing rate past the breakpoint that 
 %
 This increase in the restoring effort can sometimes be so significant that the tipping point may be de--facto irreversible, leaving the ecosystem in a permanent collapsed state.
 
-Despite the rather severe disruptions caused by such events, critical transitions appear to be ubiquitous across many human and natural systems, with varying complexity and of substantially different nature.
-Examples of tipping events leading to catastrophic phenomena can be found in extreme paleoclimatic events, ecosystems degradation \cite{OSullivan2023,Kumar2026}, spikes in neurobiological activity \cite{Boerner2024}, onset of asthma and ventilation defects \cite{Venegas2005,Donovan2015}, anthropogenic shut--down of ocean currents \cite{Boers2021,Dijkstra2026}, hysteresis in laser systems \cite{Hohl1995}, instabilities in magnetically confined plasma \cite{Cowley2015} and thermoacustic devices \cite{Pavithran2021}, capsizing of marine vessels \cite{Shao2026}, formation of traffic congenstion \cite{Chattopadhyay2026}, financial crashes \cite{Vandewalle1998,Kozlowska2016} and civilization collapse \cite{Scheffer2021,Doak2026}.
+Despite the rather severe disruptions caused by such events, critical transitions appear to be ubiquitous across many human and natural systems, with varying degrees of complexity and of substantially different nature.
+Examples of tipping events leading to catastrophic phenomena can be found in extreme paleoclimatic events \cite{Lenton2012,Bagniewski2023}, ecosystems degradation \cite{OSullivan2023,Kumar2026}, spikes in neurobiological activity \cite{Boerner2024}, onset of asthma and ventilation defects \cite{Venegas2005,Donovan2015}, anthropogenic shut--down of ocean currents \cite{Boers2021,Dijkstra2026}, hysteresis in laser systems \cite{Hohl1995}, instabilities in magnetically confined plasma \cite{Cowley2015} and thermoacustic devices \cite{Pavithran2021}, capsizing of marine vessels \cite{Shao2026}, formation of traffic congenstion \cite{Chattopadhyay2026}, financial crashes \cite{Vandewalle1998,Kozlowska2016} and civilization collapse \cite{Scheffer2021,Doak2026}.
 
 \section{Historical context}
 Perhaps unsurprisingly, shortly after May's paper on ecosystems collapse, several attempts in characterizing these catastrophic events in a systematic manner followed.
@@ -42,7 +42,7 @@ This was followed by a similar modeling choice in 2003 by Kleinen and Held, whic
 Finally, in 2006 Carpenter and Brock used timeseries simulations of a lake model to forecast its eutrophication, with several decades in advance, by detecting CSD via increases in the signals' standard deviation \cite{Carpenter2006}.
 
 These early works in the first half of the 2000s, spurred a significant uptake in the prediction of catastrophic shifts in the stable regimes of ecological and climate systems for the remaining part of the decade; here we cite but a few \cite{Livina2007,vanNes2007,Carpenter2008,Dakos2008,Guttal2008,Biggs2009,Chisholm2009,Guttal2008,Brock2010,Carpenter2010,Dakos2010,Drake2010}.
-By the ealy 2010s the research question of detecting CSD to forecast tipping points in natural systems had spread quite substantially across many scientific communities up to the point that both early reviews \cite{Scheffer2009,Scheffer2012} and criticisms \cite{Hastings2010,Ditlevsen2010} started to appear.
+By the early 2010s the research question of detecting CSD to forecast tipping points in natural systems had spread quite substantially across many scientific communities up to the point that both early reviews \cite{Scheffer2009,Scheffer2012} and criticisms \cite{Hastings2010,Ditlevsen2010} started to appear.
 
 \section{A mathematical framework}
 All of the early endevours in the prediction of critical transitions so far, while relying on the mathematical characterization of slower return times provided by CSD, did not rigorously quantify the proposed statistical indicators as signals of early--warning.
@@ -55,7 +55,7 @@ The starting point is to consider the following SDE
      dX_t = f(X_t;\mu)dt + \sigma dW_t ,
 \end{equation}
 %
-where $X_t\in \mathbb{R}^{d}$ is a collection of $d\geq1$ random variables representing the state of the system (i.e. its response) at any given time $t$, $\mu\in \mathbb{R}^{p}$ is a $p-$dimensional parameter vector representing the external forcing acting on the system (i.e. its input), $W_t$ is a canonical Wiener process of standard increments (i.e. $W_{t+s}-W_t\sim\mathcal{N}(0,s)$), $f:\mathbb{R}^{d}\to \mathbb{R}^{d}$ is a sufficiently smooth vector field quantifying the (deterministic) drift of the state variables and $\sigma>0$ quantifies the magntitude of the noisy fluctuations induced by the (stochastic) diffusion $W_t$ relative to the drift.
+where $X_t\in \mathbb{R}^{d}$ is a collection of $d\geq1$ random variables representing the state of the system (i.e. its response) at any given time $t$, $\mu\in \mathbb{R}^{p}$ is a $p-$dimensional parameter vector representing the external forcing acting on the system (i.e. its input), $W_t$ is a canonical Wiener process of standard increments (i.e. $W_{t+s}-W_t\sim\mathcal{N}(0,s)$), $f:\mathbb{R}^{d}\to \mathbb{R}^{d}$ is a sufficiently smooth vector field quantifying the (deterministic) drift of the state variables and $\sigma>0$ quantifies the magntitude of the noisy fluctuations induced by the diffusion process $W_t$ relative to the drift.
 
 Steady--states of a complex system correspond to equilibria of the drift term in \eqref{eq:sde}, that is points $x_*\in\mathbb{R}^{d}$ in the state space for which the vector field vanishes, i.e. $f(x_*)=0$.
 Observable steady--states, that is states for which the complex system is measured in the real--world, are further characterized by the spectral properties of the linearized vector field $f$.
@@ -88,24 +88,44 @@ Specifically, by setting the deterministic part of \eqref{eq:sde} to be a slow--
   \end{aligned}
 \end{equation}
 %
-where $0<\varepsilon\ll1$ denotes the separation in the timescale of the evolution of $X_t$ and $\mu$, an initially stable, observed state $x(\mu_0)$, $\mu_0 < 0$, will inevitably pass through a region of instability at $\mu=0$ and eventually be forced to tip to $-\infty$, thereby resulting in a bifurcation--induced critical transition (see Figure ?).
+where $0<\varepsilon\ll1$ denotes the timescale separation between the evolution of $X_t$ and $\mu$, an initially stable, observed state $x(\mu_0)$, $\mu_0 < 0$, will inevitably pass through a region of instability at $\mu=0$ and eventually be forced to tip to $-\infty$, thereby resulting in a bifurcation--induced critical transition (see Figure~\ref{fig:slow_fast_model}).
+%
+\begin{figure}[t]
+    \centering 
+    \includegraphics[keepaspectratio, width=\textwidth]{../figures/slow_fast_model.pdf}
+    \caption{Trajectories of a slow--fast system of the form \eqref{eq:slow_fast} associated to a saddle--node normal form $f(x,\mu)=-\mu-x^2$.
+    Panel (a): in the singular limit $\varepsilon\to0$ a deterministic solution, corresponding to the noiseless case $\sigma=0$ (grey curve), is decomposed in fast (double arrows) and slow (single arrow) flows; notice that the slow portion of the flow approximates the stable branch $x_+(\mu)=\sqrt{-\mu}$ of the equilibria of $f$ (blue curve).
+    Panel (b): in the nonautonomous regime $\varepsilon=10^{-1}$ a deterministic solution (orange curve) converges fast to a neighbour of the stable branch and slowly tracks it up to the saddle--node bifurcation after which it escapes at $-\infty$.
+    A sample path associated to a noise level $\sigma=10^{-2}$ (grey timeseries) follows the same trend of the deterministic solution despite the stochastic fluctuations.}
+    \label{fig:slow_fast_model}
+\end{figure}
 
 To substantiate the statistical detection of CSD from timeseries however, one needs to consider the statistical properties of noisy sample paths rather than just following its deterministic drift.
 Kuehn thus considered the singular limit $\varepsilon\downarrow0$  of \eqref{eq:sde} for which a trajectory $X_t$ evolves around the stable equilibrium $x_+(\mu)$, $\mu<0$ and its fluctuations attain a Boltzmann--like (stationary) probability distribution of the form
 %
 \begin{equation}\label{eq:stationary_fpe}
-  p(x)\overset{d}{\approx} N \exp\Bigl(-\frac{2}{\sigma^2}\int_{I}^{}f(x;\mu)dx\Bigr),
+  p(x)\overset{d}{\approx} N \exp\biggl(\frac{2}{\sigma^2}\int_{I}^{}f(x;\mu)dx\biggr),
 \end{equation}
 %
 with $N>0$ being a normalization constant of $p$ over a compact set $I$ that contains $x_+(\mu)$.
 The existence of a stationary (sometimes referred to as \emph{equilibrium}) distribution \eqref{eq:stationary_fpe} enables the analytical approximation of the central variance of the random variable $X_t$ by exploiting its definition
 %
 \begin{equation}\label{eq:stationary_variance}
-  \Var[X_t] = \int_{I}^{}\bigl(x-p(x)\bigr)^2dx .
+  \Var[X_t] = \int_{I}^{}\bigl(x-\E[x]\bigr)^2p(x)dx .
 \end{equation}
 %
 By considering the case of a saddle--node normal form $f(x;\mu) = -\mu - x^2$, $I = [x_-(\mu),+\infty)$, and plugging \eqref{eq:stationary_fpe} in \eqref{eq:stationary_variance} one can approximate $\Var[X_t]$ by quadrature and thus, in principle, show that an increase in variance of the sample paths does indeed preceed the tipping point.
-This result is then corroborated by Monte Carlo simulations (see Figure ?) in which the variance \eqref{eq:stationary_variance} of the equilibrium distribution \eqref{eq:stationary_fpe} matches the mean sample variance of the solutions of \eqref{eq:sde} with good accuracy.
+This result is then corroborated by Monte Carlo simulations (see Figure~\ref{fig:stationary_variance}) in which the variance \eqref{eq:stationary_variance} of the equilibrium distribution \eqref{eq:stationary_fpe} matches the mean sample variance of the solutions of \eqref{eq:sde} with good accuracy.
+%
+\begin{figure}[t]
+    \centering 
+    \includegraphics[keepaspectratio, width=\textwidth]{../figures/stationary_variance.pdf}
+    \caption{Comparison between the variance \eqref{eq:stationary_variance} of the equilibrium distribution \eqref{eq:stationary_fpe} for the saddle--node normal form $f(x;\mu) = -\mu - x^2$ (red curve) and the sample variance of Monte Carlo simulations.
+      At specified parameter values in $[-1,0)$ an ensemble of $1{,}000$ solutions is computed; for each of these trajectories the sample variance is computed, thus yielding a set of $1{,}000$ measurements.
+      The ensemble mean (black curve) and the $5^{\text{th}}-95^{\text{th}}$ percentile (gray shaded region) are then extracted.}
+    \label{fig:stationary_variance}
+\end{figure}
+
 
 \section{Modern developments}
 In 2012, Ashwin et al. discovered another mechanism that is responsible for generating critical transitions, which is inherently tied to the nonautonomous nature of \eqref{eq:slow_fast}.

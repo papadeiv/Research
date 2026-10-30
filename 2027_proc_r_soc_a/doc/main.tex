@@ -28,7 +28,7 @@
 
 \begin{document}
 
-\title{Forecasting tipping times from data: a practical guide}
+\title{Forecasting tipping times from data: a data--driven pipeline}
 
 \author{Davide Papapicco$^{1}$, Lauren Smith$^{1}$ and Graham Donovan$^{1}$}
 \address{$^{1}$Department of Mathematics, University of Auckland, New Zealand}
@@ -38,8 +38,11 @@
 \keywords{early warning signals, tipping points, numerical methods, statistical inference, multiscale dynamics}
 
 \begin{abstract}
-        We derive a fully data--driven pipeline for the accurate forecast of tipping times in complex systems by combining established techniques in nonautonomous dynamics and statistical estimation for stochastic differential equations.
-        Our aim is to provide a practical guide for the generation and collection of data to scientists and modelers that are interested in predicting tipping events from recorded timeseries of their systems.
+        The long--term behaviour of complex systems in ecology, biology and climate science can sometimes experience nonlinear excursions away from a regime of stable evolution around equilibria.
+        These events, often called critical transitions or tipping phenomena, are usually associated with the loss of resilience of a given system to recover from external perturbations.
+        Due to the potentially catastrophic repercussions that critical transitions can bring upon the sustainability of complex systems, a great deal of effort has recently being devoted in the characterization and early detection of tipping events from timeseries.
+        In this paper we derive a fully data--driven pipeline for the accurate forecast of tipping times in complex systems by combining established techniques in nonautonomous dynamics and statistical estimation for stochastic differential equations.
+        Our aim is to provide an out--of--the--box methodology for prediction of critical transitions as well as the generation and collection of data to scientists and modelers.
         This pipeline relies on a series of assumptions, which we discuss throughout this paper, that provide an optimal observation protocol for the forecast of tipping times.
         \absbreak 
 \end{abstract}
@@ -47,21 +50,22 @@
 \begin{fmtext}
         \section{Introduction}
         Tipping phenomena (or critical transitions) are abrupt changes in the state of complex systems that correspond to disruptive and potentially permanent alterations in their long--term behaviour.
-        They have been studied across a broad and diverse collection of natural and human critical phenomena including ecosystems degradation \cite{OSullivan2023,Kumar2026}, neurobiological activity spikes \cite{Boerner2024}, onset of asthma \cite{Venegas2005,Donovan2015}, weakining of ocean currents \cite{Boers2021,Dijkstra2026}, hysteresis in laser systems \cite{Hohl1995}, generation of instabilities in magnetically confined plasma \cite{Cowley2015} and thermoacustic systems \cite{Pavithran2021}, marine vessels capsizing \cite{Shao2026}, formation of traffic congenstion \cite{Chattopadhyay2026} and civilization collapse \cite{Scheffer2021,Doak2026}.
-
-        Catastrophic events are usually characterized by the loss of stability of steady--states due to nonlinear and noisy responses to slow--varying external forcing.
-        Their canonical classification, proposed in \cite{Ashwin2012}, distinguishes between bifurcation--induced (B-), rate--induced (R-) and noise--induced (N-) tipping points.
-        Furthermore, slow--fast dynamics and bifurcation theory provide a modeling framework for the forecast of critical transitions \cite{Kuehn2011}.
-        The prediction of approaching catastrophes, known as \emph{early-warning signals}, usually relies on the detection of characteristic precursors from non--stationary timeseries.
+        They have been studied across a broad and diverse collection of natural and human critical phenomena including ecosystems degradation \cite{OSullivan2023,Kumar2026}, neurobiological activity spikes \cite{Boerner2024}, onset of asthma \cite{Venegas2005,Donovan2015}, weakining of ocean currents \cite{Boers2021,Dijkstra2026}, hysteresis in laser systems \cite{Hohl1995}, generation of instabilities in magnetically confined plasma \cite{Cowley2015} and thermoacustic systems \cite{Pavithran2021}, marine vessels capsizing \cite{Shao2026}, formation of
 \end{fmtext}
 
 \maketitle
 
 \noindent
-        The most common of these signatures is known as \emph{critical slowing down} \cite{Tredicce2004} and it is often associated with an increase in the variance and autocorrelation of a timeseries sample.
+ traffic congenstion \cite{Chattopadhyay2026} and civilization collapse \cite{Scheffer2021,Doak2026}.
 
-Several early-warning signals have been proposed in the last two decades; we refer interested readers to \cite{Boettiger2013}, and more recently \cite{Dakos2024}, for a concise overview on the main research on the topic.
-Debates regarding the legitimacy of theoretical early-warnings applied to real--worl data have since followed \cite{Ditlevsen2010,Bos2014,Dakos2015,Wilkat2019}, suggesting that caution should be exercised when relying on these indicators to predict critical events \cite{Morr2024a,Cui2025,Parry2026,Ditlevsen2026}.
+Catastrophic events are usually characterized by the loss of stability of steady--states due to nonlinear and noisy responses to slow--varying external forcing.
+Their canonical classification, proposed in \cite{Ashwin2012}, distinguishes between bifurcation--induced (B-), rate--induced (R-) and noise--induced (N-) tipping points.
+Furthermore, slow--fast dynamics and bifurcation theory provide a modeling framework for the forecast of critical transitions \cite{Kuehn2011}.
+The prediction of approaching catastrophes, known as \emph{early-warning signals}, usually relies on the detection of characteristic precursors from non--stationary timeseries.
+The most common of these signatures is known as \emph{critical slowing down} \cite{Tredicce2004} and it is often associated with an increase in the variance and autocorrelation of a timeseries sample.
+
+Many early-warning signals have been proposed in the last two decades; we refer interested readers to \cite{Boettiger2013}, and more recently \cite{Dakos2024}, for a concise overview on the main research on the topic.
+Debates regarding the legitimacy of theoretical early-warnings applied to real--world data have since followed \cite{Ditlevsen2010,Bos2014,Dakos2015,Wilkat2019}, suggesting that caution should be exercised when relying on these indicators to predict critical events \cite{Morr2024a,Cui2025,Parry2026,Ditlevsen2026}.
 In particular, pertinent concerns to applications are:
 \begin{itemize}
   \item recording optimal observables from high--dimensional (spatio--temporal or networked) systems is necessary in order to detect critical slowing down \cite{Lohmann2025b};
@@ -85,7 +89,7 @@ In \S~\ref{sec:observation} we derive the observation protocol, that is a series
 In \S~\ref{sec:application} we showcase the performance of the pipeline on both low-- and high--dimensional timeseries.
 In \S~\ref{sec:conclusion} we discuss our findings and suggest future directions for this line of research.
 
-\section{Tipping time of a slowly ramped systems}\label{sec:tipping}
+\section{Tipping times of slowly ramped systems}\label{sec:tipping}
 The prototypical case of critical transitions in complex system is that of a dynamic saddle-node normal form, with slow (linear) passage through the bifurcation and (additive) noisy fluctuations modelled as an It\^o stochastic differential equation of the form
 %
 \begin{equation}\label{eq:model}
@@ -105,7 +109,7 @@ Small perturbations around the stable equilibrium $x_+(\mu)$ decay exponentially
 \end{equation}
 %
 Specifically, the quantity $1/|\lambda|$ identifies the \emph{correlation} or \emph{relaxation time} of noisy fluctuations towards $x_+(\mu)$.
-Evidently, $|\lambda|\downarrow0$ as $\mu\uparrow0$, which in turn gives asymptotically longer relaxation time and eventually the blow-up $1/|\lambda|\to\infty$. 
+Evidently, $|\lambda|\to0$ as $\mu\to0$, which in turn gives asymptotically longer relaxation time and eventually the blow-up $1/|\lambda|\to\infty$. 
 This critical slowing down is a generic behaviour of any complex system driven close enough to a saddle-node bifurcation as the nonlinear dynamics is reduced to the normal form \eqref{eq:model} by a smooth change in coordinates.
 
 For a given ramp speed $\varepsilon>0$, the time at which the leading eigenvalue \eqref{eq:eigenvalue} vanishes corresponds to the time at which the forcing parameter $\mu(t)$ reaches the saddle-node bifurcation $\mu(t)=0$, which is $\tau\coloneqq-\mu_0/\varepsilon>0$.
@@ -118,11 +122,11 @@ One can thus rewrite the linear ramp of the forcing parameter to be independent 
 Substituting \eqref{eq:breaking_time} in \eqref{eq:eigenvalue} gives an explicit time dependence of the approach to the bifurcation
 %
 \begin{equation}\label{eq:eigenvalue_time}
-        \lambda(t) = -2\sqrt{\varepsilon(\tau-t)}\uparrow0 ,\quad t\uparrow\tau .
+        \lambda(t) = -2\sqrt{\varepsilon(\tau-t)}\to0,\quad t\to\tau .
 \end{equation}
 
 \subsection{Deterministic tipping time}\label{subsec:delay}
-Let us first consider the deterministic limit $\sigma\downarrow0$ for which the nonautonomous system \eqref{eq:model} is known as the \emph{dynamic} saddle-node normal form \cite{Berglund2006}.
+Let us first consider the deterministic limit $\sigma\to0$ for which the nonautonomous system \eqref{eq:model} is known as the \emph{dynamic} saddle-node normal form \cite{Berglund2006}.
 The time horizon $\tau$ (henceforth \emph{breaking time}) identifies the loss of hyperbolicity of the stable equilibrium branch $x_+(t)\coloneqq x_+(\mu(t))$ as per \eqref{eq:eigenvalue_time}.
 In the nonautonomous regime however, the classic notion of $x_+(t)$ is replaced by the pullback attractor $x_{\mathrm{pb}}(t)$ which is the unique solution of \eqref{eq:model} (in the absence of noise $\sigma=0$) satisfying 
 %
@@ -166,7 +170,7 @@ It thus follows that the tipping time of the pullback attractor is given by $\ta
 We now consider the more general case of stochastic fluctuations of slow passage through the bifurcation by restoring $\sigma>0$ in \eqref{eq:model}.
 As a result, the tipping time $\tau_{\mathrm{pb}}$ is treated as a random variable $\tau_{\mathrm{tip}}$ with an associated probability distribution. 
 To characterize $\tau_{\mathrm{pb}}$ for \eqref{eq:model}, we follow the procedures outlined in \cite{Miller2012,Herbert2017}.
-To start, consider again the singular limit $\varepsilon\downarrow0$ of \eqref{eq:model}, written as a gradient system 
+To start, consider again the singular limit $\varepsilon\to0$ of \eqref{eq:model}, written as a gradient system 
 %
 \begin{equation}\label{eq:gradient}
         \dd X_t=-V'\bigl(X_t,\mu\bigr)\,\dd t+\sqrt{2D}\,\dd W_t,
@@ -185,7 +189,7 @@ At any $\mu<0$, the potential barrier, separating the local minimum $x_+(\mu)$ f
 The critical transition of a solution of \eqref{eq:model}, starting in a neighbourhood of $x_+(\mu)$, can thus be associated to the escape of an overdamped particle across the potential barrier $\Delta V$ driven by noisy fluctuations of intensity $D$.
 For fixed values of $\mu<0$ such that $\Delta V\gg D$, these escapes are rare events described by Freidlin--Wentzell theory \cite{Freidlin2012} which has been widely applied in many disciplines (see \cite{Santolin2025} and references therein).
 In particular, the event of a trajectory $X_t$ of \eqref{eq:gradient}, starting near $x_+(\mu)$ and reaching $x_-(\mu)$ across the potential barrier $\Delta V$, satisfies a so-called \emph{large deviation principle}.
-The \emph{first exit time} of such event \cite[\S~$5.5$]{Gardiner2009}  
+The \emph{first exit time} of such an event \cite[\S~$5.5$]{Gardiner2009}  
 %
 \begin{equation}\label{eq:first_exit}
         \tau_{\mathrm{exit}} \coloneqq \inf\{t\ge0\;:\;X_t\le x_-(\mu)\}, 
@@ -194,10 +198,10 @@ The \emph{first exit time} of such event \cite[\S~$5.5$]{Gardiner2009}
 is asymptotically exponentially distributed \cite[Thm.~$2.3$]{Berglund2013}
 %
 \begin{equation}\label{eq:large_deviation_principle}
-        \tau_{\mathrm{exit}}\overset{d}{\approx}\exp\bigl(k(\mu)\bigr) , \quad D\downarrow0,
+        \tau_{\mathrm{exit}}\overset{d}{\to}\exp\bigl(k(\mu)\bigr) , \quad D\downarrow0,
 \end{equation}
 %
-where the rate parameter is given by Kramers formula
+where $\overset{d}{\to}$ denotes convergence in distribution of a random variable and the rate parameter $k(\mu)$ is given by Kramers formula
 %
 \begin{equation}\label{eq:rate}
         k(\mu)=\frac{\sqrt{V''\bigl(x_+(\mu)\bigr)\,|V''\bigl(x_-(\mu)\bigr)|}}{2\pi}\,\exp\biggl(-\frac{\Delta V}{D}\biggr)
@@ -206,7 +210,7 @@ where the rate parameter is given by Kramers formula
 %
 Notice that the reciprocal of the escape rate in \eqref{eq:rate} gives the \emph{mean first exit time} of \eqref{eq:first_exit}, i.e. $\E[\tau_{\mathrm{exit}}] = 1/k(\mu)$.
 This result, originally formulated for stationary diffusion \cite{Day1983} and jump processes \cite{Imkeller2006}, was then extended to the dynamic saddle-node normal form \cite{Miller2012}.
-Specifically, in the limiting regime of low noise intensity $D\ll\varepsilon/2$, the approximate distribution $\tau_{\mathrm{tip}}\overset{d}{\approx}p_1$ of the tipping time $\tau_{\mathrm{tip}}$ has been shown to be \cite[Eq.~$(19)$]{Miller2012}
+Specifically, in the limiting regime of low noise intensity $D\ll\varepsilon/2$, the approximate distribution of the tipping time $\tau_{\mathrm{tip}}$ has been shown to be \cite[Eq.~$(19)$]{Miller2012}
 %
 \begin{equation}\label{eq:small_noise}
         p_1(t)\coloneqq\frac{\varepsilon^{2/3}}{\sqrt{4\pi^{5}D}\,\Bi^{2}\bigl(-\mu(t)\varepsilon^{-2/3}\bigr)\,\mathcal J(t)^{1/2}}
@@ -219,12 +223,12 @@ We remark that $p_1(t)$ has support in the interval $\tau+1.17 \varepsilon^{-1/3
 Furthermore \eqref{eq:small_noise} is approximately Gaussian locally to its maximum
 %
 \begin{equation}\label{eq:small_noise_approximation}
-        \tau_{\mathrm{tip}}\overset{d}{\approx}\mathcal{N}\biggl(\tau_{\mathrm{pb}}\bigl[1+O(D/\varepsilon)\bigr],O\bigl(D\varepsilon^{-5/3}\bigr)\biggr),
+        \tau_{\mathrm{tip}}\overset{d}{\to}\mathcal{N}\biggl(\tau_{\mathrm{pb}}\bigl[1+O(D/\varepsilon)\bigr],O\bigl(D\varepsilon^{-5/3}\bigr)\biggr),
 \end{equation}
 %
 with mean close to the tipping time of the deterministic solution, i.e. $\E[\tau_{\mathrm{tip}}]\approx\tau_{\mathrm{pb}}$.
  
-In the opposite regime of large noise intensity $\varepsilon/2\ll D$, and up to $-\mu(t)\gg D^{2/3}$, it was later shown that the approximate tipping time distribution $\tau_{\mathrm{tip}}\overset{d}{\approx}p_2$ has a maximum before the breaking time $\tau$ and it has the form \cite[Eq.~$(4)$]{Herbert2017}
+In the opposite regime of large noise intensity $\varepsilon/2\ll D$, and up to $-\mu(t)\gg D^{2/3}$, it was later shown that the approximate tipping time distribution has a maximum before the breaking time $\tau$ and it has the form \cite[Eq.~$(4)$]{Herbert2017}
 %
 \begin{equation}\label{eq:large_noise}
         p_2(t)\coloneqq k\bigl(\mu(t)\bigr)\,
@@ -393,7 +397,7 @@ is a sample estimate of the return rate using an ordinary (linear) least--square
 The application of quasi-maximum likelihood estimations for the construction of early-warning signals is much more recent than the more established autoregressive and Ornstein-Uhlenbeck approximation, with an early adoption discussed in \cite{Papapicco2026}.
 
 \section{Observation protocol}\label{sec:observation}
-The return rate estimators using the Ornstein--Uhlenbeck \eqref{eq:OUP}, autoregressive \eqref{eq:AC1} and Euler--Maruyama \eqref{eq:LLS} approximations provide three different, data--drive pipelines to extract $\hat\alpha$ from a given sample $\mathcal{X}$ collected over a time window $T_w=n\Delta$, with $n>0$ number of observations sampled at (regular) frequency $\Delta$.
+The return rate estimators using the Ornstein--Uhlenbeck \eqref{eq:OUP}, autoregressive \eqref{eq:AC1} and Euler--Maruyama \eqref{eq:LLS} approximations provide three different, data--driven pipelines to extract $\hat\alpha$ from a given sample $\mathcal{X}$ collected over a time window $T_w=n\Delta$, with $n>0$ number of observations sampled at (regular) frequency $\Delta$.
 As noted at the beginning of \S~\ref{sec:formulation} however, we then use these estimates to forecast the breaking time $\hat\tau$ given a sequence of samples $\mathcal{X}_1,\dots,\mathcal{X}_N$.
 In this section we address this problem in two parts.
 First, we discuss the accuracy and precision associated to the estimators of the return rate $\hat\alpha$ proposed above.
@@ -407,10 +411,10 @@ We hereby discuss three major design constraints that modellers and scientists h
 
 First observe that the analytical return rate \eqref{eq:return_rate}, on which the sample estimators \eqref{eq:OUP}, \eqref{eq:AC1} and \eqref{eq:LLS} are based on, is obtained from the time--dependent eigenvalue \eqref{eq:eigenvalue_time}, which is itself evaluated along the drifting quasi--steady equilibrium $x_+(t)$.
 However, if the sample $\mathcal{X}$ is assumed to be a slowly forced solution of \eqref{eq:model} away from the bifurcation, then its trend follows the pullback attractor \eqref{eq:pb_attractor} instead of $x_+(t)$.
-In the slow regime (after the fast relaxation of the initial condition) the distance at which $x_{\mathrm{pb}}(t)$ tracks $x_+(\mu(t))$ increases with time and it reaches its maximum at the saddle-node bifurcation $|x_{\mathrm{pb}}(t)-x_+(\mu(t))|=O(\varepsilon^{1/3})$, $t\uparrow\tau$ \cite[Thm.~$2.2.2$]{Berglund2006}.
-We are thus interested to quantify a time horizon $t=T_c$ for which the return rate $\alpha(t)$ of the quasi-steady equilibrium is accurate, at least to first-order, to that of the pullback attractor $\alpha_{\mathrm{pb}}(t)=\lambda_{\mathrm{pb}}^2(t)=4x_{\mathrm{pb}}^{\,2}(t)$.
+In the slow regime (after the fast relaxation of the initial condition) the distance at which $x_{\mathrm{pb}}(t)$ tracks $x_+(\mu(t))$ increases with time and it reaches its maximum at the saddle-node bifurcation $|x_{\mathrm{pb}}(t)-x_+(\mu(t))|=O(\varepsilon^{1/3})$, $t\to\tau$ \cite[Thm.~$2.2.2$]{Berglund2006}.
+We are thus interested in quantifying a time horizon $t=T_c$ for which the return rate $\alpha(t)$ of the quasi-steady equilibrium is accurate, at least to first-order, to that of the pullback attractor $\alpha_{\mathrm{pb}}(t)=\lambda_{\mathrm{pb}}^2(t)=4x_{\mathrm{pb}}^{\,2}(t)$.
 
-Sufficiently far from the saddle-node bifurcation we can exploit the asymptotic expansion of Airy's function \cite[\S~$10.4$]{Abramowitz1965} to approximate \eqref{eq:pullback_attractor} to first-order
+Sufficiently far from the saddle-node bifurcation we can exploit the asymptotic expansion of Airy's function \cite[\S~$10.4$]{Abramowitz1965} to approximate \eqref{eq:pullback_attractor} to first-order as
 %
 \begin{equation}\label{eq:asymptotic_pullback_attractor}
   x_{\mathrm{pb}}(s)\approx \varepsilon^{1/3}\biggl(\sqrt{s} + \frac{1}{4s}\biggr) , \quad s=\varepsilon^{1/3}(\tau-t)\to\infty.
@@ -563,8 +567,8 @@ This result matches the second order approximations for the bias of $\hat\alpha$
 \subsubsection{Optimal observation length}\label{subsubsec:window}
 The topic of selecting an optimal window length to forecast critical transitions was addressed in \cite{Chen2022}.
 In particular, the authors showed that windowed observations with less than $10\%$ of the data from a given sample yield spurious early-warning signals.
-Such study however only considers fixed window lengths across a solution approaching a critical transition, which neglects the changing characteristic of the solution in the slow passage through the saddle-node.
-Here we derive the optimal, time-dependent window length of a sample for the accurate forecasting of the tipping time. 
+Such a study however only considers fixed window lengths across a solution approaching a critical transition, which neglects the changing characteristics of the solution in the slow passage through the saddle-node.
+Here we derive the optimal, time-dependent window length of a sample for the accurate forecasting of the tipping time.
 
 Given a sample $\mathcal{X}=\{X_{t_1},\dots,X_{t_n}\}$ recorded across a window $T_{w}=t_n-t_1$, we look for bounds of the form
 %
@@ -651,7 +655,7 @@ Using the squared residuals of the ordinary least--squares solution \eqref{eq:or
 
 \section{Practical applications}\label{sec:application}
 The tipping time framework and observation protocol, specified in \S~\ref{sec:tipping} and \ref{sec:observation} respectively, provide us with a series of constraints to collect and/or generate timeseries samples in order to apply the proposed, data--driven, forecasting pipeline.
-These constraints allow for the optimal design of experiments, data collection and modeling choices for target applications of slowly passage through saddle-node B-tipping catastrophes. 
+These constraints allow for the optimal design of experiments, data collection and modeling choices for target applications of slow passage through saddle-node B-tipping. 
 These specifications are summarized as follows:
 %
 \begin{enumerate}
@@ -665,7 +669,7 @@ In this section we apply the above to design the optimal conditions for which da
 
 To do so we consider both low- and high-dimensional cases.
 First we apply our pipeline to the canonical dynamic saddle-node normal form \eqref{eq:model} to show how the observation protocol can be used to the design of data collection from a simplified model.
-We then subsequentially consider a one--dimensional observable reppresenting the stength of volume transport in the thermohaline ocean circulation generated by a high--dimensional Community Earth System Model (CESM).
+We then subsequentially consider a one--dimensional observable reppresenting the strength of volume transport in the thermohaline ocean circulation generated by a high--dimensional Community Earth System Model (CESM).
 
 \subsection{One--dimensional tipping in the dynamic saddle-node normal form}\label{subsec:dynamic_sn_normal_form}
 
@@ -673,7 +677,7 @@ We first consider the low--dimensional case of the dynamic saddle--node normal f
 To show how the observation protocol, discussed in \S~\ref{sec:observation}, can be exploited to maximize the forecasting power of the proposed pipeline, we perform numerical simulations that guarantee the slow passage through the bifurcation and delayed tipping in the small noise regime as shown in Figure~\ref{fig:tipping_times_distribution}(a2--b2).
 
 The results of this simulation are depicted in Figure~\ref{fig:dynamic_saddle_node}.
-We fix the initial condition at the stable branch $x_+(\mu_0)$ of the equilibria of $f$ (blue curve in panel (a1)) for the initial value $\mu_0=-1$ of the bifurcation parameter.
+We fix the initial condition at the stable branch $x_+(\mu_0)$ of the equilibria of $f$ for the initial value $\mu_0=-1$ of the bifurcation parameter.
 The parameter speed is set at $\varepsilon=5\cdot10^{-4}$ and, from \eqref{eq:breaking_time}, the ground truth of the breaking time is $\tau=2000$ (black dashed vertical line in (a1)).
 The tipping time of the pullback attractor (black solid vertical line in (a1)) reads $\tau_{\mathrm{pb}}\approx\tau + 2.338 \varepsilon^{-1/3}\approx 2029.5$, which identifies a short window of opportunity $\Delta\tau\approx29.5$.
 The noise intensity is set to $\sigma=10^{-2}$ which satisfies the small noise regime approximation \eqref{eq:small_noise}; this in turn guarantees that the tipping time distribution of an ensemble of simulated sample paths (pink histogram in (a2)) is approximately Gaussian \eqref{eq:small_noise_approximation} (teal curve in (a2)) and the tipping time random variable $\tau_{\mathrm{tip}}$ attains values almost always larger than breaking time $\tau$.
@@ -693,8 +697,8 @@ The noise intensity is set to $\sigma=10^{-2}$ which satisfies the small noise r
     \label{fig:dynamic_saddle_node}
 \end{figure}
 
-We simulate an ensemble $\Omega = \{\mathcal{X}_k\}_{k=1,\dots,N}$ of $N=1000$ independent sample paths (grey curve in panel (a1) shows a reppresenative trajectory); each realization $X_{t_j}^{(k)}\in\mathcal{X}_k$ is sampled at regular frequency $\Delta=10^{-2}$.
-According to the observation protocol \S~\ref{subsec:estimators}, from each sample path we extract a subseries (pink curve in panel (a1)) corresponding to the time window $t\in[400,1600]$ (grey dahsed vertical lines in panel (a1)), where the lower bound guarantees the extintion of the transient of the initial condition and the upper bound is given by the admissible time horizon \eqref{eq:admissible_time_horizon}.
+We simulate an ensemble $\Omega = \{\mathcal{X}_k\}_{k=1,\dots,N}$ of $N=1000$ independent sample paths (the grey curve in panel (a1) shows a represenative trajectory); each realization $X_{t_j}^{(k)}\in\mathcal{X}_k$ is sampled at regular frequency $\Delta=10^{-2}$.
+According to the observation protocol \S~\ref{subsec:estimators}, from each sample path we extract a subseries (pink curve in panel (a1)) corresponding to the time window $t\in[400,1600]$ (grey dashed vertical lines in panel (a1)), where the lower bound guarantees the extinction of the transient of the initial condition and the upper bound is given by the admissible time horizon \eqref{eq:admissible_time_horizon}.
 Each subseries is then analysed in a rolling window to estimate the return rate; from \eqref{eq:window_length} we set the window length to be $T_w = 80$ which correpsonds to $n=8000$ observations for each sample.
 
 For each stride of the rolling window we then use the sample to estimate the return rate \eqref{eq:return_rate} (black curve in panel (b1)) of the underlying, quasi--stationary residuals, which we obtain via linear detrending.
@@ -713,9 +717,9 @@ The Atlantic Meridional Overturnic Circulation (AMOC) is a volume transport syst
 Due to the observed, sustained weakening of its strength, such circulation system has been a major focus of studies in climate science and oceanography communities for the past two decades.
 It is hypothesized that the collapse of the AMOC, due to instability-induced transitions, can drastically alter the global climate with particularly catastrophic effects in North--Western Europe \cite{Dijkstra2026}.
 
-The mathematical modeling of the AMOC weakening stength has followed a low-fidelity, conceptual approach, in which the fundamental dynamics is captured by simplified box--models, and a high-fidelity, computational approach, in which large--scale simulations discretise the North--Atlantic ocean in a relatively fine grid and solve for the governing equations of motions.
+The mathematical modeling of the AMOC weakening stength has followed both a low-fidelity, conceptual approach, in which the fundamental dynamics are captured by simplified box--models, and a high-fidelity, computational approach, in which large--scale simulations discretise the North--Atlantic ocean in a relatively fine grid and solve for the governing equations of motions.
 Among the former group, we highlight the canonical $2$--box model proposed by Stommel in 1961 \cite{Stommel1961}, the more recent $5$--box extension introduced by Wood et al. in 2019 \cite{Wood2019} and the convective, feedback--delayed multidecadal model of Falkena et al. in 2021 \cite{Falkena2021}; saddle-node B-tipping and R-tipping have been found in all of the above mentioned models \cite{Alkhayuon2019,Lohmann2025a,Mancini2026}.
-On the other hand, large--scale, multiphysics simulations, such as those provided by Global Climate Models \cite{vanWesten2023}, are usually too complex to analyze in a systematic and rigorous way; nonetheless saddle-node B-tipping have been hypothesized \cite{vanWesten2025} and early-warning signals have been proposed \cite{vanWesten2024,Smolders2025} providing supporting evidence to the conceptual models that the AMOC is indeed currently on course toward a collapsed state.
+On the other hand, large--scale, multiphysics simulations, such as those provided by Global Climate Models \cite{vanWesten2023}, are usually too complex to analyze in a systematic and rigorous way; nonetheless saddle-node B-tipping has been hypothesized \cite{vanWesten2025} and early-warning signals have been proposed \cite{vanWesten2024,Smolders2025} providing supporting evidence to the conceptual models that the AMOC is indeed currently on course toward a collapsed state.
 
 In this section we apply the data--driven pipeline introduced in this work to predict the breaking time of the AMOC using large--scale simulations generated by a targeted run of the Community Earth System Model (CESM, version \texttt{1.0.5}) used in phase $5$ of the Coupled Model Intercomparison Project (CMIP5).
 Specifically, we use the model's simulation performed in \cite{vanWesten2024} in which a high--dimensional, quasi--steady equilibrium, starting at pre--industrial conditions at model year $0$, is slowly ramped under increasing freshwater forcing in the North--Atlantic. 
@@ -723,10 +727,6 @@ The drift of the quasi--steady equilibrium corresponds to the weakining of the c
 In \cite{vanWesten2024}, the authours identify a physically--informed early--warning signal of the AMOC collapse based on the freshwater transport measured at the $34$°S.
 This has been linked to saddle-node tipping in conceputal climate models \cite{vanWesten2025} and its increase in variability prior to the collapse suggests the possible onset of critical slowing down.
 Later studies have confirmed that the $34$°S latitude provides an optimal observation location for the dection of early--warning signals for the AMOC collapse based on the advection of salinity \cite{Smolders2025}.
-
-Mathematically, the freshwater transport is an univariate observable computed from a spatially aggregate, high--dimensional output consisting of the product of the meridional velocity and salinity field averaged across the ocean depth and longitude \cite[Eq.~$(1$b$)$]{vanWesten2024}.
-Here we follow a similar approach and compute an univariate observable, namely the circulation strength, from the averaged temperature and salinity timeries at the proposed latitude.
-The circulation strength undergoes a saddle--node bifurcation in Stommel's $2$--box model and interpretable early--warning signals based on such observable have been recently obtained \cite{Papapicco2026}.
 
 \begin{figure}[t]
     \centering 
@@ -738,7 +738,11 @@ The circulation strength undergoes a saddle--node bifurcation in Stommel's $2$--
       The solution of the weighted least--squares problem \eqref{eq:weighted_regression}, indicated by the red line in panel (b), is then extrapolated to its zero--crossing yielding a forecasted breaking time at model year $\hat\tau=1755$ (red circle) which anticipates the AMOC collapse by $3$ model years (vertical black line).}
     \label{fig:amoc_collapse}
 \end{figure}
- 
+
+Mathematically, the freshwater transport is an univariate observable computed from a spatially aggregated, high--dimensional output consisting of the product of the meridional velocity and salinity field averaged across the ocean depth and longitude \cite[Eq.~$(1$b$)$]{vanWesten2024}.
+Here we follow a similar approach and compute an univariate observable, namely the circulation strength, from the averaged temperature and salinity timeries at the proposed latitude.
+The circulation strength undergoes a saddle--node bifurcation in Stommel's $2$--box model and interpretable early--warning signals based on such observable have been recently obtained \cite{Papapicco2026}.
+
 The result of our experiment are depicted in Figure~\ref{fig:amoc_collapse}.
 The circulation strength solution, indicated by the grey timeseries in panel (a) resembles the drift of a quasi--steady equilibrium driven through the saddle--node bifurcation which, following \cite{vanWesten2024}, is placed at model year $1758$, indicated by the vertical black lines.
 In order to extract a reasonable signal for our forecast problem, we follow the observation protocol discussed in \S~\ref{sec:observation}. 
@@ -749,7 +753,7 @@ Solving the weighted least--squares regression \eqref{eq:weighted_regression} we
 Our forecast, which predicts the AMOC collapse to be at model year $\hat\tau=1755$, succesfully anticipates the tipping time of the simulated large--scale model, providing a window of opportunity of $\Delta\tau=3$ model years.
 This result further strengthens the computational evidence supported in the literature for the same model run \cite{vanWesten2024,Smolders2025}.
 
-\section{Conclusions}\label{sec:conclusion}
+\section{Discussion and conclusions}\label{sec:conclusion}
 In this manuscript we have derived a fully data--driven pipeline for the forecast of the time of collapse in complex systems, commonly known as critical transitions or tipping events.
 Such pipeline estimates the return rate of the quasi--stationary residuals of a windowed timeseries and then extrapolates the estimates sequence to its zero--crossing by fitting a linear model.
 
@@ -760,13 +764,13 @@ Monte Carlo simulations show that the proposed techique predicts the tipping tim
 This is further evidenced by the application of the forecast pipeline to a large--scale simulation of the AMOC collapse, which we predict with $3$ model years in advance before the ground truth.
 
 In the construction of the methodology we have leveraged results in nonautonomous dynamical systems theory and well-established techniques in the statistical inference of stochastic processes.
-As a result, the succesfull application of this pipeline to timeseries samples relies on a set of assumptions on the quality of the data and the underlying nature of the systems being observed.
-First, we expect the sample to be an optimal observable of a high--dimensional complex system that is slowly driven through a saddle--node bifurcation and that is perturbed by additive noise.
+As a result, the succesful application of this pipeline to timeseries samples relies on a set of assumptions on the quality of the data and the underlying nature of the systems being observed.
+First, we expect the sample to be an observable of a high--dimensional complex system, that is slowly driven through a saddle--node bifurcation and that is perturbed by additive noise, to be optimal in the sense prescribed by \cite{Lohmann2025b,Ditlevsen2026}.
 Second, we expect that the level of noise in the observations has relatively small magnitude compared to the speed at which the system is ramped toward the catastrophe, so to minimize the likelihood of early, noise-induced escapes from the basin of attraction.
 Third, the sample is recorded at regular frequency and it is sufficiently distant from the saddle--node bifurcation so that the statistical estimation of the return rate is feasible.
 
-So far the theory of early-warning signals, including the proposed pipeline in this manuscript, has largely been developed within the same setup outlined above, which leaves a large set of models for which the theory has not been developed yet, if not in very incremental steps.
-The relaxation of the above assumptions requires extensive mathematical development; recent early development being made in that direction include works on systems driven by multiplicative noise \cite{Morr2024b} and jump processes \cite{Layritz2025}, nonlinear \cite{Ritchie2016} and periodically forced \cite{Kuehn2018} parameter shifts with little or no timescale separation, and spatially extended models \cite{Gowda2015,Bernuzzi2024,Clarke2026,Miyauchi2026}.
+So far the theory of early-warning signals, including the proposed pipeline in this manuscript, has largely been developed within the same setup outlined above, which leaves a large set of models for which not much theory has been formalized yet.
+The relaxation of the above assumptions requires thus extensive mathematical theory; recent early development being made in this direction include works on systems driven by multiplicative noise \cite{Morr2024b} and jump processes \cite{Layritz2025}, nonlinear \cite{Ritchie2016} and periodically forced \cite{Kuehn2018} parameter shifts with little or no timescale separation, and spatially extended models \cite{Gowda2015,Bernuzzi2024,Clarke2026,Miyauchi2026}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %               Declarations               % 
