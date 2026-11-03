@@ -16,6 +16,8 @@
 \RequirePackage{amsmath,amssymb}
 \RequirePackage{mathtools}
 \RequirePackage{import}
+\RequirePackage[ruled]{algorithm2e}
+\RequirePackage{booktabs}
 
 % ------------------------------------------------------------- Page layout ---
 \if@print

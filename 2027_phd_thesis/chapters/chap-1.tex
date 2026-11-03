@@ -7,7 +7,7 @@ A concrete example, often discussed in the literaure to introduce the main conce
 In 1977 Robert May proposed a dynamical model in which a population of herbivores, sustained by a decreasing level of vegetation cover in a closed environment, can experience a sudden collapse due to unsustainable increases in the grazing rate \cite{May1977}.
 In his model, May realized that a characteristic separation between the timescales of the evolution of the animal population and the grazing rate of the biomass leads to qualitatively different regimes in the observed state of the ecosystem.
 In one state the ecosystem is in a healthy, sustainable equilibrium and the vegetation cover allows for the slowly increase in the grazing activity of the herbivores.
-Past a certain threshold however (described as \emph{breakpoint} in May's paper) the ecosystem can no longer sustain the animal population and the biomass sharply declines to near--zero across, resulting in the collapse of the herbivores density. 
+Past a certain threshold however (described as \emph{breakpoint} in May's paper) the ecosystem can no longer sustain the animal population and the biomass sharply declines to near--zero across the environment, resulting in the collapse of the herbivores density. 
 This new, unsustainable state is also stable however, meaning that the ecosystem will remain in its collapsed state unless a restoring action is enforced.
 Interestingly however, simply driving the grazing rate back to pre--breakpoint levels may not suffice to guarantee the reversal of the unhealthy state following the critical transition (as shown in Figure~\ref{fig:may_model}).
 %
@@ -21,7 +21,7 @@ Interestingly however, simply driving the grazing rate back to pre--breakpoint l
     \label{fig:may_model}
 \end{figure}
 %
-This increase in the restoring effort can sometimes be so significant that the tipping point may be de--facto irreversible, leaving the ecosystem in a permanent collapsed state.
+This increase in the restoring effort can sometimes be so significant that the tipping point may be de--facto irreversible, leaving the ecosystem in a permanent state of collapse.
 
 Despite the rather severe disruptions caused by such events, critical transitions appear to be ubiquitous across many human and natural systems, with varying degrees of complexity and of substantially different nature.
 Examples of tipping events leading to catastrophic phenomena can be found in extreme paleoclimatic events \cite{Lenton2012,Bagniewski2023}, ecosystems degradation \cite{OSullivan2023,Kumar2026}, spikes in neurobiological activity \cite{Boerner2024}, onset of asthma and ventilation defects \cite{Venegas2005,Donovan2015}, anthropogenic shut--down of ocean currents \cite{Boers2021,Dijkstra2026}, hysteresis in laser systems \cite{Hohl1995}, instabilities in magnetically confined plasma \cite{Cowley2015} and thermoacustic devices \cite{Pavithran2021}, capsizing of marine vessels \cite{Shao2026}, formation of traffic congenstion \cite{Chattopadhyay2026}, financial crashes \cite{Vandewalle1998,Kozlowska2016} and civilization collapse \cite{Scheffer2021,Doak2026}.
@@ -34,7 +34,7 @@ This \emph{``universal law''} was linked to the concept of resilience in (stocha
 
 This characteristic phenomenon, later named \emph{critical slowing down} (CSD) in 1998 \cite{Gandhi1998}, usually refers to the lethargic decay of stochastic fluctuations in the neighbour of a local attractor as it approaches a tipping point.
 In particular, the time for these perturbations to relax back to the stable equilibrium is exponential for an attractor that is far enough from the breakpoint, and algebraic, for the same attractor, close to the breakpoint.
-The onset of CSD prior to a critical transition has since been heavily exploited by several communities to attempt to forecast catastrophic events before those points of no return.
+The onset of CSD prior to a critical transition has since been heavily exploited by several communities to attempt to forecast catastrophic events their breakpoint.
 
 First, in 2001 Scheffer et al. proposed a model of stochastic resilience in ecosystems in which a gradually changing condition, such as the inflow of toxic chemicals and nutrients, or the loss of species diversity, can be perturbed by seemingly random events such as weather extremes, wild fires or pests outbreaks \cite{Scheffer2001}. 
 The resulting model, corroborated by empirical evidence in lakes and oceans ecosystems, was the first attempt at combining multi--stable, deterministic regimes of long--term behaviour with short--term, stochastic fluctuations in the state of a complex system.
@@ -101,7 +101,7 @@ where $0<\varepsilon\ll1$ denotes the timescale separation between the evolution
 \end{figure}
 
 To substantiate the statistical detection of CSD from timeseries however, one needs to consider the statistical properties of noisy sample paths rather than just following its deterministic drift.
-Kuehn thus considered the singular limit $\varepsilon\downarrow0$  of \eqref{eq:sde} for which a trajectory $X_t$ evolves around the stable equilibrium $x_+(\mu)$, $\mu<0$ and its fluctuations attain a Boltzmann--like (stationary) probability distribution of the form
+Kuehn thus considered the singular limit $\varepsilon\to0$  of \eqref{eq:sde} for which a trajectory $X_t$ evolves around the stable equilibrium $x_+(\mu)$, $\mu<0$ and its fluctuations attain a Boltzmann--like (stationary) probability distribution of the form
 %
 \begin{equation}\label{eq:stationary_fpe}
   p(x)\overset{d}{\approx} N \exp\biggl(\frac{2}{\sigma^2}\int_{I}^{}f(x;\mu)dx\biggr),
@@ -130,7 +130,7 @@ This result is then corroborated by Monte Carlo simulations (see Figure~\ref{fig
 \section{Modern developments}
 In 2012, Ashwin et al. discovered another mechanism that is responsible for generating critical transitions, which is inherently tied to the nonautonomous nature of \eqref{eq:slow_fast}.
 They discovered that when the rate of change $\varepsilon$ of the forcing parameter $\mu$ is fast enough it would cause the quasi steady--state of a system to escape the basin of attraction of a stable equilibrium; they named this phenomenon rate--induced tipping \cite{Ashwin2012}.
-This new phenomon fundamentally differs from the bifurcation--induced critical transitions formalized by Kuehn since rate--induced escapes need not the system to be driven through a local (or global) bifurcation in order for tipping to occur, as later shown in \cite{Ashwin2017,Wieczorek2023}.
+Rate--induced tipping fundamentally differs from the bifurcation--induced counterpart formalized by Kuehn since, in the former case, the system need not to be driven through a local (or global) bifurcation in order for tipping to occur, as later shown in \cite{Ashwin2017,Wieczorek2023}.
 Ritchie and Sieber later proved that CSD can still be detected for rate--induced tipping via increases in timeseries variance albeit with delay \cite{Ritchie2016}.
 Rate--induced tipping have since become an active field of research in the modeling of critical transitions, with notable applications recently discovered in ecosystems \cite{OSullivan2023,Kumar2026} and ocean currents \cite{Alkhayuon2019,Lohmann2021,Chapman2025}.
 
@@ -139,54 +139,59 @@ Specifically, attempts to generalize statistical precursors of critical transiti
 Early efforts by Kuehn and others on the loss of stability of travelling wave fronts \cite{Kuehn2012} and homogeneous steady--states \cite{Gowda2015} led the way to later advances in the derivation of early--warning signals for spatial networks which carried over in the early 2020s.
 Examples of these can be found in \cite{Jentsch2018,Chen2019,Donovan2022,Deb2024,Morr2024b}.
 Finally, due to the limitations posed by the collection of large data from spatially extended systems, a question remained on how to optimally observe high--dimensional systems in order to detect CSD. 
-Most recently, works by Lohmann and Gottwald in 2025 \cite{Lohmann2025}, and Clarke et al. \cite{Clarke2026} and \cite{Miyauchi2026} in 2026, have started laying the foundations on how low--dimensional observables (i.e. smooth transformations of the state variables) can be extracted from high--dimensional systems in order to anticipate critical transitions through early--warning signals.
+Most recently, works by Lohmann and Gottwald in 2025 \cite{Lohmann2025}, and Clarke et al. \cite{Clarke2026} and Miyauchi et al. \cite{Miyauchi2026} in 2026, have started laying the foundations on how low--dimensional observables (i.e. smooth transformations of the state variables) can be extracted from high--dimensional systems in order to anticipate critical transitions through early--warning signals.
 
 \section{Practical limitations}
 The mathematical theory of early--warning signals has developed substantially from its early steps, with significant advances been made in the second half of the 2010s and early part of the 2020s.
-Despite the strong theoretical underpinning provided by the theory, the applicability of these theoretical tools to real--world phenomena has not progressed at the same pace.
-In most of the above cited works in fact, the detection of CSD via temporal, spatial or spatio--temporal signatures happens almost exclusively in abstract settings, satisfying assumptions that are not necessarly hold when the same techniques are applied data collected from measurements or experiments, rather than simulated.
+Despite the strong theoretical underpinning provided by the theory, the applicability of these theoretical tools to real--world phenomena remained somewhat limited.
+In most of the above cited works in fact, the detection of CSD via temporal, spatial or spatio--temporal signatures happens almost exclusively in abstract settings, in which rather strong assumptions on the structure of the system and the data itsels are held.
+On the contrary however, when the same techniques are applied data collected from measurements or experiments, rather than simulated, the resulting signals carry significantly less predictive power and robustness across different systems.
 
 In 2015, Dakos et al. noted that the application of CSD detectors to real--world ecosystems is limited by \emph{conceptual}, \emph{operational} and \emph{methodological} constraints \cite{Dakos2015}.
 Conceptual limitations arise whenever the abrupt regime changes observed in nature are not due to bifurcation--induced critical transitions but instead due to other mechanisms such as noise-- or rate--induced escapes; operationally, the early detection of CSD is only reliable whenever there exist sufficient separation in the temporal and spatial scales governing the evolution of the state of the ecosystem and its external forcing, which is not guaranteed to be true universally \cite{Parry2026}; in terms of the methodology itself, the observation protocol with which the data is collected highly impacts the significance and sensitivity of these statistical indicators which thus calls for high quality and large quantity of measurements, which may not be satified due to costs and accessibility constraints \cite{Chen2022}.
 
 A decade later, Ashwin et al. \cite{Ashwin2025} showed how nonlinear and coupling effects in the dynamics of these complex systems heavily affect the predictive power of early--warning signals (named \emph{early--warning skill}) to detect CSD early enough.
-They observed that early--warning signals with low skill lead to unreliable predictions in ensemble simulations where the rate of missed allarms (i.e. \emph{false negatives}) and spurious warnings (i.e. \emph{false positives}) severely increase.
+They observed that early--warning signals with low skill lead to unreliable predictions in ensemble simulations where the rate of missed allarms (i.e. \emph{false negatives}) and spurious warnings (i.e. \emph{false positives}) severely increases compared to favourable cases.
 This was recently corroborated in \cite{Morr2024a} and \cite{Ditlevsen2026} where high--dimensionality and correlations in the noise structure has been shown to altern the significance of the early--warning signals extracted from observables of these systems.
 
 \section{Research aim and outline}
 The above limitations constitute a significant gap between the mathematical abstraction provided by the theory of CSD--based early--warning signals and the real limitations faced by scientists and modelers that seek to apply these methodologies to their data.
-In this thesis we focused in bridging this gap by providing a more pragmatic approach on the detection of CSD by the latter community.
-We leveraged mathematical structures in stochastic and nonautonomous dynamics to build end--to--end data pipelines that can be applied out of the box to provide direct, interpretable and actionable policies to prevent catastrophic collapses in complex systems.
-The research in this thesis address two major themes regarding the limitations of applicability of the theory of early--warning signals by scientists, which we briefly outline below.
+In this thesis we focused in bridging this gap by providing a more pragmatic approach in the detection of CSD.
+We leveraged mathematical structures in stochastic and nonautonomous dynamics to build end--to--end data pipelines, that can be applied out--of--the box, to provide direct, interpretable and actionable early--warning signals to scientists, engineers and policymakers.
+As such, we address two major themes regarding the limitations of applicability of the theory of early--warning signals, which we briefly outline below.
 
-\subsubsection{Lack of universal interpretability for different systems}
+\subsubsection{Lack of universal interpretability}
 At its core, an early--warning signal is a, often statistical, quantity extracted from a monitored observable that somehow provides insights in the proximity of the underlying system to a catastrophic shift in the observed equilibrium.
-As such, in order for such signals to be applicable, one should be able to interpret such proximity from numerical values attained by the proposed early--warning with reasonable confidence.
+As such, in order for these signals to be actionable, one should be able to interpret such proximity from numerical values attained by the proposed early--warning with reasonable confidence.
 Rather surprisingly however, the most popular and established detectors of CSD, e.g. the increase in timeseries variance, do not satisfy this requirement.
-As described in \cite{Dakos2015} in fact \emph{``one--time measurements of CSD indicators have limited forecasting value''} and only \emph{``once a baseline indicator values is established, then a consistent deviating trend from the baseline could indicate whether a transition is lurking''}.
+As stated by Dakos et al. in \cite{Dakos2015} in fact \emph{``one--time measurements of CSD indicators have limited forecasting value''} and only \emph{``once a baseline indicator value is established, then a consistent deviating trend from the baseline could indicate whether a transition is lurking''}.
 This limitation stems from the fact that traditional CSD--based precursors are not bounded and their numerical value alone does not trivially inform the proximity of a tipping point, rather their trend does.
 On top of this, systems of different nature, or even the same system under different temporal and spatial scales, do not agree on similar values of variability across time and space, thereby making this limitation a universal feature of the currently used early--warning signals.
 
 To remedy this constraint, we formulate an interpretable early--warning signal that is bounded in $[0,1]$ for any complex system whose tipping is bifurcation--induced.
 In particular, values of the proposed quantity close to $0$ indicate small likelihood of tipping events to occur in the near future, whereas values close to $1$ indicate immediate danger of tipping events to occur in the near future.
-The proposed early--warning signal is universal in the sense that any system who is slowly driven through a saddle--node tipping, in the presence or relatively small perturbations, will monotonically increase from $0$ to $1$, regardless of its nature and its temporal or spatial scales.
+The proposed early--warning signal is universal in the sense that any system which is slowly driven through a saddle--node tipping, and in the presence or relatively small perturbations, will monotonically increase from $0$ to $1$, regardless of its nature and its temporal or spatial scales.
 
-\subsubsection{Lack of optimal observation protocols for extrapolation}
+\subsubsection{Lack of optimal forecasting protocols}
 Extrapolation methods to estimate the time of tipping of saddle--node types of critical transitions have been proposed for the anticipation of the collapse of the Atlantic Meridional Overturning Circulation by Boers in 2021 \cite{Boers2021} and Ditlevsen and Ditlevsen in 2023 \cite{Ditlevsen2023}.
 More recently in 2025, Ashwin et al. used the same setup to establish the early--warning skill (or lack thereof) carried by samples of cascading tipping systems \cite{Ashwin2025}.
 These methods, based on the estimation of the \emph{return} (or \emph{restoring}) \emph{rate} from timeseries data, rely on a set of assumptions that the data must specify in both quality and quantity.
 Furthermore, these estimators are negatively biased due to finiteness and non--stationarity of the samples, which previous works do not account for.
 
-In attempt to overcome the limitations provided by these statistical estimations, we build an alternative pipeline that relaxes some of these assumptions.
+To overcome these limitations, we build an alternative pipeline that relaxes some of these assumptions.
+Such pipeline is entirely data--driven and extends to any saddle--node, bifurcation--induced tipping event perturbed by additive noise.
+It leverages results in noise--induced escapes and stochastic, slow--fast dynamics to reduce the bias and uncertainty in the local reconstruction of the equilibrium distribution of the noisy fluctuations around a quasi--steady equilibrium.
 On top of this, we derive optimal conditions for the collection of the data that makes the extrapolation problem feasable and more accurate.
-The resulting observation protocol thus provides strict and interpretable conditions for scientists and modellers to directly apply forecasting techniques to their timeseries, while at the same time ensuring the minimization of biases and the quantification of uncertainties associated to the statistical estimation.
+The resulting observation protocol thus provides strict and interpretable conditions for scientists and modellers to directly apply forecasting techniques to their timeseries.
 
 \subsubsection{Outline}
 The thesis is organized as follows.
 
-In \textbf{Chapter~\ref{chap:background}} we provide the necessary background for the mathematical grounding of critical transitions in slow--fast SDEs, including a review of fundamental results in stochastic dynamics, statistical estimation, nonautonomous differential equations and large deviations.
+In \textbf{Chapter~\ref{chap:background}} we provide the interdisciplinary mathematical grounding of critical transitions in slow--fast SDEs. 
+The background consists of two main ingredients: stochastic processes, which we review in \S~\ref{sec:stochastic_processes}, and dynamical systems, which we review in \S~\ref{sec:dynamical_systems}.
+In \S~\ref{sec:slow_fast} we show how these two theories can work together in the modeling of critical transitions by reviewing fundamental results of the theory of large deviations in slow--fast dynamics.
 
-In \textbf{Chapter~\ref{chap:interpretable}} we tackle the issue of lack of universal interpretability by deriving a new early--warning signal that systematically increases from $0$ to $1$ as a bifurcation--induced tipping is approached.
+In \textbf{Chapter~\ref{chap:interpretable}} we tackle the issue of lack of universal interpretability by deriving a new early--warning signal that systematically increases from $0$ to $1$ as a bifurcation--induced tipping point is approached.
 In addition of this derivation we construct a computational algorithm that estimates the statistical quantity based on input timeseries that does not require an underlying knowledge of the physics of the system.
 
 In \textbf{Chapter~\ref{chap:forecasting}} we address the problem of forecasting tipping times via extrapolation by deriving the necessary conditions for an optimal observation protocol to be employed by the end--users.

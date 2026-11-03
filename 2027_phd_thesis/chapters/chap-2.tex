@@ -3,14 +3,51 @@ Stress how the current theory is largely developed for stochastically forced sys
 The goal of this section is to select a candidate timeseries from the real world (given in Motivation) and fit a saddle-node model with stochastic fluctuations.
 To do so we need two main ingredients: geometric singular perturbation theory (or Fenichel theory) and large deviation theory (or Freidlin and Wentzell theory).
 
-\section{Nonautonomous dynamics}\label{subsec:nonautonomous}
+\section{Basic theory of stochastic processes}\label{sec:stochastic_processes}
+Introduce the fundamentals of stochastic calculus including the OUP and the FPE.
+
+%
+\begin{equation}\label{eq:fpe}
+        \partial_{t}p(x,t|\theta) = \partial_{x}(V'(x;\theta)\,p(x,t|\theta)) + D\,\partial_{xx}^{2}p(x,t|\theta)\,.
+\end{equation}
+%
+
+This ansatz reduces the parabolic partial differential equation in time and space \eqref{eq:fpe} to a second-order, homogeneous ordinary differential equation in $p(x|\theta)$ with non-constant coefficients
+%
+\begin{equation}\label{eq:stationary_fpe}
+        0 = \partial_{x}\big(V'(x;\theta)\,p(x|\theta)\big) + D\,\partial_{xx}^{2}p(x|\theta) = V''(x;\theta)\,p(x|\theta) + V'(x;\theta)\,p'(x|\theta) + D\,p''(x|\theta)\,.
+\end{equation}
+%
+The solution of the above (under suitable choices of boundary conditions at $x\to\pm\infty$) yields a Boltzmann-like probability density function \cite[Ch. 5, p. 98]{Risken1989}
+%
+\begin{equation}\label{eq:invariant_pdf}
+        p(x|\theta) = \frac{1}{Z(\theta)}\exp\bigg(-\frac{V(x;\theta)}{D}\bigg)\,,
+\end{equation}
+%
+with the normalization constant $Z(\theta)$ playing the role of the partition function of the energy of the system.
+
+The illustrative value of considering the OUP is given by the fact that it approximates the solution of any nonlinear (stationary) SDE around an equilibrium $x=a$ of the drift term $f$ in \eqref{eq:fast_slow_sde}.
+More specifically, if \eqref{eq:fast_slow_sde} is not ramped (i.e. $\varepsilon=0$), the sample path around a stable equilibrium $x=a$ of the nonlinear vector field $f(x) = -V'(x)$ is well approximated by the solution of \eqref{eq:oup} with $\alpha = f'(x=a) = -V''(x=a) > 0$.
+
+OUP \cite[Ch. 3, p. 74]{Gardiner2009}
+%
+\begin{equation}\label{eq:oup_density}
+        p(x|\theta) = \sqrt{\frac{\alpha}{\pi D}}\exp\bigg(-\frac{\alpha(a - x)^{2}}{D}\bigg)\,,
+\end{equation}
+%
+
+\begin{equation}
+        \begin{aligned}\label{eq:slow_fast_SN}
+                dX_{t} &= (-\mu-X_{t}^{2})dt + \sigma dW_{t}\,,\\
+                d\mu &= \varepsilon dt\,, 
+        \end{aligned}    
+\end{equation}
+
+\section{Basic theory of dynamical systems}\label{sec:dynamical_systems}
 Introduce the autonomous saddle-node normal form and an example of coordinate transformations for the saddle-node bifurcation theorem.
 Extend it to the dynamic case with the notion of pullback attractors.
 
-\section{Stochastic calculus}\label{subsec:stochastic}
-Introduce the fundamentals of stochastic calculus including the OUP and the FPE.
-
-\section{Large deviations in slow-fast systems}\label{subsec:slowfast}
+\section{Large deviations in slow-fast systems}\label{sec:slow_fast}
 State that the correct mathematical interpretation of critical transitions is that of rare events in small perturbations of dynamic saddle-node systems.
 Introduce the two ingredients separately.
 
@@ -20,4 +57,75 @@ Main results of Fenichel theory.
 \subsection{Large deviation theory}\label{subsubsec:ldt}
 Main results of Freidlin-Wentzell theory.
 
+\section{From Chapter 3 (paper 1)}
+Critical transitions in complex systems have long been modeled as qualitative changes in the solutions of multiscale stochastic differential equations (SDEs) subject to slow forcing \cite{Kuehn2011}.
+For finite-dimensional systems, these are usually presented in the form
+%
+\begin{equation}
+        \begin{aligned}\label{eq:fast_slow_sde}
+                dX_{t} &= f(X_{t},\mu)dt + \sigma dW_{t}\,,\\
+                d\mu &= \varepsilon dt\,,
+        \end{aligned}
+\end{equation}
+%
+where $X_t$ denotes a random variable (r.v.) modeling the state of the system of interest in $\mathbb{R}^{d}$ while $\mu\in \mathbb{R}^{p}$ denotes a parameter vector.
+The time evolution of the r.v. follows a deterministic drift, described by the parametrized vector field $f:\mathbb{R}^{d}\times \mathbb{R}^{p}\to \mathbb{R}^{d}$, and a stochastic diffusion of intensity $\sigma\in\mathbb{R}$, modeled by a $d-$dimensional Wiener process $W_{t}$ with zero mean and Gaussian distributed increments (i.e. $W_{s} - W_{t}\sim\mathcal{N}(0,s-t)$).
+For simplicity, we will assume that the stochastic fluctuations are state-independent (i.e. \eqref{eq:fast_slow_sde} is an additive noise SDE in $X_t$).
+Importantly, the parameter characterizing the vector field of the dynamics is not stationary but it evolves according to a slow (deterministic) linear ramp of slope $0 < \varepsilon \ll 1$.
+This setup allows us to slowly change the state of the system, hence reflecting the multiscale time-varying forcing of real-world complex systems.
 
+In the following, and for the rest of this paper, we will treat functions $y$ that depend both on the state variable $x$ and on time $t$, i.e. $y=y(x,t)$.
+To avoid confusion with regards to differentiation we will adopt the following notation
+%
+\begin{equation*}
+        \dot{y}:=\partial_t\,y(x,t)\quad \text{and}\quad y':=\partial_x\,y(x,t)\,.
+\end{equation*}
+%
+We will also assume that, for fixed parameters $\mu\in \mathbb{R}^{p}$ the (frozen) deterministic drift is a conservative vector field, i.e. there exists a scalar potential $V(x;\mu):\mathbb{R}^{d}\to \mathbb{R}$ such that $f(x;\mu) = -V'(x;\mu)$.
+Since we would like to predict B-tipping of saddle-node (SN) type, we assume that the multistability of the system entails that $V$ is a sufficiently smooth function of the state variable $x$ and that it also grows sufficiently fast as $x\to\pm\infty$.
+The gradient structure of the dynamics allows to map equilibria of the vector field $f$ to stationary points of its potential $V$.
+In particular, locally stable equilibria of $f$ correspond to local minima of $V$ while locally unstable equilibria are associated to local maxima of $V$.
+This allows for a useful interpretation of the solution of \eqref{eq:fast_slow_sde} as the motion of an overdamped particle governed by the Langevin equation
+%
+\begin{equation}\label{eq:langevin}
+        dX_{t} = -V'(X_{t};\mu)dt + \sqrt{2D}dW_{t}\,,\quad D=\frac{\sigma^{2}}{2}\,.
+\end{equation}
+%
+If the process is stationary (i.e. $\varepsilon=0$) then, for a given configuration of the potential $V$ at parameter value $\mu$, the long term behaviour of a solution of the Langevin equation of motion \eqref{eq:langevin} is described by random fluctuations (of intensity $\sqrt{2D}$) around the local minima of $V$.
+%
+\subsection{Kramer's escape law}\label{subsec:kramer_escape_formula}
+For simplicity of exposition, let us consider the $1-$dimensional case of Eq.~\eqref{eq:langevin} for which we are always guaranteed to have a potential $V$ whose gradient reconstructs the dynamics $f$ in Eq.~\eqref{eq:fast_slow_sde}.
+Examples of potentials $V$ are shown in Figure~\ref{fig:double_well_potential} (a1-a3).
+By restricting ourselves to model single-parameter SN critical transitions (i.e. the parameter space is $\mathbb{R}$), we will consider the case of a bistable system with at least one stable equilibrium for any $\mu$.
+We note that higher-dimensional systems will generically undergo a SN bifurcation, and that it is in principle possible to change to a coordinate frame (aligning with the center manifold) in which \eqref{eq:langevin} describes the relevant bifurcating dynamics. 
+In practice the appropriate coordinate transformation is unknown, and an open problem is to determine optimal observables of high-dimensional systems \cite{Lohmann2025b}.
+
+The bistability region of our system is characterized by a subset $\mu_1 < \mu < \mu_2$ of the parameter space for which two stable equilibria coexist alongside a single unstable equilibrium.
+The bistability region is bounded by two SN bifurcations at $\mu=\mu_1$ and $\mu=\mu_2$.
+The resulting potential features two local minima or \textit{wells} (labelled ``a'' and ``c'' in Figure~\ref{fig:double_well_potential}) separated by a barrier of one local maximum or \textit{hilltop} (labelled ``b'' in Figure~\ref{fig:double_well_potential}).
+Different configurations of the shape of the potential describe qualitatively different particle dynamics as represented in Figure~\ref{fig:double_well_potential} (b1-b3), which corresponds to the potentials $V$ in Figure~\ref{fig:double_well_potential} (a1-a3).
+In statistical mechanics, Kramer's formula quantifies the rate at which particles escape across potential barriers when subject to Langevin's equation of motion \eqref{eq:langevin}.
+ 
+\begin{figure}[t]
+	      \includegraphics[keepaspectratio, width=0.8\textwidth]{figures/double_well_potential.pdf}
+        \caption{Different configurations of a generic double-well potential leading to qualitatively different trajectories of Eq.~\eqref{eq:langevin}.
+                 Panels (a1-a3) show the shape of the confining potential with wells $a$ and $c$ separated by a hilltop $b$; panels (b1-b3) display a representative sample path of particle starting from the rightmost well $a$; panels (c1-c3) represent the sample distribution of the above timeseries.
+                 In panels (a1-c1) the particle is confined by a high potential barrier and does not escape its basin of attraction within the simulation time.
+                 In panels (a2-c2) the system is at a Maxwell point (both wells are equiprobable at stationarity) and the particle visits both wells during the simulation (the histogram is bimodal and becomes symmetric for a sufficiently long timeseries).
+                 In panels (a3-c3) the starting well $a$ is shallower and flatter than the alternative one $c$: as such the particle escapes it early, never to return before the simulation ends.
+                 The solutions of the Langevin equations of motions for each configuration have been computed using the DifferentialEquations.jl package \cite{Rackauckas2017}.}
+        \label{fig:double_well_potential}
+\end{figure}
+ 
+Kramer's formula is sometimes expressed as the reciprocal of the escape time, usually referred to as the (mean) first exit time.
+Different derivations of the formula are available in the literature; we thus redirect the readers to \cite{Berglund2013} for a concise overview.
+It must be noted that, while limitations on Kramer's law vailidity exist (see \cite{Berglund2013}), our assumptions of stationary, $1-$dimensional dynamics subject to small, additive white noise fall within the applicability cases.
+ 
+Given a double-well potential $V$ with desirable local minimum (stable equilibrium) $x=a$ and local maximum (unstable equilibrium) $x=b$, the rate at which particles, starting at $x=a$ and subject to white noise of intensity $\sqrt{2D}$, will escape over the saddle $x=b$ is given by
+ 
+\begin{equation}\label{eq:kramer_escape_formula}
+        R_{a\to b} = \frac{\sqrt{|V''(b)|V''(a)}}{2\pi}\exp\bigg(-\frac{\Delta V_{a\to b}}{D}\bigg)\,,
+\end{equation}
+%
+where $\Delta V_{a\to b} = V(b) - V(a)$ quantifies the potential barrier that the Langevin overdamped particle has to overcome in order to escape, and $V''(a),V''(b)$ quantify the local curvature of $V$ around the well and the hilltop respectively.
+%
