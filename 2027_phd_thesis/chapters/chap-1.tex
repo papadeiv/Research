@@ -61,14 +61,14 @@ Steady--states of a complex system correspond to equilibria of the drift term in
 Observable steady--states, that is states for which the complex system is measured in the real--world, are further characterized by the spectral properties of the linearized vector field $f$.
 In particular, an equilibrium $x_+\in \mathbb{R}^{d}$ is (linearly) stable if the entirety of the spectrum of the Jacobian of $f$, evaluated at $x_+$, is in the complex half--plane with negative real part, i.e.
 %
-\begin{equation}
+\begin{equation}\label{eq:stable_equilibrium}
   x_+\quad \text{is stable}\quad \iff \quad \mathfrak{Re}\Bigl[\operatorname{Spec}\bigl(Df(x_+)\bigr)\Bigr] < 0.
 \end{equation}
 %
 A stable equilibrium attracts nearby regions of the state space which means that (relatively small) stochastic fluctuations around $x_+$ will robustly return back to it.
 Conversely, the Jacobian of $f$ at an (linearly) unstable equilibrium $x_-\in\mathbb{R}^{d}$ features a spectrum entirely contained in the positive real half of the complex plane, i.e.
 %
-\begin{equation}
+\begin{equation}\label{eq:unstable_equilibrium}
   x_-\quad \text{is unstable}\quad \iff \quad \mathfrak{Re}\Bigl[\operatorname{Spec}\bigl(Df(x_-)\bigr)\Bigr] > 0.
 \end{equation}
 %
