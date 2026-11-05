@@ -9,7 +9,7 @@ We will also assume that, for fixed parameters $\mu\in \mathbb{R}^{p}$ the (froz
 Since we would like to predict B-tipping of saddle-node (SN) type, we assume that the multistability of the system entails that $V$ is a sufficiently smooth function of the state variable $x$ and that it also grows sufficiently fast as $x\to\pm\infty$.
 The gradient structure of the dynamics allows to map equilibria of the vector field $f$ to stationary points of its potential $V$.
 In particular, locally stable equilibria of $f$ correspond to local minima of $V$ while locally unstable equilibria are associated to local maxima of $V$.
-This allows for a useful interpretation of the solution of \eqref{eq:fast_slow_sde} as the motion of an overdamped particle governed by the Langevin equation
+This allows for a useful interpretation of the solution of \eqref{eq:sde} as the motion of an overdamped particle governed by the Langevin equation
 %
 \begin{equation}\label{eq:langevin}
         dX_{t} = -V'(X_{t};\mu)dt + \sqrt{2D}dW_{t}\,,\quad D=\frac{\sigma^{2}}{2}\,.

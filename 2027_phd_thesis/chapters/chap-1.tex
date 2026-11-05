@@ -189,14 +189,19 @@ The thesis is organized as follows.
 
 In \textbf{Chapter~\ref{chap:background}} we provide the interdisciplinary mathematical grounding of critical transitions in slow--fast SDEs. 
 The background consists of two main ingredients: stochastic processes, which we review in \S~\ref{sec:stochastic_processes}, and dynamical systems, which we review in \S~\ref{sec:dynamical_systems}.
-In \S~\ref{sec:slow_fast} we show how these two theories can work together in the modeling of critical transitions by reviewing fundamental results of the theory of large deviations in slow--fast dynamics.
+Starting with basic concepts in both disciplines, these two sections ultimately introduce more advanced topics, such as large deviations and geometric singular perturbation theory, with the aim of introducing the fundamental ideas behind the mathematical modeling of critical transitions and our ability to forecast them.
 
-In \textbf{Chapter~\ref{chap:interpretable}} we tackle the issue of lack of universal interpretability by deriving a new early--warning signal that systematically increases from $0$ to $1$ as a bifurcation--induced tipping point is approached.
-In addition of this derivation we construct a computational algorithm that estimates the statistical quantity based on input timeseries that does not require an underlying knowledge of the physics of the system.
+In \textbf{Chapter~\ref{chap:interpretable}} we tackle the lack of universal interpretability, one of the two research themes of this thesis. 
+In \S~\ref{sec:formulation_ews}, inspired by statistical mechanics and the results provided by large deviation theory, we derive a novel early--warning signal that monotonically increases from $0$ to $1$ as a generic bifurcation--induced tipping point is approached.
+In \S~\ref{sec:estimation_ews}, under design assumptions for the underlying system, we introduce a computational pipeline for the estimation of this early--warning signal from timeseries.
+In \S~\ref{sec:analysis} we assess the accuracy and sensitivity of the proposed methodology under varying design conditions.
+Applications that showcase the universality of the early--warning signal to real--world timeseries, and its extraction pipeline, are deferred to Chapter~\ref{chap:forecasting}.
 
-In \textbf{Chapter~\ref{chap:forecasting}} we address the problem of forecasting tipping times via extrapolation by deriving the necessary conditions for an optimal observation protocol to be employed by the end--users.
-We also show how reduction in bias and quantification in the uncertanty of these estimators can be achieved by considering more general cases of quasi--stationary samples.
+In \textbf{Chapter~\ref{chap:forecasting}} we address the other research theme of this thesis, which is associated to the problem of forecasting tipping times via extrapolation. 
+In \S~\ref{sec:} we ...
+In \S~\ref{sec:} we derive the necessary conditions for an optimal observation protocol to be employed by the end--users.
+As for the previous theme, applications of the forecasting methodology and observation protocol are referred to Chapter~\ref{chap:forecasting}.
 
-In \textbf{Chapter~\ref{chap:applications}} we show how both methodologies can be combined to accurately predict tipping in real--world, high--dimensional timeseries with high degree of confidence.
+In \textbf{Chapter~\ref{chap:applications}} we show how both research themes apply to timeseries undergoing bifurcation--induced critical transitions by considering both synthetic and real--world, high--dimensional systems.
 
 Finally, in \textbf{Chapter~\ref{chap:conclusions}} we summarize the main results discussed throughout the thesis and indicate possible future directions for the research to develop.

@@ -32,7 +32,7 @@ Conversely, the prefactor in \eqref{eq:kramer_escape_formula} makes Kramer's for
 \begin{figure}[t]
     \centering 
     \includegraphics[keepaspectratio, width=\textwidth]{../figures/kramers_formula.pdf}
-    \caption{Comparison of the the noise--dependent escape early--warning signal $R(\mu)$ (panel (a)) and Kramer's escape rate $R_K$ (panel (c)) at different values of the diffusion level $D$ (color-coded in the colorbar on the right).
+    \caption{Comparison of the the noise--dependent exponential term of the escape early--warning signal $R(\mu)$ (panel (a)) and Kramer's escape rate $R_K$ (panel (c)) at different values of $D$ (colorbar on the right).
             The prefactor term of Kramer's escape rate (panel (b)) is independent on $D$ and thus shown by a single black curve.}
     \label{fig:kramers_formula}
 \end{figure}
@@ -363,9 +363,9 @@ The results of this experiment are depicted in Figure~\ref{fig:statistical_perfo
 \begin{figure}[!t]
     \centering 
     \includegraphics[keepaspectratio, width=\textwidth]{./figures/statistical_performance.pdf}
-    \caption{Sensitivity of the relative error of Algorithm~\ref{alg:modified_ews} under different regimes.
+    \caption{Sensitivity of Algorithm~\ref{alg:modified_ews} under different regimes.
             Each pixel in the heatmap corresponds to the ensemble mean relative error of $1{,}000$ sample paths of \eqref{eq:bistable_model}.
-            Panels (a1-a3): in the stationary case ($\varepsilon=0$) and with fixed small noise ($\sigma=0.05$) longer timeseries, sampled at larger frequencies, yield a more accurate estimation of the modified escape EWS.
+            Panels (a1-a3): in the stationary case ($\varepsilon=0$) and with fixed small noise ($\sigma=0.05$) longer timeseries, sampled at larger frequencies, yield a more accurate estimation of the modified escape early--warning signal.
             Panels (b1-b3): in the slow-fast regime, for fixed timeseries length $N=10{,}000$ and sampling frequency $\Delta t = 0.1$, the accuracy of the estimated modified escape early--warning signal depends, non-trivially, from the level of additive noise in the system with smaller noise seemingly yielding less accurate estimations.
             The red curve represents the $\sigma=\sqrt{\varepsilon}$ threshold.}
     \label{fig:statistical_performance}
@@ -386,15 +386,13 @@ This emphasizes the fact that the MLE of the modified escape early--warning sign
 \begin{figure}[!t]
     \centering 
     \includegraphics[keepaspectratio, width=\textwidth]{./figures/statistical_significance.pdf}
-    \caption{Time-varying estimations of the modified escape early--warning signal for an enseble $1{,}000$ slowly ramped (panels (a1)-(b1)) and stationary (panels (a2-a3)-(b2-b3)) solutions of \eqref{eq:bistable_model}.
-            In the ramped case the parameter varies between $\mu_0=-1.6$ to $\mu(T)=1.6$ with rate $\varepsilon=1\cdot10^{-5}$. 
-            The sample paths, shown by the black curves in panel (a1), follow the upper stable branch of the bifurcation diagram (blue curve) of the frozen system before tipping across the unstable branch (red curve).
+    \caption{Time-varying estimations of the modified escape early--warning signal for an enseble of $1{,}000$ slowly ramped (panels (a1)-(b1)) and stationary (panels (a2-a3)-(b2-b3)) solutions of \eqref{eq:bistable_model}.
+            In the ramped case the parameter varies between $\mu_0=-1.6$ to $\mu(T)=1.6$ with rate $\varepsilon=1\cdot10^{-5}$.
+            The sample paths, shown by the black curves in panel (a1), follow the stable slow manifold (blue curve) before tipping across the unstable branch (red curve).
             The earliest tipping in the ensemble is indicated by the vertical dashed line.
-            In the stationary cases the system is in the singular limit $\varepsilon\to0$ and thus the solutions, shown by the black curves in panels (a2-a3), are confined around the stable equilibrium (blue line) and do not tip across the unstable equilibrium (red curve) within the simulated time horizon.
-            The stationary cases are simulated at parameter values $\mu=0$ (panel (a2)) and $\mu=1$ (panel (a3)).
-            In all cases, a rolling window of $10\%$ the length of the sample paths, is used to estimate the modified escape EWS of the entire ensemble (panels (b1-b3)).
-            The ensemble envelope (i.e. maximum and minimum values) of the estimations are depicted by the blue shaded regions, whereas the interquartile range is depicted by the green shaded regions. 
-            The ensemble mean is shown by the red curves and it is compared with the ground truth of the frozen system, depicted by the black curves.}
+            In the stationary cases, simulated at parameter values $\mu=0$ (panel (a2)) and $\mu=1$ (panel (a3)), the system is in the singular limit $\varepsilon\to0$ and thus the solutions, shown by the black curves in panels (a2-a3), are confined around the stable equilibrium (blue line) and do not tip within the simulated time horizon.
+            In all cases, a rolling window of $10\%$ the total length of the sample paths, is used to estimate $R$ via Algorithm~\ref{alg:modified_ews} (panels (b1-b3)).
+            The ensemble mean early--warning, shown by the red curves, is compared with the ground truth of the frozen system, depicted by the black curves, alongside its descriptive statistics (see legend in panel (b3)).}
     \label{fig:statistical_significance}
 \end{figure}
 %
