@@ -28,7 +28,7 @@
 
 \begin{document}
 
-\title{Forecasting tipping times from data: a data--driven pipeline}
+\title{Forecasting tipping times from data}
 
 \author{Davide Papapicco$^{1}$, Lauren Smith$^{1}$ and Graham Donovan$^{1}$}
 \address{$^{1}$Department of Mathematics, University of Auckland, New Zealand}
@@ -50,7 +50,7 @@
 \begin{fmtext}
         \section{Introduction}
         Tipping phenomena (or critical transitions) are abrupt changes in the state of complex systems that correspond to disruptive and potentially permanent alterations in their long--term behaviour.
-        They have been studied across a broad and diverse collection of natural and human critical phenomena including ecosystems degradation \cite{OSullivan2023,Kumar2026}, neurobiological activity spikes \cite{Boerner2024}, onset of asthma \cite{Venegas2005,Donovan2015}, weakining of ocean currents \cite{Boers2021,Dijkstra2026}, hysteresis in laser systems \cite{Hohl1995}, generation of instabilities in magnetically confined plasma \cite{Cowley2015} and thermoacustic systems \cite{Pavithran2021}, marine vessels capsizing \cite{Shao2026}, formation of
+        They have been studied across a broad and diverse collection of natural and human critical phenomena including ecosystems degradation \cite{OSullivan2023,Kumar2026}, neurobiological activity spikes \cite{Boerner2024}, onset of asthma \cite{Venegas2005,Donovan2015}, weakening of ocean currents \cite{Boers2021,Dijkstra2026}, hysteresis in laser systems \cite{Hohl1995}, generation of instabilities in magnetically confined plasma \cite{Cowley2015} and thermoacustic systems \cite{Pavithran2021}, marine vessels capsizing \cite{Shao2026}, formation of
 \end{fmtext}
 
 \maketitle
@@ -81,6 +81,7 @@ We provide a data--driven pipeline and an observation protocol with which scient
 
 To achive this we leverage well--known results in classical and nonautonomous dynamical systems theory and stochastic dynamics as well as canonical statistical estimation techniques applied to timeseries data.
 The pipeline and the protocol rely on a set of assumptions that the data must satisfy in order for the forecasting technique to yield consistent and reliable results.
+\edit{Specifically, we discuss how the level of noise, rate of change of the forcing parameter, distance from the bifurcation and sample length can be optimally selected to robustly forecast tipping times.}
 
 The paper is structured as follows.
 In \S~\ref{sec:tipping} we introduce the mathematical formalism of tipping times in slow--fast stochastic processes.
@@ -134,7 +135,7 @@ In the nonautonomous regime however, the classic notion of $x_+(t)$ is replaced 
   \lim_{t\to-\infty}|x_{\mathrm{pb}}(t)-x_+(t)|=0 .
 \end{equation}
 %
-For a slow passage through the saddle-node bifurcation, i.e. $0<\varepsilon\ll1$, provided that $\mu_0=\lim_{t\to-\infty}\mu(t)\ll0$, the pullback attractor converges to a slow manifold \cite[Thm.~$2.1.7$]{Berglund2006}, which tracks the stable equilibrium branch $x_+(t)$ and persists past the breaking time $\tau$ for some time before blowing-up to $-\infty$.
+For a slow passage through the saddle-node bifurcation, i.e. $0<\varepsilon\ll1$, provided that $\mu_0=\lim_{t\to-\infty}\mu(t)\ll0$, the pullback attractor converges to a slow manifold \cite[Thm.~$2.1.7$]{Berglund2006}, which tracks the stable equilibrium branch $x_+(t)$ and persists past the breaking time $\tau$ for some time before \edit{diverging} to $-\infty$.
 The trajectory of a slow passage through a saddle-node bifurcation will thus undergo B-tipping at a delayed time $\tau_\mathrm{pb}>\tau$ (henceforth \emph{tipping time}), creating a window of opportunity $\Delta\tau\coloneqq\tau_{\mathrm{pb}}-\tau>0$ to reverse the forcing $\varepsilon$ and avoid the critical transition.
 
 To quantify the tipping time, and thus identify the window of opportunity, we follow the procedure outlined in \cite{Li2019}.
@@ -163,13 +164,13 @@ By backward substitution, and in the past limit $t\to-\infty$, the pullback attr
         x_{\mathrm{pb}}(s) = -\varepsilon^{1/3}\frac{1}{\Ai(s)}\frac{\dd\Ai}{\dd s} .
 \end{equation}
 %
-From \eqref{eq:pullback_attractor}, $x_{\mathrm{pb}}\to-\infty$ as $\Ai\to0$, which occurs at $s\approx2.338$.
-It thus follows that the tipping time of the pullback attractor is given by $\tau_{\mathrm{pb }}\approx \tau + 2.338\,\varepsilon^{-1/3}$ and the opportunity window scales with the reciprocal of the cubic root of the parameter speed, i.e. $\Delta\tau\propto\varepsilon^{-1/3}$.
+From \eqref{eq:pullback_attractor}, $x_{\mathrm{pb}}\to-\infty$ as $\Ai\to0$, which occurs at $s = s_0\approx 2.338$.
+It thus follows that the tipping time of the pullback attractor is given by $\tau_{\mathrm{pb }} = \tau + s_0\,\varepsilon^{-1/3}$ and the opportunity window scales with the reciprocal of the cubic root of the parameter speed, i.e. $\Delta\tau\propto\varepsilon^{-1/3}$.
 
 \subsection{Tipping time distribution}\label{subsec:exit}
 We now consider the more general case of stochastic fluctuations of slow passage through the bifurcation by restoring $\sigma>0$ in \eqref{eq:model}.
-As a result, the tipping time $\tau_{\mathrm{pb}}$ is treated as a random variable $\tau_{\mathrm{tip}}$ with an associated probability distribution. 
-To characterize $\tau_{\mathrm{pb}}$ for \eqref{eq:model}, we follow the procedures outlined in \cite{Miller2012,Herbert2017}.
+As a result, the tipping time is treated as a random variable $\tau_{\mathrm{tip}}$ with an associated probability distribution. 
+To characterize $\tau_{\mathrm{tip}}$ for \eqref{eq:model}, we follow the procedures outlined in \cite{Miller2012,Herbert2017}.
 To start, consider again the singular limit $\varepsilon\to0$ of \eqref{eq:model}, written as a gradient system 
 %
 \begin{equation}\label{eq:gradient}
@@ -208,7 +209,7 @@ where $\overset{d}{\to}$ denotes convergence in distribution of a random variabl
         =\frac{\sqrt{-\mu}}{\pi}\exp\biggl(-\frac{4(-\mu)^{3/2}}{3D}\biggr).
 \end{equation}
 %
-Notice that the reciprocal of the escape rate in \eqref{eq:rate} gives the \emph{mean first exit time} of \eqref{eq:first_exit}, i.e. $\E[\tau_{\mathrm{exit}}] = 1/k(\mu)$.
+Notice that the reciprocal of the escape rate in \eqref{eq:rate} gives the \emph{mean first exit time} of \eqref{eq:first_exit}, i.e. $\E[\tau_{\mathrm{exit}}] = 1/k(\mu)$; \edit{a comparison between the analytical distribution \eqref{eq:large_deviation_principle} and a finite sample Monte Carlo simulation is provided in Figure~\ref{fig:tipping_times_distribution}(b1).}
 This result, originally formulated for stationary diffusion \cite{Day1983} and jump processes \cite{Imkeller2006}, was then extended to the dynamic saddle-node normal form \cite{Miller2012}.
 Specifically, in the limiting regime of low noise intensity $D\ll\varepsilon/2$, the approximate distribution of the tipping time $\tau_{\mathrm{tip}}$ has been shown to be \cite[Eq.~$(19)$]{Miller2012}
 %
@@ -219,25 +220,15 @@ Specifically, in the limiting regime of low noise intensity $D\ll\varepsilon/2$,
 \end{equation}
 %
 with $\mathcal J(t)\coloneqq\int_{-\infty}^{t}\Ai^{4}\bigl(-\mu(s)\varepsilon^{-2/3}\bigr)\,\dd s$. 
-We remark that $p_1(t)$ has support in the interval $\tau+1.17 \varepsilon^{-1/3} < t < \tau + 3.27 \varepsilon^{-1/3}$ and it contains the tipping time of the pullback attractor $\tau_{\mathrm{pb}}\approx\tau+2.338\,\varepsilon^{-1/3}$.
+We remark that $p_1(t)$ has support in the interval $\tau+ s_{\mathrm{inf}}\varepsilon^{-1/3} < t < \tau +  s_{\mathrm{sup}}\varepsilon^{-1/3}$, with $s_{\mathrm{inf}}\approx1.17$ and $s_{\mathrm{sup}}\approx3.27$, and that it contains the tipping time of the pullback attractor $\tau_{\mathrm{pb}} = \tau+s_0\,\varepsilon^{-1/3}$ since $s_{\mathrm{inf}} < s_0 < s_{\mathrm{sup}}$.
 Furthermore \eqref{eq:small_noise} is approximately Gaussian locally to its maximum
 %
 \begin{equation}\label{eq:small_noise_approximation}
         \tau_{\mathrm{tip}}\overset{d}{\to}\mathcal{N}\biggl(\tau_{\mathrm{pb}}\bigl[1+O(D/\varepsilon)\bigr],O\bigl(D\varepsilon^{-5/3}\bigr)\biggr),
 \end{equation}
 %
-with mean close to the tipping time of the deterministic solution, i.e. $\E[\tau_{\mathrm{tip}}]\approx\tau_{\mathrm{pb}}$.
+with mean close to the tipping time of the deterministic solution, i.e. $\E[\tau_{\mathrm{tip}}]\approx\tau_{\mathrm{pb}}$ \edit{(see Figure~\ref{fig:tipping_times_distribution}(b2) for reference).}
  
-In the opposite regime of large noise intensity $\varepsilon/2\ll D$, and up to $-\mu(t)\gg D^{2/3}$, it was later shown that the approximate tipping time distribution has a maximum before the breaking time $\tau$ and it has the form \cite[Eq.~$(4)$]{Herbert2017}
-%
-\begin{equation}\label{eq:large_noise}
-        p_2(t)\coloneqq k\bigl(\mu(t)\bigr)\,
-        \exp\biggl[-\frac{D}{2\pi\varepsilon}\,
-        \exp\biggl(-\frac{\Delta V\bigl(\mu(t)\bigr)}{D}\biggr)\biggr] ,
-\end{equation}
-%
-where $k(\mu(t))$ is the Kramers escape rate given in \eqref{eq:rate} and $\Delta V(\mu(t))$ is the potential barrier given in \eqref{eq:barrier}.
-
 \begin{figure}[t]
     \centering 
     \includegraphics[keepaspectratio, width=\textwidth]{./figures/tipping_times_distribution.pdf}
@@ -250,8 +241,18 @@ where $k(\mu(t))$ is the Kramers escape rate given in \eqref{eq:rate} and $\Delt
     \label{fig:tipping_times_distribution}
 \end{figure}
 
+In the opposite regime of large noise intensity $\varepsilon/2\ll D$, and up to $-\mu(t)\gg D^{2/3}$, it was later shown that the approximate tipping time distribution has a maximum before the breaking time $\tau$ and it has the form \cite[Eq.~$(4)$]{Herbert2017}
+%
+\begin{equation}\label{eq:large_noise}
+        p_2(t)\coloneqq k\bigl(\mu(t)\bigr)\,
+        \exp\biggl[-\frac{D}{2\pi\varepsilon}\,
+        \exp\biggl(-\frac{\Delta V\bigl(\mu(t)\bigr)}{D}\biggr)\biggr] ,
+\end{equation}
+%
+where $k(\mu(t))$ is the Kramers escape rate given in \eqref{eq:rate} and $\Delta V(\mu(t))$ is the potential barrier given in \eqref{eq:barrier} \edit{(see Figure~\ref{fig:tipping_times_distribution}(b3) for reference)}.
+
 The analytical approximations of the three different regimes prescribed in \cite{Berglund2013, Miller2012, Herbert2017} match the empirical observations obtained via Monte Carlo simulations as reported in Figure~\ref{fig:tipping_times_distribution}.
-Notice how, in the small noise regime $D\ll \varepsilon/2$, almost all the mass of the tipping time distribution \eqref{eq:small_noise} is located after the breaking time $\tau$ and its mean approximates the tipping time of the pullback attractor $\tau_{\mathrm{pb}}$ (see panel (b2)).
+Notice how, in the small noise regime $D\ll \varepsilon/2$ \edit{(panel (b2))}, almost all the mass of the tipping time distribution \eqref{eq:small_noise} is located after the breaking time $\tau$ and its mean approximates the tipping time of the pullback attractor $\tau_{\mathrm{pb}}$.
 This setting thus prescribes the optimal scenario for which the (accurate) forecast of the breaking time $\tau$ provides valuable predictions for the estimation of the tipping time since it provides policymakers a window of opportunity $\Delta\tau$ to reverse the forcing of the system towards the saddle--node catastrophe.
 
 \section{Forecasting problem}\label{sec:formulation}
@@ -259,7 +260,7 @@ From \S~\ref{sec:tipping}, we summarize three important results that motivate th
 %
 \begin{enumerate}
         \item for a slow passage through a saddle-node bifurcation the leading eigenvalue $\lambda(t)$ explicitly depends on the breaking time $\tau$ via Eq.~\eqref{eq:eigenvalue_time};
-        \item the time at which a slowly ramped solution tips $\tau_{\mathrm{pb}}$ is delayed with respect to the breaking time $\tau$ by a factor of $\varepsilon^{-1/3}$ that depends on the speed of the forcing, thereby creating an opportunity window $\Delta\tau$;
+        \item the time at which a slowly ramped solution, \edit{in the noiseless limit $\sigma\to0$}, tips $\tau_{\mathrm{pb}}$ is delayed with respect to the breaking time $\tau$ by a factor of $\varepsilon^{-1/3}$ that depends on the speed of the forcing, thereby creating an opportunity window $\Delta\tau$;
         \item in the small noise regime $\sigma=\sqrt{2D}\ll\sqrt{\varepsilon}$, the delayed tipping time of a noisy solution $\tau_{\mathrm{tip}}$ occurs almost always after the breaking time $\tau$, as per the support of the density $p_1(t)$ in Eq.~\eqref{eq:small_noise}, and on average close to the deterministic tipping time, as per Eq.~\eqref{eq:small_noise_approximation}.
 \end{enumerate}
 %
@@ -271,17 +272,17 @@ To formulate the forecasting problem of the breaking time $\tau$ we introduce th
         \alpha(t) = 4\varepsilon(\tau-t)>0\quad\forall t<\tau . 
 \end{equation}
 %
-Notice that, while $\alpha(t)\downarrow0$ as $t\uparrow\tau$, in the same fashion of $\lambda(t)\uparrow0$ as $t\uparrow\tau$, the return rate in \eqref{eq:return_rate} establishes an affine dependence of the return rate on time $t$ which benefits the forecasting of $\tau$ using timeseries data.
+Notice that, while $\alpha(t)\to0$ as $t\to\tau$, in the same fashion of $\lambda(t)\to0$ as $t\to\tau$, the return rate in \eqref{eq:return_rate} establishes an affine dependence of the return rate on time $t$ which benefits the forecasting of $\tau$ using timeseries data.
 
 To understand this suppose that $\mathcal{X}_1\coloneqq\{X^{(1)}_j\coloneqq X_{t^{(1)}_j}\}_{j=1,\dots,n}$, $t^{(1)}_j<t^{(1)}_{j+1}$, is a solution of \eqref{eq:model} that is at safe distance from the bifurcation, i.e. $t^{(1)}_n\ll\tau$.
 Assume also that we can estimate the true return rate \eqref{eq:return_rate} from the sample $\mathcal{X}$, which we denote with $\hat\alpha_1\coloneqq\hat\alpha(t^{(1)}_n)$.
 We are then presented with another sample $\mathcal{X}_2$, which is also at safe distance from the bifurcation but closer to it than the previous sample $\mathcal{X}_1$, i.e. $t^{(1)}_n<t^{(2)}_n$; once again, assuming we can do so, we estimate the return rate $\hat\alpha_2$.
-Suppose with repeat this procedure for $N$ different samples $\mathcal{X}_1,\dots,\mathcal{X}_N$, yielding a sequence $\hat{\alpha}\coloneqq\{\hat\alpha_j\}_{j=1,\dots,N}$.
+Suppose we repeat this procedure for $N$ different samples $\mathcal{X}_1,\dots,\mathcal{X}_N$, yielding a sequence $\hat{\alpha}\coloneqq\{\hat\alpha_j\}_{j=1,\dots,N}$.
 Given this sequence $\hat\alpha$ we can then fit a linear model of the form $\hat\alpha(t) = \hat m t + \hat q$, with slope $\hat m$ and intercept $\hat q$. 
 The forecasted breaking time $\hat\tau$ thus corresponds to the zero-crossing of the linear fit, which by extrapolation reads $\hat\tau = -\hat q/\hat m$.
 
-Conseqentially, we translate the problem of forecasting the breaking time $\tau$ from timeseries data $\mathcal{X}_1,\dots,\mathcal{X}_N$ into a trivial, linear extrapolation $\hat\tau$ from estimated return rates $\hat\alpha$.
-This procedure however features two bottlenecks: first, we need $\hat\alpha$ to be a sequence of precise and accurate estimators of the ground truth $\alpha$ and; second, given those estimates $\hat\alpha$, we need the linear extrapolation $\hat\tau=-\hat q/\hat m$ to be as close as possible to the ground truth $\tau$ to not shrink the window of opportunity.
+Conseqentially, we translate the problem of forecasting the breaking time $\tau$ from timeseries data $\mathcal{X}_1,\dots,\mathcal{X}_N$ into a \edit{simple}, linear extrapolation $\hat\tau$ from estimated return rates $\hat\alpha$.
+This procedure, however, features two bottlenecks: first, we need $\hat\alpha$ to be a sequence of precise and accurate estimators of the ground truth $\alpha$ and; second, given those estimates $\hat\alpha$, we need the linear extrapolation $\hat\tau=-\hat q/\hat m$ to be as close as possible to the ground truth $\tau$ to not shrink the window of opportunity.
 In particular, depending on applications, we would prefer to slightly underestimate the breaking time $\hat\tau\lesssim\tau$, rather than slightly overestimating it $\hat\tau\gtrsim\tau$, thereby biasing our forecast to minimize missed alarms (i.e. false negatives) in favour of spurious warnings (i.e. false positives).
 In the remainder of this section we present three data-driven techniques to accurately extract the estimates $\hat\alpha$ from a sample $\mathcal{X}$ while we address the extrapolation problem in \S~\ref{sec:observation}.
 
@@ -317,7 +318,7 @@ Written in terms of the return rate $\alpha=\lambda^2$, the last identity reads
         \gamma = \frac{\sigma^2}{2\sqrt{\alpha}} .
 \end{equation}
 %
-Let $\hat\gamma$ be the sample variance of $\mathcal{X}$, then \eqref{eq:oup_variance} gives a sample estimate of the return rate
+\edit{Letting} $\hat\gamma$ be the sample variance of $\mathcal{X}$, then \eqref{eq:oup_variance} gives a sample estimate of the return rate
 %
 \begin{equation}\label{eq:OUP}
         \hat\alpha = \frac{\sigma^4}{4\hat\gamma^2} .
@@ -379,7 +380,7 @@ Substituting this ansatz into \eqref{eq:increments}, and minimizing the square r
         \hat\theta = \argmin_{\theta\in\mathbb{R}}\Biggl(\sqrt{\sum_{j=1}^{n-1}\bigl(Y_j-f(X_j;\theta)\bigr)^2}\Biggr) ,
 \end{equation}
 %
-which is linear in $\theta$ due to $f\in\mathbb{P}_1[\theta]$.
+which is linear in $\theta$.
 The solution of \eqref{eq:ordinary_least_squares} is given by the normal equation
 %
 \begin{equation}\label{eq:normal_equation}
@@ -394,11 +395,12 @@ Notice that, by definition, $\hat{\theta}$ is an estimate of the leading eigenva
 \end{equation}
 %
 is a sample estimate of the return rate using an ordinary (linear) least--squares approximation. 
-The application of quasi-maximum likelihood estimations for the construction of early-warning signals is much more recent than the more established autoregressive and Ornstein-Uhlenbeck approximation, with an early adoption discussed in \cite{Papapicco2026}.
+The application of quasi-maximum likelihood estimations for the construction of early-warning signals is much more recent than the more established autoregressive and Ornstein-Uhlenbeck approximation. 
+\edit{We recently implemented this approach in \cite{Papapicco2026} to construct an interpretable early--warning indicator adapted from Kramers escape formula \eqref{eq:rate}}.
 
 \section{Observation protocol}\label{sec:observation}
 The return rate estimators using the Ornstein--Uhlenbeck \eqref{eq:OUP}, autoregressive \eqref{eq:AC1} and Euler--Maruyama \eqref{eq:LLS} approximations provide three different, data--driven pipelines to extract $\hat\alpha$ from a given sample $\mathcal{X}$ collected over a time window $T_w=n\Delta$, with $n>0$ number of observations sampled at (regular) frequency $\Delta$.
-As noted at the beginning of \S~\ref{sec:formulation} however, we then use these estimates to forecast the breaking time $\hat\tau$ given a sequence of samples $\mathcal{X}_1,\dots,\mathcal{X}_N$.
+As noted at the beginning of \S~\ref{sec:formulation}, however, we then use these estimates to forecast the breaking time $\hat\tau$ given a sequence of samples $\mathcal{X}_1,\dots,\mathcal{X}_N$.
 In this section we address this problem in two parts.
 First, we discuss the accuracy and precision associated to the estimators of the return rate $\hat\alpha$ proposed above.
 Second, we formulate the extrapolation problem of $\hat\tau$ given a sequence $\hat\alpha=\{\hat\alpha_j\}_{j=1,\dots,N}$ of estimators of the return rate and construct the full, data-driven pipeline for the accurate forecasting problem given input timeseries data.
@@ -412,7 +414,7 @@ We hereby discuss three major design constraints that modellers and scientists h
 First observe that the analytical return rate \eqref{eq:return_rate}, on which the sample estimators \eqref{eq:OUP}, \eqref{eq:AC1} and \eqref{eq:LLS} are based on, is obtained from the time--dependent eigenvalue \eqref{eq:eigenvalue_time}, which is itself evaluated along the drifting quasi--steady equilibrium $x_+(t)$.
 However, if the sample $\mathcal{X}$ is assumed to be a slowly forced solution of \eqref{eq:model} away from the bifurcation, then its trend follows the pullback attractor \eqref{eq:pb_attractor} instead of $x_+(t)$.
 In the slow regime (after the fast relaxation of the initial condition) the distance at which $x_{\mathrm{pb}}(t)$ tracks $x_+(\mu(t))$ increases with time and it reaches its maximum at the saddle-node bifurcation $|x_{\mathrm{pb}}(t)-x_+(\mu(t))|=O(\varepsilon^{1/3})$, $t\to\tau$ \cite[Thm.~$2.2.2$]{Berglund2006}.
-We are thus interested in quantifying a time horizon $t=T_c$ for which the return rate $\alpha(t)$ of the quasi-steady equilibrium is accurate, at least to first-order, to that of the pullback attractor $\alpha_{\mathrm{pb}}(t)=\lambda_{\mathrm{pb}}^2(t)=4x_{\mathrm{pb}}^{\,2}(t)$.
+We are thus interested in quantifying a time horizon $t=T_c$ for which the return rate $\alpha(t)$ of the quasi-steady equilibrium is \edit{(relatively)} accurate to that of the pullback attractor $\alpha_{\mathrm{pb}}(t)=\lambda_{\mathrm{pb}}^2(t)=4x_{\mathrm{pb}}^{\,2}(t)$.
 
 Sufficiently far from the saddle-node bifurcation we can exploit the asymptotic expansion of Airy's function \cite[\S~$10.4$]{Abramowitz1965} to approximate \eqref{eq:pullback_attractor} to first-order as
 %
@@ -492,7 +494,7 @@ Following a standard delta method \cite[\S~$5.5.4$]{Casella2024}, and using \eqr
   b_{\hat\lambda}^{\text{\tiny OUP}} = \frac{|\lambda|}{\gamma}b_{\hat\gamma} - \frac{|\lambda|}{\gamma^2}u^2_{\hat\gamma}.
 \end{equation}
 %
-Plugging \eqref{eq:bias_law} into \eqref{eq:taylor_expansion} yields a closed form expression for the bias in the estimation of the leading eigenvalue of a finite sample of residuals given its sample variance
+\edit{Substituting} \eqref{eq:bias_law} into \eqref{eq:taylor_expansion} yields a closed form expression for the bias in the estimation of the leading eigenvalue of a finite sample of residuals given its sample variance
 %
 \begin{equation}\label{eq:OUP_bias}
   b_{\hat\lambda}^{\text{\tiny OUP}} = -\frac{2|\lambda|(1+\rho+2\rho^2)}{(n-1)(1-\rho^2)}.
@@ -556,7 +558,7 @@ In the high sampling frequency limit this uncertainty is approximated by the Cra
     \caption{Numerical validation of the return rate bias \eqref{eq:return_rate_bias} given by: (a1)--(b1) the sample variance estimator \eqref{eq:OUP}; the autoregressive model fit \eqref{eq:AC1} and; the Euler--Maruyama approximation \eqref{eq:LLS}.
       In panels (a1)--(a3) we plot \eqref{eq:return_rate_bias}, in the parameter range $\mu\in[-1,0)$, using \eqref{eq:OUP_bias}, \eqref{eq:AC1_bias} and \eqref{eq:LLS_bias} respectively.
       In panels (b1)--(b3) we plot the results of Monte Carlo simulations of an ensemble $\Omega=\{\mathcal{X}_j\}_{j=1,\dots,N}$ of $N=200$ independent but stationary solutions of \eqref{eq:model} with $n=400$ realizations and noise level $\sigma=0.02$.
-      At discrete parameter values $\mu\in[-1,0)$, and for each sample $\mathcal{X}_j\in\Omega$, we estimate $\hat\alpha$ using the three techniques discussed above; this forms an ensemble of estimators from which reppresentative statistics are computed.
+      At discrete parameter values $\mu\in[-1,0)$, and for each sample $\mathcal{X}_j\in\Omega$, we estimate $\hat\alpha$ using the three techniques discussed above; this forms an ensemble of estimators from which representative statistics are computed.
     In particular the ensemble mean, shown by the red curves, are compared to the ground truth, black curves, to assess the bias in the estimators; the ensemble interquartile range, shown by the green shaded regions, are used to quantify the uncertainty in the estimators while the blue shaded regions provide the $5^{\text{th}}$-$95^{\text{th}}$ range of the estimators.}
     \label{fig:bias_estimators}
 \end{figure}
@@ -617,7 +619,7 @@ yielding a sufficient condition for the upper bound of the window length
 \end{equation}
 %
 where the last equality follows from \eqref{eq:return_rate}.
-Plugging \eqref{eq:lower_bound} and \eqref{eq:upper_bound} into \eqref{eq:bounds} provides us with the window length protocol
+\edit{Substituting} \eqref{eq:lower_bound} and \eqref{eq:upper_bound} into \eqref{eq:bounds} provides us with the window length protocol
 %
 \begin{equation}\label{eq:window_length}
   \frac{1}{2\sqrt{\varepsilon(\tau-t)}}\ll T_w \ll 2(\tau - t),
@@ -665,8 +667,10 @@ These specifications are summarized as follows:
   \item the residuals are collected over a time window that is long enough so that the correlation in the observation is negligible, i.e. $1/(2\sqrt{\varepsilon(\tau - t)})\ll T_w$, and short enough so that the sample can be considered a stationary approximation of the nonlinear evolution, i.e. $T_w\ll 2(\tau - t)$.
 \end{enumerate}
 %
-In this section we apply the above to design the optimal conditions for which data can be collected to accurately forecast the breaking time of the underlying system.
+\edit{Notice how in the prescribed conditions for the admissible time horizon (ii) and the optimal observation length (iv), prior knowledge of the breaking time $\tau$ is necessary, which is clearly not true in real--world applications.
+As a remedy one can deploy an iterative process in which, given a sample, one selects arbitrary values of $T_c$ and $T_w$, estimates the breaking time $\hat\tau$, and then uses such estimate in the next iteration to update the observation protocol accordingly.}
 
+In this section we apply the above to design the optimal conditions for which data can be collected to accurately forecast the breaking time of the underlying system.
 To do so we consider both low- and high-dimensional cases.
 First we apply our pipeline to the canonical dynamic saddle-node normal form \eqref{eq:model} to show how the observation protocol can be used to the design of data collection from a simplified model.
 We then subsequentially consider a one--dimensional observable reppresenting the strength of volume transport in the thermohaline ocean circulation generated by a high--dimensional Community Earth System Model (CESM).
@@ -703,7 +707,7 @@ Each subseries is then analysed in a rolling window to estimate the return rate;
 
 For each stride of the rolling window we then use the sample to estimate the return rate \eqref{eq:return_rate} (black curve in panel (b1)) of the underlying, quasi--stationary residuals, which we obtain via linear detrending.
 Using the pipeline derived in \S~\ref{subsec:LLS}, we apply the Euler--Maruyama approximation and solve the ordinary least--squares problem \eqref{eq:ordinary_least_squares} obtaining the least biased estimator (see Eq.~\eqref{eq:LLS_bias} and Figure~\ref{fig:bias_estimators}) of the three methods we discussed above.
-After a number of strides we obtain a sequence $\hat\alpha$ (pink circles in panel (b1)) of estimated return rates of varying precision (homoskedasticity assumption).
+After a number of strides we obtain a sequence $\hat\alpha$ (pink circles in panel (b1)) of estimated return rates of varying precision \edit{(following heteroskedasticity of the estimates).}
 By \S~\ref{subsec:extrapolators}, we fit a linear model (red curve in panel (b1)) to $\hat\alpha$ by solving the weighted least--squares problem \eqref{eq:weighted_regression} which finally yields the forecast $\hat\tau$ (red circle in panel (b1)).
 
 By repeating the same procedure for any sample path $\mathcal{X}_k$ in the ensemble $\Omega$ we can construct an empirical distribution of the estimated breaking time $\hat\tau$, which is shown by the red histogram in panel (b2).
@@ -715,7 +719,7 @@ This entails that, within the simplest model, following an optimal protocol for 
 
 The Atlantic Meridional Overturnic Circulation (AMOC) is a volume transport system driving the deep and surface water circulation in the Atlantic Ocean. 
 Due to the observed, sustained weakening of its strength, such circulation system has been a major focus of studies in climate science and oceanography communities for the past two decades.
-It is hypothesized that the collapse of the AMOC, due to instability-induced transitions, can drastically alter the global climate with particularly catastrophic effects in North--Western Europe \cite{Dijkstra2026}.
+It is hypothesized that the collapse of the AMOC, due to instability-induced transitions, \edit{could} drastically alter the global climate with particularly catastrophic effects in North--Western Europe \cite{Dijkstra2026}.
 
 The mathematical modeling of the AMOC weakening stength has followed both a low-fidelity, conceptual approach, in which the fundamental dynamics are captured by simplified box--models, and a high-fidelity, computational approach, in which large--scale simulations discretise the North--Atlantic ocean in a relatively fine grid and solve for the governing equations of motions.
 Among the former group, we highlight the canonical $2$--box model proposed by Stommel in 1961 \cite{Stommel1961}, the more recent $5$--box extension introduced by Wood et al. in 2019 \cite{Wood2019} and the convective, feedback--delayed multidecadal model of Falkena et al. in 2021 \cite{Falkena2021}; saddle-node B-tipping and R-tipping have been found in all of the above mentioned models \cite{Alkhayuon2019,Lohmann2025a,Mancini2026}.
@@ -739,8 +743,8 @@ Later studies have confirmed that the $34$°S latitude provides an optimal obser
     \label{fig:amoc_collapse}
 \end{figure}
 
-Mathematically, the freshwater transport is an univariate observable computed from a spatially aggregated, high--dimensional output consisting of the product of the meridional velocity and salinity field averaged across the ocean depth and longitude \cite[Eq.~$(1$b$)$]{vanWesten2024}.
-Here we follow a similar approach and compute an univariate observable, namely the circulation strength, from the averaged temperature and salinity timeries at the proposed latitude.
+Mathematically, the freshwater transport is a univariate observable computed from a spatially aggregated, high--dimensional output consisting of the product of the meridional velocity and salinity field averaged across the ocean depth and longitude \cite[Eq.~$(1$b$)$]{vanWesten2024}.
+Here we follow a similar approach and compute a univariate observable, namely the circulation strength, from the averaged temperature and salinity timeseries at the proposed latitude.
 The circulation strength undergoes a saddle--node bifurcation in Stommel's $2$--box model and interpretable early--warning signals based on such observable have been recently obtained \cite{Papapicco2026}.
 
 The result of our experiment are depicted in Figure~\ref{fig:amoc_collapse}.
@@ -755,12 +759,12 @@ This result further strengthens the computational evidence supported in the lite
 
 \section{Discussion and conclusions}\label{sec:conclusion}
 In this manuscript we have derived a fully data--driven pipeline for the forecast of the time of collapse in complex systems, commonly known as critical transitions or tipping events.
-Such pipeline estimates the return rate of the quasi--stationary residuals of a windowed timeseries and then extrapolates the estimates sequence to its zero--crossing by fitting a linear model.
+\edit{Our} pipeline estimates the return rate of the quasi--stationary residuals of a windowed timeseries and then extrapolates the estimates sequence to its zero--crossing by fitting a linear model.
 
-We have shown that a quasi--maximum likelihood estimation of the Euler--Maruyama approximation of the recorded residuals, resulting in the solution of an ordinary least--squares problem, results in a more accurate and precise estimation of the return rate compared to the more established sample variance and autocorrelation at lag--$1$.
-Furthermore, we derive bounds on the optimal length for the sample to yield meaningfull estimations under the stationary Ornstein--Uhlenbeck assumption.
+We have shown that a quasi--maximum likelihood estimation of the Euler--Maruyama approximation of the recorded residuals, resulting in the solution of an ordinary least--squares problem, results in a more accurate and precise estimation of the return rate compared to the more established sample variance \cite{Kuehn2011} and autocorrelation at lag--$1$ \cite{Boers2021}.
+Furthermore, we derive bounds on the optimal length for the sample to yield meaningful estimations under the stationary Ornstein--Uhlenbeck assumption.
 
-Monte Carlo simulations show that the proposed techique predicts the tipping time of a sample, by extrapolating the linear decay of the estimated return rates, before the actual collapse of the system in the majority of cases.
+Monte Carlo simulations show that the proposed technique predicts the tipping time of a sample, by extrapolating the linear decay of the estimated return rates, before the actual collapse of the system in \edit{more than half} of \edit{the} cases.
 This is further evidenced by the application of the forecast pipeline to a large--scale simulation of the AMOC collapse, which we predict with $3$ model years in advance before the ground truth.
 
 In the construction of the methodology we have leveraged results in nonautonomous dynamical systems theory and well-established techniques in the statistical inference of stochastic processes.
@@ -769,8 +773,8 @@ First, we expect the sample to be an observable of a high--dimensional complex s
 Second, we expect that the level of noise in the observations has relatively small magnitude compared to the speed at which the system is ramped toward the catastrophe, so to minimize the likelihood of early, noise-induced escapes from the basin of attraction.
 Third, the sample is recorded at regular frequency and it is sufficiently distant from the saddle--node bifurcation so that the statistical estimation of the return rate is feasible.
 
-So far the theory of early-warning signals, including the proposed pipeline in this manuscript, has largely been developed within the same setup outlined above, which leaves a large set of models for which not much theory has been formalized yet.
-The relaxation of the above assumptions requires thus extensive mathematical theory; recent early development being made in this direction include works on systems driven by multiplicative noise \cite{Morr2024b} and jump processes \cite{Layritz2025}, nonlinear \cite{Ritchie2016} and periodically forced \cite{Kuehn2018} parameter shifts with little or no timescale separation, and spatially extended models \cite{Gowda2015,Bernuzzi2024,Clarke2026,Miyauchi2026}.
+So far the theory of early-warning signals, including the proposed pipeline in this manuscript, has largely been developed within the same setup outlined above, which leaves a large set of models for which \edit{theoretical develpment is lacking}.
+The relaxation of the above assumptions \edit{thus} requires extensive mathematical theory; recent early development being made in this direction include works on systems driven by multiplicative noise \cite{Morr2024b} and jump processes \cite{Layritz2025}, nonlinear \cite{Ritchie2016} and periodically forced \cite{Kuehn2018} parameter shifts with little or no timescale separation, and spatially extended models \cite{Gowda2015,Bernuzzi2024,Clarke2026,Miyauchi2026}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %               Declarations               % 
@@ -779,7 +783,8 @@ The relaxation of the above assumptions requires thus extensive mathematical the
 \vskip6pt
 \enlargethispage{20pt}
 
-\dataccess{The code used to generate the figures is available at the repository \url{https://github.com/papadeiv/Research/tree/master/2027_proc_r_soc_a}.}
+\dataccess{The code used to generate the figures is available at the repository \url{https://github.com/papadeiv/Research/tree/master/2027_proc_r_soc_a}.
+All figures have been postprocessed for proper labeling and formatting using Inkscape v.1.4.4.}
 \aucontribute{D.P.: Conceptualization, Methodology, Formal analysis, Investigation, Writing - Original draft preparation; L.S.: Supervision, Conceptualization, Validation, Writing - Review \& editing; G.D.: Project administration, Supervision, Funding acquisition, Conceptualization, Validation, Writing - Review \& editing.\\ All authors gave final approval for publication and agreed to be held accountable for the work performed
 therein.}
 \conflict{We declare we have no competing interests.}
@@ -792,23 +797,6 @@ therein.}
 
 \section*{Appendix A}
 \subsection{Something important}
-
-Example table.
-
-\begin{table}[!h]
-\caption{An Example of a Table}%%%Table caption goes here
-\label{table_example}
-\begin{tabular}{llll}%%%The number of columns has to be defined here
-\hline
-date &Dutch policy &date &European policy \\
-\hline
-1988 &Memorandum Prevention &1985 &European Directive (85/339) \\
-1991--1997 &{\bf Packaging Covenant I} & & \\
-1994 &Law Environmental Management &1994 &European Directive (94/62) \\
-1997 &Agreement Packaging and Packaging Waste & & \\\hline
-\end{tabular}
-\vspace*{-4pt}
-\end{table}%%%End of the table
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %               Bibliography               % 

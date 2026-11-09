@@ -891,6 +891,15 @@ In the ramped case, the estimated ensemble mean of the modified escape EWS (red 
 Furthermore, while the interquartile range (green shaded region) shows a reasonable bounded region for the estimated signal, the outliers in the ensemble (blue shaded region) deviate significantly from the mean.
 This feature of the MLE of the modified escape EWS is also observed in the stationary cases with the deviations reducing as the system is driven closer to B-tipping.
 
+To further quantify the significance of the mean EWS in this experiment, we compute its Kendall's $\tau$ coefficient \cite{Kendall1938}
+%
+\begin{equation}\label{eq:kendall_tau}
+  \tau = \frac{2}{N(N-1)}\sum_{i=1}^{N-1}\sum_{j=i+1}^{N}\text{sign}(t_i - t_j)\text{sign}(y_i - y_j),
+\end{equation}
+%
+where $y_j$ is the value attained by the ensemble average modified escape rate at time $t_j$.
+In the positive tipping case (panel (b1)) the upward trend of the proposed EWS is strong, evaluated at $\tau=0.978$; in the negative tipping cases (panels (b2-b3)), the same signal returns no significant trend with $\tau=1.7\cdot10^{-2}$ and $\tau=3\cdot10^{-3}$ for the stationary simulations away (panel (b2)) and close (panel (b3)) to B--tipping.
+
 We conclude that, the overestimation bias in the ensemble mean, and the large deviations of the outliers from such mean can lead to spurious warnings when a single trajectory is considered.
 However, considering that the interquartile range provides a considerably smaller region around the mean, and that such deviations vanish as $\mu\to\mu_c$, we can also conclude that the overall trends of the estimations become more significant as the system approaches B-tipping, which minimizes the occurence of missed alarms from single trajectories.
 Notice that, variability in the outliers of the estimated EWS can be alleviated by considering moving averages of the timeseries, thus yielding much more reliable indicators that can also minimize spurious warnings.
