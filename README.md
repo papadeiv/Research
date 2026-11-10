@@ -13,6 +13,7 @@ If you are interested in a particular work you can follow one of the links liste
 
 These are repositories associated to peer-reviewed papers that have been _Published_ in a scientific journal.
 
+- [Likelihood estimation of an interpretable early-warning sign of critical transitions](./2026_phys_a/) (2026).
 - [Quadrature of functions with endpoint singular and generalised polynomial behaviour in computational physics](https://github.com/papadeiv/MTQR) (2024, external repository).
 - [The neural network shifted-proper orthogonal decomposition: a machine learning approach for non-linear reduction of hyperbolic equations](https://github.com/papadeiv/NNsPOD) (2022, external repository).
 
@@ -22,7 +23,6 @@ These are repositories associated to peer-reviewed papers that have been _Publis
 _Under review_ projects are works whose manuscripts have been submitted to a journal and are under peer-review. 
 If accepted, they are "_promoted_" to _Published_ repositories; if rejected, that's life I guess ¯\_(ツ)_/¯.
 
-- [Likelihood estimation of an interpretable early-warning sign of critical transitions](./2026_phys_a/).
 - [Collapsing economies and endogenous takeoff in unified growth theory](https://github.com/samuelbolduc44/UGT---codes) (2026, external repository).
 
 ### In progress

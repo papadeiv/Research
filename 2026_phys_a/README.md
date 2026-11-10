@@ -18,6 +18,8 @@ Results show promising scalability of the EWS, and its approximation methodology
 - their dynamics is sufficiently low dimensional;
 - an optimal observable capturing the signature of critical transitions exists and is available.
 
+__This work is been accepted for publication in Physica A; a link and `DOI` of the proof of record will be provided once the journal's issue goes live.__
+
 ### 🔍📜 How to cite
 Here's the bibtex entry for the manuscript based on the work in this repository.
 
