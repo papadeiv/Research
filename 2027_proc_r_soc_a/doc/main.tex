@@ -585,7 +585,7 @@ The lower bound $L(t)$ is derived by imposing that the sample $\mathcal{X}$ is o
   L(t) = \frac{1}{2\sqrt{\varepsilon(\tau-t)}}\ll T_w.
 \end{equation}
 %
-This requirement ensures that the realizations $X_j$ in the sample are independent fluctuations around the stable equilibrium $x_+(t)$.
+This requirement ensures that the realizations $X_j$ in the sample are independent fluctuations around the stable equilibrium $x_+(t)$ \edit{due to the decay in autocorrelation (see Figure~\ref{fig:observation_window}(b1--b3) for reference)}.
 On the other hand, the upper bound $U(t)$ is derived by imposing that the sample $\mathcal{X}$ is quasi-stationary.
 To derive $U(t)$ observe that, from \eqref{eq:eigenvalue_time}, the instantaneous rate of change of the eigenvalue is
 %
@@ -606,7 +606,7 @@ and dividing each term by $|\lambda(t_n)|$ yields
   \frac{\Delta\lambda}{|\lambda(t_n)|} < \frac{2 \varepsilon}{\lambda^2(t_n)}T_{w} .
 \end{equation*}
 %
-Our requirement for the sample $\mathcal{X}$ to be quasi-stationarity across $T_{w}$ corresponds to small changes of the leading eigenvalue compared to its endpoint value, i.e. $\Delta\lambda/|\lambda(t_n)|\ll 1$, which is guaranteed by imposing
+Our requirement for the sample $\mathcal{X}$ to be quasi-stationarity across $T_{w}$ corresponds to small changes of the leading eigenvalue compared to its endpoint value, i.e. $\Delta\lambda/|\lambda(t_n)|\ll 1$ \edit{(see Figure~\ref{fig:observation_window}(c1--c3) for reference)}, which is guaranteed by imposing
 %
 \begin{equation*}
   \frac{2 \varepsilon}{\lambda^2(t_n)}T_{w} \ll 1 ,
@@ -626,6 +626,13 @@ where the last equality follows from \eqref{eq:return_rate}.
 \end{equation}
 %
 where notice that only the lower bound depends on the speed of the parameter $\varepsilon$.
+
+\begin{figure}[t]
+    \centering 
+    \includegraphics[keepaspectratio, width=\textwidth]{./figures/observation_window.pdf}
+    \caption{\the\textwidth}
+    \label{fig:observation_window}
+\end{figure}
 
 \subsection{Extrapolating the tipping time}\label{subsec:extrapolators}
 Having derived the design conditions for the collection of samples that yield optimal estimators $\hat\alpha$ we are now ready to specify the full data-driven pipeline for the forecasting of the breaking time $\tau$.
