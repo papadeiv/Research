@@ -1,5 +1,7 @@
 # Likelihood estimation of an interpretable early-warning sign of critical transitions
 
+__This work is based on a peer-reviewed manuscript published in Physica A and available [here](https://www.sciencedirect.com/science/article/pii/S0378437126010010?via%3Dihub).__
+
 ## 🚀 Description 
 
 Critical transitions are sudden and (often) unforeseen change of states occuring in many different natural and human complex systems.
@@ -18,18 +20,17 @@ Results show promising scalability of the EWS, and its approximation methodology
 - their dynamics is sufficiently low dimensional;
 - an optimal observable capturing the signature of critical transitions exists and is available.
 
-__This work is been accepted for publication in Physica A; a link and `DOI` of the proof of record will be provided once the journal's issue goes live.__
-
 ### 🔍📜 How to cite
 Here's the bibtex entry for the manuscript based on the work in this repository.
 
 ```bash
-@misc{Papapicco2026,
-      title={Likelihood estimation of an interpretable early-warning sign of critical transitions}, 
-      author={Davide Papapicco and Lauren Smith and Graham Donovan},
-      year={2026},
-      eprint={2607.05976},
-      url={https://arxiv.org/abs/2607.05976}, 
+@article{papapicco2026,
+    title = {Likelihood estimation of an interpretable early-warning sign of critical transitions},
+    journal = {Physica A},
+    volume = {705},
+    year = {2027},
+    doi = {10.1016/j.physa.2026.132255},
+    author = {Davide Papapicco and Lauren Smith and Graham Donovan},
 }
 ```
 
