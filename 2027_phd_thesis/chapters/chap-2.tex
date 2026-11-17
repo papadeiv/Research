@@ -5,48 +5,124 @@ To avoid confusion with regards to differentiation we will adopt the following n
         \dot{y}:=\partial_t\,y(x,t)\quad \text{and}\quad y':=\partial_x\,y(x,t)\,.
 \end{equation*}
 %
-We will also assume that, for fixed parameters $\mu\in \mathbb{R}^{p}$ the (frozen) deterministic drift is a conservative vector field, i.e. there exists a scalar potential $V(x;\mu):\mathbb{R}^{d}\to \mathbb{R}$ such that $f(x;\mu) = -V'(x;\mu)$.
-Since we would like to predict B-tipping of saddle-node (SN) type, we assume that the multistability of the system entails that $V$ is a sufficiently smooth function of the state variable $x$ and that it also grows sufficiently fast as $x\to\pm\infty$.
-The gradient structure of the dynamics allows to map equilibria of the vector field $f$ to stationary points of its potential $V$.
-In particular, locally stable equilibria of $f$ correspond to local minima of $V$ while locally unstable equilibria are associated to local maxima of $V$.
-This allows for a useful interpretation of the solution of \eqref{eq:sde} as the motion of an overdamped particle governed by the Langevin equation
-%
-\begin{equation}\label{eq:langevin}
-        dX_{t} = -V'(X_{t};\mu)dt + \sqrt{2D}dW_{t}\,,\quad D=\frac{\sigma^{2}}{2}\,.
-\end{equation}
-%
-If the process is stationary (i.e. $\varepsilon=0$) then, for a given configuration of the potential $V$ at parameter value $\mu$, the long term behaviour of a solution of the Langevin equation of motion \eqref{eq:langevin} is described by random fluctuations (of intensity $\sqrt{2D}$) around the local minima of $V$.
+
+Furthermore, we will only consider one--dimensional systems as the techniques of early--warning developed throughout this thesis only apply to univariate timeseries.
+This assumption does not limit the generality of the methods discussed throughout; as we will see in thei chapter in fact, the results based on one--dimensional stochastic dynamical systems of saddle--node type can be easily extended to higher dimensions provided the correct homeomorphism in the specified coordinates system.
 
 \section{Stochastic processes}\label{sec:stochastic_processes}
 
-\subsection{Markov processes}\label{subsec:markov_processes}
-A sample path $\mathcal{X}=\{X_n\}_{n=0,\dots,N}$ of \eqref{eq:sde} is an It\^{o} process that is also Markov \cite[Ch.7, p. 111]{Oksendal2000}.
-This results in the joint distribution of the sample to be written in a factorized form of the (marginal) transition probability densities
+The centerpiece of the mathematical modelling of critical transitions are stochastic differential equations (SDEs) of the form \eqref{eq:sde}.
+Loosely speaking, these are differential equations in which the forcing term on the right--hand side of the equation features a deterministic component (often called the \emph{drift}) and a random perturbation (often called the \emph{diffusion}).
+The solution $X_t$ of the initial valued problem
 %
-\begin{equation}\label{eq:joint_distribution}
-        p(\mathcal{X}) = p(X_{0})\prod_{n=1}^{N-1}p(X_{n+1}|X_{n})\,.
+\begin{equation}\label{eq:ivp}
+   \begin{cases}
+     dX_t = f(X_t)dt + \sigma dW_t, \\
+     X_0 = x, 
+   \end{cases}
 \end{equation}
+%
+where $x\in\mathbb{R}$ prescribes a deterministic initial condition, is thus a stochastic process in continuous time and can be informally written as
+%
+\begin{equation}\label{eq:ito_form}
+  X_t = x + \int_{0}^{t}f(X_s)ds + \sigma\int_{0}^{t}dW_s.
+\end{equation}
+%
+The first integral term in \eqref{eq:ito_form} involving the drift $f$ is a an ordinary Lebesgue integral over time whereas the second integral term is an It\^{o} integral over the Brownian motion $W_t$ which coincides, in the $n\to\infty$ limit, to a Riemann sum
+%
+\begin{equation}\label{eq:ito_integral}
+  \int_{0}^{t}dW_s = \lim_{n\to\infty}\sum_{[t_j,t_{j+1}]\in t_n}^{}(W_{t_{j+1}} - W_{t_j}),
+\end{equation}
+%
+where $t_n$ is a sequence of homogeneous partitions of the $[0,t]$ time interval.
+Brownian motion (equivalently referred to as a \emph{Wiener process}) is a stochastic process $\{W_t\}_{t\geq0}$ for which the time increments are independent and normally distributed, i.e. $W_{t_j} - W_{t_k}\sim \mathcal{N}(0,t_k - t_j)$, $\forall t_j < t_k$.
 
-\subsection{The Fokker-Planck equation}\label{subsec:fpe}
-The FPE is a parabolic partial differential equation in time and space
+Assuming that the drift term $f$ of \eqref{eq:ivp} is a conservative vector field (which is always true for univariate functions $f:\mathbb{R}\to \mathbb{R}$), it is useful, for our purposes, to rewrite a generic SDE in the following form
 %
-\begin{equation}\label{eq:fpe}
-        \partial_{t}p(x,t|\mu) = \partial_{x}(V'(x;\mu)\,p(x,t|\mu)) + D\,\partial_{xx}^{2}p(x,t|\mu)\,.
+\begin{equation}\label{eq:langevin}
+  dX_t = -V'(X_t)dt + \sqrt{2D}dW_t , 
 \end{equation}
 %
-Setting its LHS to $0$ yields a second-order, homogeneous ordinary differential equation in $p(x|\mu)$ with non-constant coefficients
+where $V(x)$ is a potential function whose gradient reconstructs the drift, i.e. $f(x) = -V'(x)$, and $D\coloneqq\sigma^2/2$.
+The differential form \eqref{eq:langevin} is commonly known as a \emph{Langevin equation} which intends to model the motion of an overdamped particle trapped, in thermal equilibrium, by the confining potential $V$.
+This form allows us to conveniently map equilibria of the system, defined as the roots of $f$, to stationary points of $V$; in particular a stable equilibrium $x_+$, as given in \eqref{eq:stable_equilibrium} corresponds to a local minimum of $V$ whereas an unstable equilibrium $x_-$, as given in \eqref{eq:unstable_equilibrium}, corresponds to local maximum of $V$.
+
+\subsection{Transition probabilities}\label{subsec:transition_probabilities}
+A continuous in time stochastic process of the form \eqref{eq:ito_form} identifies an uncountable sequence $\{X_t\}_{t\geq0}$ of random variables $X_t$ over a specified state space (in this case $\mathbb{R}$).
+To distinguish and characterize different stochastic processes, one usually adopts a probabilistic approach and writes the joint probability density function
 %
 \begin{equation*}
-        0 = \partial_{x}\big(V'(x;\mu)\,p(x|\mu)\big) + D\,\partial_{xx}^{2}p(x|\mu) = V''(x;\mu)\,p(x|\mu) + V'(x;\mu)\,p'(x|\mu) + D\,p''(x|\mu)\,.
+  p(x_1,t_1;x_2,t_2;\dots),
 \end{equation*}
 %
-The solution of the above (under suitable choices of boundary conditions at $x\to\pm\infty$) yields a Boltzmann-like probability density function \cite[Ch. 5, p. 98]{Risken1989}
+over the set of all possible pairs $(x_j,t_j)\in \mathbb{R}\times\mathbb{R}^+$, with ordering $t_j<t_{j+1}$.
+The dimensionality of this problem makes the task of writing this joint probability distribution over the state space impossible and instead one focuses in describing the conditional probability of future states given current and past history of observations
 %
-\begin{equation}\label{eq:boltzmann_distribution}
-        p(x|\mu) = \frac{1}{Z(\mu)}\exp\bigg(-\frac{V(x;\mu)}{D}\bigg)\,,
+\begin{equation}\label{eq:transition_probabilities}
+  p(x_{j+1},t_{j+1};\dots | x_1,t_1;\dots;x_j,t_j) = \frac{p(x_1,t_1;\dots;x_j,t_j;x_{j+1},t_{j+1};\dots)}{p(x_1,t_1;\dots;x_j,t_j)}.
 \end{equation}
 %
-with the normalization constant $Z(\mu)$ playing the role of the partition function of the energy of the system.
+The conditional probability densities of the form \eqref{eq:transition_probabilities} are often called the \emph{transition probability densities} of the stochastic process $X_t$.
+Of particular importance for our applications are stochastic process for which the conditional probabilities for future states only depend on the current state and are independent of the past history, i.e.
+%
+\begin{equation}\label{eq:independence}
+  p(x_{j+1},t_{j+1};\dots | x_1,t_1;\dots;x_j,t_j) = p(x_{j+1},t_{j+1};\dots | x_j,t_j).
+\end{equation}
+%
+By definition of transition probability \eqref{eq:transition_probabilities} and by recursively using \eqref{eq:independence} it is easy to show that the history independence ansatz reduces to
+%
+\begin{equation}\label{eq:markov_property}
+  p(x_{j+1},t_{j+1} | x_j,t_j) = \frac{p(x_1,t_1;\dots;x_{j+1},t_{j+1})}{p(x_{j+1},t_{j+1})},
+\end{equation}
+%
+which is known as the \emph{Markov property}, and any process $X_t$ that satisfies it is known as a \emph{Markov process}.
+It is well established that any process with independent time increments is a Markov process, and as such a solution \eqref{eq:ito_form} of a generic SDE of the form \eqref{eq:langevin} satisfies the Markov property \eqref{eq:markov_property}, which entails
+%
+\begin{equation}\label{eq:differential_markov_property}
+  p(y,s; x,t)\Delta x = \mathbb{P}(X_t\in\Delta x | X_s = y),
+\end{equation}
+%
+over all states $x,y\in \mathbb{R}$ and for all times $0\leq t<s$, with the set $\Delta x \coloneqq x\pm dx$.
+The evolution equation prescribed by \eqref{eq:langevin} and the definition of a transition probability density \eqref{eq:differential_markov_property} featuring the Markov property ensures that, at each time $t$, the probability of certains states $x$ are described by the solution of the Fokker-Planck equation
+%
+\begin{equation}\label{eq:fpe}
+  \partial_{t}p(x,t) = \partial_{x}(V'(x)\,p(x,t)) + D\,\partial_{xx}^{2}p(x,t)\,,
+\end{equation}
+%
+which is a parabolic partial differential equation of first--order in time and second--order in state space.
+In order for a solution $p(x,t)$ of \eqref{eq:fpe} (sometimes referred to as the \emph{forward Kolmogoroff equation}) to describe the time--dependent probability distribution of the states of a stochastic process \eqref{eq:ito_form}, appropriate initial and boundary conditions need to be specified.
+If the initial condition of the initial valued problem \eqref{eq:ivp} is deterministic (e.g. $X_0 = x_0\in \mathbb{R}$), then the prescribed initial condition for \eqref{eq:fpe} is $p(x,0) = \delta(x-x_0)$.
+As for the boundary conditions, these are usually dictated by the shape of the confining potential $V$ and the state space over which it is defined.
+For our purposes, the state space will be open and unbounded and as such we require $V$ to grow sufficiently fast at $x\to\pm\infty$ so that $p(x)\to 0$ as $x\to\pm\infty$.
+
+Equipped with this, one is usually interested in finding stationary solutions of \eqref{eq:fpe}.
+usually named \emph{equilibrium distributions}, these types of probability densitis play a pivotal role in statistical mechanics, and the more general dynamics of complex systems, as it allows to describe the long term behaviour of stable states in thermal equilibrium with the external environment.
+Setting the left--hand side of \eqref{eq:fpe} to zero then yields a second-order, homogeneous ordinary differential equation in with non-constant coefficients
+%
+\begin{equation*}
+        0 = \partial_{x}\big(V'(x)\,p(x)\big) + D\,\partial_{xx}^{2}p(x) = V''(x)\,p(x) + V'(x)\,p'(x) + D\,p''(x)\,.
+\end{equation*}
+%
+whose solution is easily found (via integration--by--parts) to be
+%
+\begin{equation}\label{eq:boltzmann_distribution}
+  p(x) = \frac{1}{Z\bigl(V(x)\bigr)}\exp\bigg(-\frac{V(x)}{D}\bigg)\,.
+\end{equation}
+%
+Notice that \eqref{eq:boltzmann_distribution} has the same form of the Boltzmann--like distribution specified in \eqref{eq:stationary_fpe} with $Z\bigl((V(x))\bigr) = N^{-1}$ playing the role of the partition function of the energy of the system.
+The explicit dependence of the stationary distribution \eqref{eq:boltzmann_distribution} on the confining potential $V(x)$ allows for a more straightfoward characterization of the probability densities of the steady--states of \eqref{eq:langevin}.
+In particular, multistability (i.e. the existence of more than one local minimum of $V$) translate in the multi--modality of the stationary distribution as depicted in Figure~\ref{fig:double_well_potential}.
+%
+\begin{figure}[!t]
+    \centering 
+    \includegraphics[keepaspectratio, width=\textwidth]{../figures/double_well_potential.pdf}
+    \caption{Different configurations of a generic double-well potential leading to qualitatively different solutions of \eqref{eq:langevin} and bi--modal stationary distributions \eqref{eq:boltzmann_distribution}.
+      Panels (a1-a3): shape of the confining potential with local minima $x_{+,1}$, $x_{+,2}$ and local maximum $x_-$.
+      Panels (b1-b3): representative sample paths of \eqref{eq:langevin} for a particle starting from the rightmost local minimum $x_{+,2}$.
+             Panels (c1-c3): empirical stationary distribution of the above timeseries depicted as histograms of homogeneous bin width.}
+    \label{fig:double_well_potential}
+\end{figure}
+
 
 \subsection{The Ornstein--Uhlenbeck process}\label{subsec:oup}
 The OUP reads
