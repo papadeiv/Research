@@ -30,7 +30,9 @@ function main()
   # Estimate the ensemble breaking time
   breaking_times = filter(isfinite, [extrapolate_breaking_time(ω.rate).τ for ω in Ω])
 
-  @printf("Median breaking time: %.1f\n", median(breaking_times))
+  @printf("Mean tipping time: %.1f\n", mean(tipping_times))
+  @printf("Mean breaking time: %.1f\n", mean(breaking_times))
+  @printf("Probability of breaking time in [τpb - 0.1ΔT,τpb + 0.1ΔT]: %.1f%%\n", 100*count(t -> 0.98*τpb < t < 1.02*τpb, breaking_times)/length(breaking_times))
   @printf("Forecasts before the tipping time: %.1f%%\n", 100*count(breaking_times .< τpb)/length(breaking_times))
 
   # Extract the ensemble median

@@ -45,8 +45,13 @@ function plot_forecast(time, flow, rate, forecast)
   # Plot the estimate return rate sequence and the extrapolated breaking time
   hlines!(ax_bottom, 0.0, color=(:black, 0.5))
   lines!(ax_bottom, [rate.t[1], forecast.τ], [forecast.q + forecast.m*rate.t[1], 0.0], color=:red, linewidth=2.5)
-  scatter!(ax_bottom, rate.t, rate.α, color=:hotpink1, markersize=16, strokecolor=:black, strokewidth=1)
+  w = 1.0./rate.u
+  scatter!(ax_bottom, rate.t, rate.α, color=w, colormap=Reverse(:acton), colorrange=(minimum(w), 345.0), markersize=16, strokecolor=:black, strokewidth=1)
   scatter!(ax_bottom, [forecast.τ], [0.0], color=:red, markersize=16, strokecolor=:black, strokewidth=1)
+
+  # Plot the colorbar of the regression weights
+  Colorbar(fig[1:2, 2], colormap=Reverse(:acton), limits=(minimum(w), 345.0),
+           spinewidth=border, tickalign=1, tickwidth=border, ticklabelsize=labels)
 
   # Export the figure
   save("amoc_collapse.pdf", fig)
