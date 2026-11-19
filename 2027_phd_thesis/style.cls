@@ -31,6 +31,7 @@
 \renewcommand\baselinestretch{1.2}
 \clubpenalty=10000
 \widowpenalty=10000
+\raggedbottom
 
 % Blank pages inserted by \cleardoublepage get no header
 \renewcommand{\cleardoublepage}{\clearpage\if@twoside\ifodd\c@page\else

@@ -44,7 +44,7 @@ Finally, in 2006 Carpenter and Brock used timeseries simulations of a lake model
 These early works in the first half of the 2000s, spurred a significant uptake in the prediction of catastrophic shifts in the stable regimes of ecological and climate systems for the remaining part of the decade; here we cite but a few \cite{Livina2007,vanNes2007,Carpenter2008,Dakos2008,Guttal2008,Biggs2009,Chisholm2009,Guttal2008,Brock2010,Carpenter2010,Dakos2010,Drake2010}.
 By the early 2010s the research question of detecting CSD to forecast tipping points in natural systems had spread quite substantially across many scientific communities up to the point that both early reviews \cite{Scheffer2009,Scheffer2012} and criticisms \cite{Hastings2010,Ditlevsen2010} started to appear.
 
-\section{A mathematical framework}
+\section{A mathematical framework}\label{sec:framework}
 All of the early endevours in the prediction of critical transitions so far, while relying on the mathematical characterization of slower return times provided by CSD, did not rigorously quantify the proposed statistical indicators as signals of early--warning.
 In other words, a lack of mathematical justification, beside few qualitative arguments made thus far, started to, justifiably, raise some concerns and skepticism regarding the range of applicability of this new theory \cite{Boettiger2013,Boerlijst2013,Kefi2013,Bos2014}.
 
@@ -74,7 +74,7 @@ Conversely, the Jacobian of $f$ at an (linearly) unstable equilibrium $x_-\in\ma
 %
 To produce critical transitions using \eqref{eq:sde}, one must allow for either the existence, stability or both of a stable equilibrium $x_+$ to be parametrized by the external forcing $\mu$.
 A prototypical example under this framework is the saddle--node normal form for which $f(x;\mu) = -\mu - x^2$.
-It is easy to deduce that for every strictly negative value of $\mu$ there exist two distinct branches of equilibria of $f$, namely $x_{\pm}(\mu) = \pm\sqrt{-\mu}$; the positive branch $x_+(\mu)$ has a negative Jacobian $Df(x_+(\mu))<0$, which makes it a stable equilibrium, while the negative branch $x_-(\mu)$ has a positive Jacobian $Df(x_-(\mu))>0$, which makes it an unstable equilibrium.
+It is easy to deduce that for every strictly negative value of $\mu$ there exist two distinct branches of equilibria of $f$, namely $x_{\pm}(\mu) = \pm\sqrt{-\mu}$; the positive branch $x_+(\mu)$ has a negative Jacobian $Df\bigl(x_+(\mu)\bigr)<0$, which makes it a stable equilibrium, while the negative branch $x_-(\mu)$ has a positive Jacobian $Df\bigl(x_-(\mu)\bigr)>0$, which makes it an unstable equilibrium.
 At $\mu=0$ these two branches collide and collapse into a unique equilibrium at the origin $x_+(0)=x_-(0)=0$ which results in a saddle--node (often called \emph{fold}) bifurcation. 
 Finally, for any strictly positive value of $\mu$ no real--valued root of $f$ exists and as such no equilibria are left in the state space $\mathbb{R}$; the system can thus never settle on a steady--state and its fate is to \emph{escape} at infinity (finite time blow-up).
 

@@ -106,10 +106,16 @@ Setting the left--hand side of \eqref{eq:fpe} to zero then yields a second-order
 whose solution is easily found (via integration--by--parts) to be
 %
 \begin{equation}\label{eq:boltzmann_distribution}
-  p(x) = \frac{1}{Z\bigl(V(x)\bigr)}\exp\bigg(-\frac{V(x)}{D}\bigg)\,.
+  p(x) = \frac{1}{Z[V]}\exp\bigg(-\frac{V(x)}{D}\bigg)\,.
 \end{equation}
 %
-Notice that \eqref{eq:boltzmann_distribution} has the same form of the Boltzmann--like distribution specified in \eqref{eq:stationary_fpe} with $Z\bigl((V(x))\bigr) = N^{-1}$ playing the role of the partition function of the energy of the system.
+Notice that \eqref{eq:boltzmann_distribution} has the same form of the Boltzmann--like distribution specified in \eqref{eq:stationary_fpe} with 
+%
+\begin{equation*}
+  Z[V] = \frac{1}{N} = \int_{-\infty}^{\infty}\exp\bigg(-\frac{V(x)}{D}\bigg)dx ,
+\end{equation*}
+%
+playing the role of the partition function of the energy of the system.
 The explicit dependence of the stationary distribution \eqref{eq:boltzmann_distribution} on the confining potential $V(x)$ allows for a more straightfoward characterization of the probability densities of the steady--states of \eqref{eq:langevin}.
 In particular, multistability (i.e. the existence of more than one local minimum of $V$) translate in the multi--modality of the stationary distribution as depicted in Figure~\ref{fig:double_well_potential}.
 %
@@ -122,33 +128,63 @@ In particular, multistability (i.e. the existence of more than one local minimum
              Panels (c1-c3): empirical stationary distribution of the above timeseries depicted as histograms of homogeneous bin width.}
     \label{fig:double_well_potential}
 \end{figure}
-
+%
 \subsection{The Ornstein--Uhlenbeck process}\label{subsec:oup}
-The OUP reads
+One of the simplest SDE that can be considered takes the form 
 %
 \begin{equation}\label{eq:oup}
-  dX_{t} = \omega(\tilde{x} - X_{t})dt + \sqrt{2D}dW_{t}.
+  dX_{t} = \omega(\tilde{x} - X_{t})dt + \sqrt{2D}dW_{t},
 \end{equation}
 %
+where the linear coefficient $\omega>0$ is somehow associated to the characteristic relaxation time of the process and $\tilde{x}\in\mathbb{R}$ is a shift in the coordinate of the state of the process $X_t$.
+Notice that \eqref{eq:oup} can be written in Langevin form \eqref{eq:langevin} with the quadratic polynomial $V(x) = \omega(x - \tilde{x})^2/2$ as its potential. 
+The solution of \eqref{eq:oup} is a so--called \emph{Ornstein--Uhlenbeck process} (OUP) and it is one of the most important stochastic processes.
+One of the reasons for its relevance is that, due to its simple form, a lot of information can be fully derived analytically.
+
+\edit{
 The stationary density of the OUP is \cite[Ch. 3, p. 74]{Gardiner2009}
 %
 \begin{equation}\label{eq:oup_distribution}
-  p(x|\mu) = \sqrt{\frac{\omega}{\pi D}}\exp\bigg(-\frac{\omega(\tilde{x} - x)^{2}}{D}\bigg)\,,
+  p(x) = \sqrt{\frac{\omega}{2\pi D}}\exp\bigg(-\frac{\omega(\tilde{x} - x)^{2}}{2D}\bigg)\,,
 \end{equation}
-%
-The saddle--node normal form with additive noise is 
+}
+
+Another important feature of the OUP is that it can be used to approximate the long--term behaviour of a variety of more complex, nonlinear processes (that is SDEs for which the drift term $f$ is nonlinear in $X_t$).
+To see that, let us consider the case of a saddle--node normal form with additive noise
 %
 \begin{equation}\label{eq:saddle_node_normal_form}
-  dX_{t} = (-\mu-X_{t}^{2})dt + \sigma dW_{t}\,.\\
+  dX_{t} = (-\mu-X_{t}^{2})dt + \sqrt{2D}dW_{t},
 \end{equation}
 %
-It can be approximated by an Ornstein--Uhlenbeck process of the form
+with the drift term $f(x;\mu) = -\mu - x^2$ being quadratic in $x$.
+This nonlinear SDE is the centerpiece of a significant portion of the existing literature on critical transitions and early--warning signals and it will be used extensively throughout this thesis for the derivation of most of the results with little loss in generality (see \S~\ref{sec:dynamical_systems} for more details regarding this).
+Notice that \eqref{eq:saddle_node_normal_form} can be rewritten in Langevin form \eqref{eq:langevin} with a cubic polynomial $V(x;\mu) = \mu x + x^3/3$ as its potential.
+
+As discussed in \S~\ref{sec:framework}, for any strictly negative values of $\mu$, the quadratic drift term has two equilibria $x_{\pm}(\mu)=\pm\sqrt{-\mu}$, which also correspond to the local minimum and local maximum of $V$ respectively.
+Let us assume that $X_t$ is a solution of the initial value problem \eqref{eq:ivp} for \eqref{eq:saddle_node_normal_form} starting at $X_0 = x_+(\mu_0)$ for some fixed $\mu_0\ll0$.
+Provided a finite time horizon $T>0$ and a relatively small noise intensity $D\ll1$, the solution of such initial value problem can be written as $X_t = x_+ + Z_t$, which accounts to the decomposition of the stochastic process $X_t$ into a constant, deterministic component $x_+$ and a time--homogeneous, random component $Z_t$.
+This decomposition allows us to describe the stochastic fluctuations of the solution around the stable equilibrium of the saddle--node normal form for a fixed but finite amount of time.
+Thus, by expanding $f$ around its stable equilibrium $x_+(\mu_0)$, we find
+%
+\begin{equation}\label{eq:taylor_expansion}
+  f(X_t;\mu_0) = f\bigl(x_+(\mu_0);\mu_0\bigr) + Df\bigl(x_+(\mu_0);\mu_0\bigr)\bigl(X_t - x_+(\mu_0)\bigr) + o\bigr(|X_t - x_+(\mu_0)|\bigr),
+\end{equation}
+%
+where the first term on the right--hand side vanishes by definition.
+Substituting \eqref{eq:taylor_expansion} into \eqref{eq:saddle_node_normal_form}, and noting that $dX_t = dZ_t + dx_+ = dZ_t$, gives us
 %
 \begin{equation}\label{eq:oup_sn}
-  dX_t = J(x_+ - X_t)dt + \sqrt{2D}dW_t,
+  dZ_t = JZ_tdt + \sqrt{2D}dW_t,
 \end{equation}
 %
-where the shift corresponds to the stable branch \eqref{eq:stable_equilibrium} of the equilibria of $f(x;\mu) = -\mu - x^2$, i.e. $x_+(\mu) = \sqrt{-\mu}$, and the linear coefficient corresponds to the Jacobian of $f$ evaluated at such branch, i.e. $J(\mu)\coloneqq Df(x_+(\mu)) = -2\sqrt{-\mu}$.
+where $J\coloneqq Df\bigl(x_+(\mu_0);\mu_0\bigr)$ quantifies the Jacobian of $f$ at $x=x_+(\mu_0)$.
+It is evident that \eqref{eq:oup_sn} is an OUP of the form \eqref{eq:oup} with linear coefficient $\omega = -J = 2\sqrt{-\mu_0}$ and with no shift $\tilde{x} = 0$.
+Written explicitly in the original coordinate system it reads
+%
+\begin{equation}\label{eq:shifted_oup_sn}
+  dX_t = 2\sqrt{-\mu_0}\bigl(\sqrt{-\mu_0} - X_t\bigr)dt + \sqrt{2D}dW_t.
+\end{equation}
+%
 
 \subsection{Large deviations theory}\label{subsec:ldt}
 In statistical mechanics, Kramer's formula quantifies the rate at which particles escape across potential barriers when subject to Langevin's equation of motion \eqref{eq:langevin}.
