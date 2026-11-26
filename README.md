@@ -24,12 +24,7 @@ _Under review_ projects are works whose manuscripts have been submitted to a jou
 If accepted, they are "_promoted_" to _Published_ repositories; if rejected, that's life I guess ¯\_(ツ)_/¯.
 
 - [Collapsing economies and endogenous takeoff in unified growth theory](https://github.com/samuelbolduc44/UGT---codes) (2026, external repository).
-
-### In progress
-
-_In progress_ are projects whose manuscript is currently being typed and close to submission.
-
-- [Forecasting tipping times from data: a practical guide](./2027_proc_r_soc_a/) (est. 2026).
+- [Forecasting tipping times from data: extrapolation of critical transitions and uncertainty quantification](./2027_proc_r_soc_a/) (2026).
 
 ### Preliminary investigation
 

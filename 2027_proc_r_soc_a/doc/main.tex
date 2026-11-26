@@ -42,7 +42,7 @@
         These events, often called critical transitions or tipping phenomena, are usually associated with the loss of resilience of a given system to recover from external perturbations.
         Due to the potentially catastrophic repercussions that critical transitions can bring upon the sustainability of complex systems, a great deal of effort has recently being devoted in the characterization and early detection of tipping events from timeseries.
         In this paper we derive a fully data--driven pipeline for the accurate forecast of tipping times in complex systems.
-        \edit{We combine different techniques in nonautonomous dynamics and statistical estimation for stochastic differential equations in a novel extrapolation scheme while providing accuracy and uncertainty quantification.}
+        We combine a range of existing techniques in nonautonomous dynamics and statistical estimation for stochastic differential equations in a novel extrapolation scheme while providing accuracy and uncertainty quantification.
         Our aim is to provide an out--of--the--box methodology for prediction of critical transitions as well as the generation and collection of data to scientists and modelers.
         This pipeline relies on a series of assumptions, which we discuss throughout this paper, that provide an optimal observation protocol for the forecast of tipping times.
         \absbreak 
@@ -51,15 +51,15 @@
 \begin{fmtext}
         \section{Introduction}
         Tipping phenomena (or critical transitions) are abrupt changes in the state of complex systems that correspond to disruptive and potentially permanent alterations in their long--term behaviour.
-        They have been studied across a broad and diverse collection of natural and human critical phenomena including ecosystems degradation \cite{OSullivan2023,Kumar2026}, neurobiological activity spikes \cite{Boerner2024}, onset of asthma \cite{Venegas2005,Donovan2015}, weakening of ocean currents \cite{Boers2021,Dijkstra2026}, hysteresis in laser systems \cite{Hohl1995}, generation of instabilities in magnetically confined plasma \cite{Cowley2015} and thermoacustic
+        They have been studied across a broad and diverse collection of natural and human critical phenomena including ecosystems 
 \end{fmtext}
 
 \maketitle
 
 \noindent
- systems \cite{Pavithran2021}, marine vessels capsizing \cite{Shao2026}, formation of traffic congenstion \cite{Chattopadhyay2026} and civilization collapse \cite{Scheffer2021,Doak2026}.
+degradation \cite{OSullivan2023,Kumar2026}, neurobiological activity spikes \cite{Boerner2024}, onset of asthma \cite{Venegas2005,Donovan2015}, weakening of ocean currents \cite{Boers2021,Dijkstra2026}, hysteresis in laser systems \cite{Hohl1995}, generation of instabilities in magnetically confined plasma \cite{Cowley2015} and thermoacustic systems \cite{Pavithran2021}, marine vessels capsizing \cite{Shao2026}, formation of traffic congenstion \cite{Chattopadhyay2026} and civilization collapse \cite{Scheffer2021,Doak2026}.
 
- Catastrophic events are usually characterized by the loss of stability of steady--states due to nonlinear and noisy responses to \edit{slowly}--varying external forcing.
+ Catastrophic events are usually characterized by the loss of stability of steady--states due to nonlinear and noisy responses to slowly--varying external forcing.
 Their canonical classification, proposed in \cite{Ashwin2012}, distinguishes between bifurcation--induced (B-), rate--induced (R-) and noise--induced (N-) tipping points.
 Furthermore, slow--fast dynamics and bifurcation theory provide a modeling framework for the forecast of critical transitions \cite{Kuehn2011}.
 The prediction of approaching catastrophes, known as \emph{early-warning signals}, usually relies on the detection of characteristic precursors from non--stationary timeseries.
@@ -210,6 +210,19 @@ where $\overset{d}{\to}$ denotes convergence in distribution of a random variabl
         =\frac{\sqrt{-\mu}}{\pi}\exp\biggl(-\frac{4(-\mu)^{3/2}}{3D}\biggr).
 \end{equation}
 %
+
+\begin{figure}[t]
+    \centering 
+    \includegraphics[keepaspectratio, width=\textwidth]{./figures/tipping_times_distribution.pdf}
+    \caption{
+      Comparison of the distributions of tipping times of the dynamic saddle--node normal form across different regimes: (a1)--(b1) noise-induced escapes at stationary parameter value $\mu=-1$ and noise level $D=0.25$; (a2)--(b2) slow--passage escapes at initial parameter value $\mu_0=-1$, speed $\varepsilon=10^{-2}$ and noise $D=10^{-3}$; (a3)--(b3) early escapes at initial parameter value $\mu_0=-1$, speed $\varepsilon=10^{-3}$ and noise $D=0.06$.
+      In panels (a1)--(a3) we show Monte Carlo simulations of an ensemble of $10{,}000$ solutions of \eqref{eq:model} in each regime, reppresented by the black curves. 
+      The blue and red curves reppresent the stable and unstable branches of equilibria $x_{\pm}(\mu(t))$ of $f$ respectively, while the yellow curve depicts the pullback attractor $x_{\mathrm{pb}}(t)$. 
+      The vertical dahsed and solid black lines in (a2)--(a3) denote the breaking time $\tau$ and tipping time of the pullback attractor $\tau_{\mathrm{pb}}$ respectively. 
+      In panels (b1)--(b3) the empirical distributions of the tipping time $\tau_{\mathrm{tip}}$ of the Monte Carlo simulations, depicted by the pink histograms, are compared with the analytical approximations \eqref{eq:large_deviation_principle}, \eqref{eq:small_noise} and \eqref{eq:large_noise} respectively, which are depicted by the teal curves.}
+    \label{fig:tipping_times_distribution}
+\end{figure}
+%
 Notice that the reciprocal of the escape rate in \eqref{eq:rate} gives the \emph{mean first exit time} of \eqref{eq:first_exit}, i.e. $\E[\tau_{\mathrm{exit}}] = 1/k(\mu)$; a comparison between the analytical distribution \eqref{eq:large_deviation_principle} and a finite sample Monte Carlo simulation is provided in Figure~\ref{fig:tipping_times_distribution}(b1).
 This result, originally formulated for stationary diffusion \cite{Day1983} and jump processes \cite{Imkeller2006}, was then extended to the dynamic saddle-node normal form \cite{Miller2012}.
 Specifically, in the limiting regime of low noise intensity $D\ll\varepsilon/2$, the approximate distribution of the tipping time $\tau_{\mathrm{tip}}$ has been shown to be \cite[Eq.~$(19)$]{Miller2012}
@@ -229,18 +242,6 @@ Furthermore \eqref{eq:small_noise} is approximately Gaussian locally to its maxi
 \end{equation}
 %
 with mean close to the tipping time of the deterministic solution, i.e. $\E[\tau_{\mathrm{tip}}]\approx\tau_{\mathrm{pb}}$ (see Figure~\ref{fig:tipping_times_distribution}(b2) for reference).
- 
-\begin{figure}[t]
-    \centering 
-    \includegraphics[keepaspectratio, width=\textwidth]{./figures/tipping_times_distribution.pdf}
-    \caption{
-      Comparison of the distributions of tipping times of the dynamic saddle--node normal form across different regimes: (a1)--(b1) noise-induced escapes at stationary parameter value $\mu=-1$ and noise level $D=0.25$; (a2)--(b2) slow--passage escapes at initial parameter value $\mu_0=-1$, speed $\varepsilon=10^{-2}$ and noise $D=10^{-3}$; (a3)--(b3) early escapes at initial parameter value $\mu_0=-1$, speed $\varepsilon=10^{-3}$ and noise $D=0.06$.
-      In panels (a1)--(a3) we show Monte Carlo simulations of an ensemble of $10{,}000$ solutions of \eqref{eq:model} in each regime, reppresented by the black curves. 
-      The blue and red curves reppresent the stable and unstable branches of equilibria $x_{\pm}(\mu(t))$ of $f$ respectively, while the yellow curve depicts the pullback attractor $x_{\mathrm{pb}}(t)$. 
-      The vertical dahsed and solid black lines in (a2)--(a3) denote the breaking time $\tau$ and tipping time of the pullback attractor $\tau_{\mathrm{pb}}$ respectively. 
-      In panels (b1)--(b3) the empirical distributions of the tipping time $\tau_{\mathrm{tip}}$ of the Monte Carlo simulations, depicted by the pink histograms, are compared with the analytical approximations \eqref{eq:large_deviation_principle}, \eqref{eq:small_noise} and \eqref{eq:large_noise} respectively, which are depicted by the teal curves.}
-    \label{fig:tipping_times_distribution}
-\end{figure}
 
 In the opposite regime of large noise intensity $\varepsilon/2\ll D$, and up to $-\mu(t)\gg D^{2/3}$, it was later shown that the approximate tipping time distribution has a maximum before the breaking time $\tau$ and it has the form \cite[Eq.~$(4)$]{Herbert2017}
 %
@@ -531,6 +532,17 @@ Notice that, while \eqref{eq:OUP_bias} and \eqref{eq:AC1_bias} are negative for 
 \end{equation}
 %
 for which \eqref{eq:LLS} becomes the only unbiased estimator of the leading eigenvalue.
+%
+\begin{figure}[t]
+    \centering 
+    \includegraphics[keepaspectratio, width=\textwidth]{./figures/bias_estimators.pdf}
+    \caption{Numerical validation of the return rate bias \eqref{eq:return_rate_bias} given by: (a1)--(b1) the sample variance estimator \eqref{eq:OUP}; the autoregressive model fit \eqref{eq:AC1} and; the Euler--Maruyama approximation \eqref{eq:LLS}.
+      In panels (a1)--(a3) we plot \eqref{eq:return_rate_bias}, in the parameter range $\mu\in[-1,0)$, using \eqref{eq:OUP_bias}, \eqref{eq:AC1_bias} and \eqref{eq:LLS_bias} respectively.
+      In panels (b1)--(b3) we plot the results of Monte Carlo simulations of an ensemble $\Omega=\{\mathcal{X}_j\}_{j=1,\dots,N}$ of $N=200$ independent but stationary solutions of \eqref{eq:model} with $n=400$ realizations and noise level $\sigma=0.02$.
+      At discrete parameter values $\mu\in[-1,0)$, and for each sample $\mathcal{X}_j\in\Omega$, we estimate $\hat\alpha$ using the three techniques discussed above; this forms an ensemble of estimators from which representative statistics are computed.
+    In particular the ensemble mean, shown by the red curves, are compared to the ground truth, black curves, to assess the bias in the estimators; the ensemble interquartile range, shown by the green shaded regions, are used to quantify the uncertainty in the estimators while the blue shaded regions provide the $5^{\text{th}}$-$95^{\text{th}}$ range of the estimators.}
+    \label{fig:bias_estimators}
+\end{figure}
 
 \paragraph{Accuracy and precision of the estimators}
 Eqs.~\eqref{eq:OUP_bias}-\eqref{eq:LLS_bias} measure the accuracy for the estimation of the leading eigeinvalue $\lambda$ of a sample. To convert those into biases of the return rate $\alpha$, notice that
@@ -552,17 +564,6 @@ In the high sampling frequency limit this uncertainty is approximated by the Cra
 \begin{equation}\label{eq:cramer_rao_bound}
   u_{\hat\lambda}^2 \to \frac{2|\lambda|}{\Delta(n-1)},\quad\Delta\to 0. 
 \end{equation}
-%
-\begin{figure}[t]
-    \centering 
-    \includegraphics[keepaspectratio, width=\textwidth]{./figures/bias_estimators.pdf}
-    \caption{Numerical validation of the return rate bias \eqref{eq:return_rate_bias} given by: (a1)--(b1) the sample variance estimator \eqref{eq:OUP}; the autoregressive model fit \eqref{eq:AC1} and; the Euler--Maruyama approximation \eqref{eq:LLS}.
-      In panels (a1)--(a3) we plot \eqref{eq:return_rate_bias}, in the parameter range $\mu\in[-1,0)$, using \eqref{eq:OUP_bias}, \eqref{eq:AC1_bias} and \eqref{eq:LLS_bias} respectively.
-      In panels (b1)--(b3) we plot the results of Monte Carlo simulations of an ensemble $\Omega=\{\mathcal{X}_j\}_{j=1,\dots,N}$ of $N=200$ independent but stationary solutions of \eqref{eq:model} with $n=400$ realizations and noise level $\sigma=0.02$.
-      At discrete parameter values $\mu\in[-1,0)$, and for each sample $\mathcal{X}_j\in\Omega$, we estimate $\hat\alpha$ using the three techniques discussed above; this forms an ensemble of estimators from which representative statistics are computed.
-    In particular the ensemble mean, shown by the red curves, are compared to the ground truth, black curves, to assess the bias in the estimators; the ensemble interquartile range, shown by the green shaded regions, are used to quantify the uncertainty in the estimators while the blue shaded regions provide the $5^{\text{th}}$-$95^{\text{th}}$ range of the estimators.}
-    \label{fig:bias_estimators}
-\end{figure}
 
 Monte Carlo simulations, depicted in Figure~\ref{fig:bias_estimators}(b1--b3), show that estimating the return rate of a sample $\mathcal{X}$ using the Euler--Maruyama approach \eqref{eq:LLS} yields a more accurate and more precise estimation than the established sample variance \eqref{eq:OUP} and autocorrelation \eqref{eq:AC1}.
 This result matches the second order approximations for the bias of $\hat\alpha$ derived in \eqref{eq:OUP_bias}, \eqref{eq:AC1_bias} and \eqref{eq:LLS_bias}, which we depict across the parameter interval $\mu[-1,0)$ in Figure~\ref{fig:bias_estimators}(a1--a3).
@@ -587,8 +588,8 @@ The lower bound $L(t)$ is derived by imposing that the sample $\mathcal{X}$ is o
 \end{equation}
 %
 This requirement ensures that the realizations $X_j$ in the sample are independent fluctuations around the stable equilibrium $x_+(t)$ due to the decay in autocorrelation. 
-\edit{In Figure~\ref{fig:observation_window} we can see the effects of this choice; when the observation window is too short (i.e. $T_w=L(t)=3$) the autocorrelation coefficient does not decay enough to guarantee independence in the observed fluctuations around the drifting quasi--steady equilibrium (panel (b1)).
-On the other hand, when the observation length is sufficiently large (i.e. $T_w = 8 > L(t)$) the same coefficient decays substantially more (at about $5\%$ of its starting value) thereby allowing enough time for the stochastic perturbations to relax back to $x_s(t)$ (panel (b2--b3)).}
+In Figure~\ref{fig:observation_window} we can see the effects of this choice; when the observation window is too short (i.e. $T_w=L(t)=3$) the autocorrelation coefficient does not decay enough to guarantee independence in the observed fluctuations around the drifting quasi--steady equilibrium (panel (b1)).
+On the other hand, when the observation length is sufficiently large (i.e. $T_w = 8 > L(t)$) the same coefficient decays substantially more (at about $5\%$ of its starting value) thereby allowing enough time for the stochastic perturbations to relax back to $x_s(t)$ (panel (b2--b3)).
 %
 \begin{figure}[t]
     \centering 
@@ -596,7 +597,7 @@ On the other hand, when the observation length is sufficiently large (i.e. $T_w 
     \caption{Visualization of the bounds of the observation length and its effect on the quality of the samples for the forecasting problem.
       Panel (a), vertical axis in logarithmic scale: the optimal length $T_w$ (purple line) for a dynamic saddle--node normal form \eqref{eq:model} is fixed over time to be within the lower \eqref{eq:lower_bound} and upper bound \eqref{eq:upper_bound} (blue and red curves respectively). The time horizon \eqref{eq:admissible_time_horizon} and breaking time \eqref{eq:breaking_time} are indicated for reference (dashed grey and solid black vertical line respectively).
       Panels (b1--b3): decay of the autocorrelation coefficient \eqref{eq:ac1} within the window length provided by the colored circles in panel (a). Notice how an observation length on the lower bound (panel (b1)) corresponds to shorter time of the relaxation time $1/|\lambda|$.
-      \edit{The three panels have different time scales to emphasize the lethargic effect of relaxation of the autocorrelation coefficient $\rho$.}
+      The three panels have different time scales to emphasize the lethargic effect of relaxation of the autocorrelation coefficient $\rho$.
       Panels (c1--c3), vertical axes in logarithmic scale: relative change in the eigenvalue across the window length corresponding to the colored curves in panel (a). Notice how an observation length on the upper bound (panel c3) corresponds to near unity relative changes at all time, i.e. $\Delta\lambda\approx|\lambda|$.}
     \label{fig:observation_window}
 \end{figure}
@@ -634,11 +635,11 @@ yielding a sufficient condition for the upper bound of the window length
 \end{equation}
 %
 where the last equality follows from \eqref{eq:return_rate}.
-\edit{Once again, in Figure~\ref{fig:observation_window} we depict how the upper bound constraint affect the stationarity of the sample. 
+Once again, in Figure~\ref{fig:observation_window} we depict how the upper bound constraint affects the stationarity of the sample. 
 At a given $\varepsilon>0$, if the sample is too long it leads to changes in the leadeing eigenvalue that are comparable to the values of the same quantity at the end of the window, thereby not ensuring quasi--stationarity (panel (c3)).
-For short enough observation lengths however, the same quantity reduces to a negligible fraction, which guarantees that the drift of $x_s(t)$ is not overly pronounced (panels (c1--c2)).}
+For short enough observation lengths however, the same quantity reduces to a negligible fraction, which guarantees that the drift of $x_s(t)$ is not overly pronounced (panels (c1--c2)).
 
-\edit{Is thus clear that the optimal observation length of a striding window must strike a balance between guaranteeing conditional independence of the collected obseravations while ensuring quasi--stationarity of the sample.}
+Is thus clear that the optimal observation length of a striding window must strike a balance between guaranteeing conditional independence of the collected obseravations while ensuring quasi--stationarity of the sample.
 Substituting \eqref{eq:lower_bound} and \eqref{eq:upper_bound} into \eqref{eq:bounds} provides us such window length protocol
 %
 \begin{equation}\label{eq:window_length}
@@ -646,9 +647,9 @@ Substituting \eqref{eq:lower_bound} and \eqref{eq:upper_bound} into \eqref{eq:bo
 \end{equation}
 %
 where notice that only the lower bound depends on the speed of the parameter $\varepsilon$.
-\edit{As shown in Figure~\ref{fig:observation_window}(a1) an optimal observation window will have its length to depend on the time distance between the current estimate $t$ and the breaking--time $\tau$.
-  However, choosing a fixed window length (purple curve) that is bounded sufficiently far from $L(t)$ (blue curve) and $U(t)$ (red curve) is enough to enforce \eqref{eq:window_length} regardless of $\varepsilon$ and $(\tau - t)$.
-}
+We further observe that, since both $L(t)$, $U(t)$ depend on $t$ through its distance to the breaking time $\tau$, it may be necessary to vary the window length $T_w(t)$ as a function of time in order for it to be bounded within the optimality region. 
+However, since $L(t)$ is monotonically increasing and $U(t)$ is monotonically decreasing in $t$, it is always possible to find a fixed value of $T_w(t)=T_w$ that can be used for all times up to the admissible time horizon $T_c$.
+An example of this property is shown by the purple line in Figure~\ref{fig:observation_window}(a) bounded from above by the red line, depicting the decreasing $U(t)$, and from below by the blue curve, depicting the increasing $L(t)$, for all $t<T_c$.
 
 \subsection{Extrapolating the tipping time}\label{subsec:extrapolators}
 Having derived the design conditions for the collection of samples that yield optimal estimators $\hat\alpha$ we are now ready to specify the full data-driven pipeline for the forecasting of the breaking time $\tau$.
@@ -736,7 +737,7 @@ By \S~\ref{subsec:extrapolators}, we fit a linear model (red curve in panel (b1)
 By repeating the same procedure for any sample path $\mathcal{X}_k$ in the ensemble $\Omega$ we can construct an empirical distribution of the estimated breaking time $\hat\tau$, which is shown by the red histogram in panel (b2).
 In this distribution, we highlight those estimates that forecast a breaking time $\hat\tau$ smaller than the tipping time of the pullback attractor $\tau_{\mathrm{pb}}$, which approximates the mean of the ground truth distribution $p_1(t)$ given in \eqref{eq:small_noise_approximation}, indicated by the black solid vertical line.
 The total mass of this distribution restricted to $(-\infty,\tau_{\mathrm{pb}})$ is approximately $54\%$ of the total number of estimated breaking times.
-\edit{Furthermore, we observe that the ensemble mean of the empirical distribution of the estimated breaking time $\E[\hat\tau] = 2057$ is relatively close to the mean of the tipping time distribution $\E[\tau_{\mathrm{tip}}] = 2028$, and we overall estimate $18\%$ of the breaking times to be within $[\tau_{\mathrm{pb}} - 0.1\Delta T, \tau_{\mathrm{pb}} + 0.1\Delta T]$, where $\Delta T = \tau_{\mathrm{pb}} - T_c$ is the time distance between the admissible time horizon $T_c = 1600$ and the tipping time of the pullback attractor $\tau_{\mathrm{pb}}=2029$.}
+Furthermore, we observe that the ensemble mean of the empirical distribution of the estimated breaking time $\E[\hat\tau] = 2057$ is relatively close to the mean of the tipping time distribution $\E[\tau_{\mathrm{tip}}] = 2028$, and $18\%$ of the estimated breaking times fall within $10\%$ of the determinstic breaking time, i.e. within $[\tau_{\mathrm{pb}} - 0.1\Delta T, \tau_{\mathrm{pb}} + 0.1\Delta T]$, where $\Delta T = \tau_{\mathrm{pb}} - T_c$ is the time distance between the admissible time horizon $T_c = 1600$ and the tipping time of the pullback attractor $\tau_{\mathrm{pb}}=2029$.
 
 This entails that, within the simplest model, following an optimal protocol for the generation of data and minimizing the bias in the estimators, the pipeline can still forecast breaking times outside the window of opportunity $\Delta\tau$ with large probability, which might result in delayed or missed warnings.
 
@@ -756,7 +757,7 @@ On the other hand, large--scale, multiphysics simulations, such as those provide
     \caption{Forecast of the collapse in the overturning circulation strength of the AMOC based on high--dimensional, large--scale simulation in the CESM.
       A univariate observable, depicted by the grey timeseries in panel (a), is computed by subtracting the depth and longitute averages salinity from the depth and longitude averaged temperature at the $34$°S parallel (see \cite{vanWesten2024} for details).
       The observability window, denoted by the vertical dashed grey lines, provides a sample subseries, denoted by the pink timeseries in panel (a), on which the forecast pipeline is applied to.
-      The estimated return rates, denoted by the colored circles in panel (b), are thus obtained by solving the ordinary least--squares problem \eqref{eq:ordinary_least_squares} on rolling windows of the subseries of length $n=25$.
+      The estimated return rates, denoted by the colored circles (colored by their weight in the least--squares problem) in panel (b), are thus obtained by solving the ordinary least--squares problem \eqref{eq:ordinary_least_squares} on rolling windows of the subseries of length $n=25$.
       The solution of the weighted least--squares problem \eqref{eq:weighted_regression}, indicated by the red line in panel (b), is then extrapolated to its zero--crossing yielding a forecasted breaking time at model year $\hat\tau=1755$ (red circle) which anticipates the AMOC collapse by $3$ model years (vertical black line).}
     \label{fig:amoc_collapse}
 \end{figure}
@@ -790,13 +791,13 @@ As for the previous example, at each stride of the window we solve the ordinary 
 Solving the weighted least--squares regression \eqref{eq:weighted_regression} we thus fit a linear model to the estimates $\hat\alpha$, reppresented by the red curve, whose slope and intercept yield a forecasted breaking time, depicted by the red circle.
 Our forecast, which predicts the AMOC collapse to be at model year $\hat\tau=1755$, succesfully anticipates the tipping time of the simulated large--scale model, providing a window of opportunity of $\Delta\tau=3$ model years.
 
-\edit{While this result seemingly strengthens the computational evidence supported in the literature for the same model run \cite{vanWesten2024,Smolders2025}, care shall be taken in its interpretation.
+While this result seemingly strengthens the computational evidence supported in the literature for the same model run \cite{vanWesten2024,Smolders2025}, care shall be taken in its interpretation.
 Given the current values of $\varepsilon$ and $\tau$ in fact, we have access to a large interval of optimal window lengths to choose for the forecasting problem.
 In Figure~\ref{fig:amoc_collapse} we choose the fixed width $T_w=25$ which is relatively closer to the lower bound derived in \eqref{eq:lower_bound}.
 By varying $T_w\in[20,100]$ and applying our extrapolation pipeline repeatedly, we can analyse the sensitivity of the forecast to the free parameter that consitutes the window length.
 The results of this analysis are depicted in Figure~\ref{fig:sensitivity_analysis}.
 The mean forecasted breaking time (red line) is significantly larger (approximately $2277$ model years) than the optimally forecasted time (yellow star) for the window length $T_w=25$ reported in Figure~\ref{fig:amoc_collapse}.
-Nevertheless approximately $88\%$ of those windows length predict a forecasting time that is within one standard deviation away from such mean (grey band).}
+Nevertheless approximately $88\%$ of those windows length predict a forecasting time that is within one standard deviation away from such mean (grey band).
 
 \section{Discussion and conclusions}\label{sec:conclusion}
 In this manuscript we have derived a fully data--driven pipeline for the forecast of the time of collapse in complex systems, commonly known as critical transitions or tipping events.
@@ -806,9 +807,9 @@ We have shown that a quasi--maximum likelihood estimation of the Euler--Maruyama
 Furthermore, we derive bounds on the optimal length for the sample to yield meaningful estimations under the stationary Ornstein--Uhlenbeck assumption.
 
 Monte Carlo simulations show that the proposed technique predicts the tipping time of a sample, by extrapolating the linear decay of the estimated return rates, before the actual collapse of the system in more than half of the cases.
-\edit{Furthermore, we were able to estimate the tipping time with great accuracy about one-fifth of the times.}
+Furthermore, we were able to estimate the tipping time with great accuracy in approximately one-fifth of the trials.
 This is further evidenced by the application of the forecast pipeline to a large--scale simulation of the AMOC collapse, which we predict with $3$ model years in advance before the ground truth.
-\edit{Sensitivity analysis however showed that results are widely affected by the changes in the window length despite it being bounded by the optimal protocols we derive in the paper.}
+Sensitivity analysis however showed that results are widely affected by the changes in the window length despite it being bounded by the optimal protocols we derive in the paper.
 
 In the construction of the methodology we have leveraged results in nonautonomous dynamical systems theory and well-established techniques in the statistical inference of stochastic processes.
 As a result, the succesful application of this pipeline to timeseries samples relies on a set of assumptions on the quality of the data and the underlying nature of the systems being observed.
